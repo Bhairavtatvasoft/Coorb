@@ -3,12 +3,13 @@ import { Field, FieldProps, FormikContextType, useFormikContext } from "formik";
 import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IGenericFieldProps } from "../../service/commonModel";
+import FieldHelper from "./FieldHelper";
 
 const InputTextField: FC<IGenericFieldProps> = (props) => {
   const { t } = useTranslation();
   const {
     name,
-    type = "text",
+    fieldType = "text",
     placeholder,
     required,
     readOnly,
@@ -41,20 +42,21 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
     setFieldValue(name, newVal, true);
   };
 
-  const isTextArea = type === "textarea";
+  const isTextArea = fieldType === "textarea";
+
   return (
     <Field name={name}>
       {({ field, meta }: FieldProps) => (
-        <>
+        <div className="fieldWrapper">
           <TextField
             size="small"
             id={`textfield-${name}`}
             label={`${t(name)} ${required ? "*" : ""}`}
             variant="outlined"
-            type={type}
+            type={fieldType}
             placeholder={placeholder}
             {...field}
-            value={val}
+            value={val ?? ""}
             multiline={isTextArea}
             rows={isTextArea ? 4 : 1}
             onChange={(e) => {
@@ -73,7 +75,8 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
             disabled={Boolean(readOnly)}
             autoComplete="off"
           />
-        </>
+          <FieldHelper desc={t(name + "_desc")} />
+        </div>
       )}
     </Field>
   );
