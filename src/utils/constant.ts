@@ -1,3 +1,5 @@
+import * as yup from "yup";
+
 export const SAMPLE_TASK = {
   taskInstanceId: "-4831456008543835188",
   workflowInstanceId: "4487473015890814746",
@@ -227,4 +229,19 @@ export const SAMPLE_TASK = {
       },
     ],
   ]),
+};
+
+export { yup };
+
+export const JDBC_TYPE = {
+  Button: -7,
+  UploadDocument: -2,
+  DecimalInput: 3,
+  IntegerInput: 4,
+  TextInput: 12,
+  Checkbox: 16,
+  URL: 70,
+  DatePicker: 91,
+  TimePicker: 92,
+  Label: 93,
 };
