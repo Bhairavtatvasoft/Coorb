@@ -1,0 +1,21 @@
+{
+  "workflowName": "Workflow Name",
+  "taskName": "Task Name",
+  "addedBy": "Added By",
+  "addedOn": "Added On",
+  "statusIn": "Status In",
+  "tenant": "Tenant",
+  "loaded": "Loaded",
+  "REQUEST_VACATION": "Language translated text for Request Vacation",
+  "REQUEST_VACATION_FLOW_DESCRIPTION": "Language translated text for Request Vacation Flow Description",
+  "REQUEST_LEAVE": "Language translated text for Request Leave",
+  "REQUEST_LEAVE_FLOW_DESCRIPTION": "Language translated text for Request Leave Flow Description",
+  "REQUEST_COMPENSATION": "Language translated text for Request Compensation",
+  "REQUEST_COMPENSATION_FLOW_DESCRIPTION": "Language translated text for Request Compensation Flow Description",
+  "REVIEW": "Language translated text for Review",
+  "CHECK_ATTACHMENTS": "Language translated text for Check Attachments",
+  "MAIN_OFFICE": "Language translated text for Main Office",
+  "DOWNTOWN_OFFICE": "Language translated text for Downtown Office",
+  "STARTABLE":"Startable",
+  "PENDING":"Pending"
+}

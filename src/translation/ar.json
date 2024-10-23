@@ -1,0 +1,21 @@
+{
+  "workflowName": "اسم سير العمل",
+  "taskName": "اسم المهمة",
+  "addedBy": "أضيف بواسطة",
+  "addedOn": "تاريخ الإضافة",
+  "statusIn": "الحالة الحالية",
+  "tenant": "المستأجر",
+  "loaded": "تم التحميل",
+  "REQUEST_VACATION": "طلب إجازة",
+  "REQUEST_VACATION_FLOW_DESCRIPTION": "نص مترجم لطلب وصف تدفق الإجازة",
+  "REQUEST_LEAVE": "طلب إجازة",
+  "REQUEST_LEAVE_FLOW_DESCRIPTION": "نص مترجم لطلب وصف تدفق الإجازة",
+  "REQUEST_COMPENSATION": "طلب تعويض",
+  "REQUEST_COMPENSATION_FLOW_DESCRIPTION": "نص مترجم لطلب وصف تدفق التعويض",
+  "REVIEW": "مراجعة",
+  "CHECK_ATTACHMENTS": "فحص المرفقات",
+  "MAIN_OFFICE": "المكتب الرئيسي",
+  "DOWNTOWN_OFFICE": "المكتب في وسط المدينة",
+  "STARTABLE":"قابلة للبدء",
+  "PENDING":"قيد الانتظار"
+}

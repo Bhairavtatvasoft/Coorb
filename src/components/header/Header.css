@@ -1,0 +1,71 @@
+.appbar {
+  justify-content: space-between;
+  background-color: rgb(215, 204, 200);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.language-select {
+  cursor: pointer;
+  transition: 0.3s;
+  margin-inline-end: 2rem;
+  border: 1px solid #d7ccc8;
+}
+
+.language-select:hover {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.language-select .MuiOutlinedInput-root:hover fieldset {
+  border-color: gray;
+}
+
+.language-select .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: gray;
+}
+
+.language-select .MuiInputLabel-root {
+  font-weight: normal;
+}
+
+.language-select .MuiInputLabel-root.Mui-focused {
+  color: gray;
+  font-weight: bold;
+}
+
+.user-info {
+  margin-right: 1rem;
+  white-space: nowrap; 
+}
+
+@media (max-width: 600px) {
+  .appbar {
+    flex-wrap: wrap;
+  }
+
+  .language-select {
+    margin-inline-end: 1rem;
+    width: auto;
+  }
+
+  .user-info {
+    margin-right: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .appbar img {
+    width: 40px; 
+    height: auto;
+  }
+
+  .MuiAvatar-root {
+    width: 30px;
+    height: 30px;
+  }
+
+  .appbar {
+    justify-content: space-around;
+  }
+}
