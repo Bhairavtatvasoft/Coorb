@@ -17,5 +17,7 @@
   "MAIN_OFFICE": "Language translated text for Main Office",
   "DOWNTOWN_OFFICE": "Language translated text for Downtown Office",
   "STARTABLE":"Startable",
-  "PENDING":"Pending"
+  "PENDING":"Pending",
+  "WORKFLOW":"Workflow",
+  "WORKFLOW_FORM":"Workflow Form"
 }

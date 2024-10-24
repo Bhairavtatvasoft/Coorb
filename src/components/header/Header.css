@@ -1,6 +1,6 @@
 .appbar {
   justify-content: space-between;
-  background-color: rgb(215, 204, 200);
+  background-color: rgb(3, 39, 60);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -42,30 +42,13 @@
 
 @media (max-width: 600px) {
   .appbar {
-    flex-wrap: wrap;
+    flex-direction: row; /* Maintain row direction */
+    justify-content: space-between; /* Ensure space between items */
+    height: 64px; /* Keep header height fixed */
   }
 
   .language-select {
-    margin-inline-end: 1rem;
-    width: auto;
-  }
-
-  .user-info {
-    margin-right: 0.5rem;
-    font-size: 0.875rem;
-  }
-
-  .appbar img {
-    width: 40px; 
-    height: auto;
-  }
-
-  .MuiAvatar-root {
-    width: 30px;
-    height: 30px;
-  }
-
-  .appbar {
-    justify-content: space-around;
+    margin: 0.5rem 0; /* Adjust spacing */
   }
 }
+

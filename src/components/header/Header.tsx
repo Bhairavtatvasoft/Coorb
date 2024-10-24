@@ -8,16 +8,19 @@ import {
   MenuItem,
   Box,
   Avatar,
-  Select,
-  FormControl,
-  InputLabel,
-  SelectChangeEvent,
+
+  Tooltip,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import "./Header.css";
-const Header = () => {
+import TranslateIcon from "@mui/icons-material/Translate";
+import MenuIcon from "@mui/icons-material/Menu";
+const Header = ({ onSidebarToggle }:any) => {
   // State for language dropdown
   const [language, setLanguage] = useState("en");
+  const [languageAnchorEl, setLanguageAnchorEl] = useState<null | HTMLElement>(
+    null
+  );
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { i18n } = useTranslation();
@@ -28,10 +31,11 @@ const Header = () => {
   };
 
   // Handle language change
-  const handleLanguageChange = (event: SelectChangeEvent<string>) => {
-    setLanguage(event.target.value as string);
-    i18n.changeLanguage(event.target.value);
-    document.body.dir = event.target.value === "ar" ? "rtl" : "ltr";
+  const handleLanguageChange = (event: string) => {
+    setLanguage(event);
+    i18n.changeLanguage(event);
+    document.body.dir = event === "ar" ? "rtl" : "ltr";
+    handleLanguageMenuClose();
   };
   // Handle user menu click
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -43,29 +47,67 @@ const Header = () => {
     setAnchorEl(null);
   };
 
+  const handleLanguageMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    setLanguageAnchorEl(event.currentTarget);
+  };
+
+  // Handle language menu close
+  const handleLanguageMenuClose = () => {
+    setLanguageAnchorEl(null);
+  };
   return (
-    <AppBar position="static">
+    <AppBar
+      position="fixed"
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
       <Toolbar className="appbar">
-        <Box>
-          <img src="./logo2.png" alt="Logo" style={{ marginRight: "1rem" }} />
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={onSidebarToggle}
+          >
+            <MenuIcon />
+          </IconButton>
+          <img
+            src="./logo3.png"
+            alt="Logo"
+            style={{ height: "40px", marginInlineStart: "8px" }}
+          />
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <FormControl
-            variant="outlined"
-            size="small"
-            className="language-select"
-            sx={{marginInlineEnd:'2rem'}}
-          >
-            <InputLabel>Language</InputLabel>
-            <Select
-              value={language}
-              onChange={handleLanguageChange}
-              label="Language"
+          <Tooltip title="Select Language">
+            <IconButton
+              onClick={handleLanguageMenuClick}
+              className="language-select"
+              sx={{ marginInlineEnd: "2rem" }}
             >
-              <MenuItem value="en">English</MenuItem>
-              <MenuItem value="ar">Arabic</MenuItem>
-            </Select>
-          </FormControl>
+              <TranslateIcon sx={{ color: "white" }} />
+              <Typography
+                variant="body2"
+                sx={{ marginInlineStart: "0.5rem", color: "white" }}
+              >
+                {language === "en" ? "EN" : "AR"}
+              </Typography>
+            </IconButton>
+          </Tooltip>
+          <Menu
+            anchorEl={languageAnchorEl}
+            open={!!languageAnchorEl}
+            onClose={handleLanguageMenuClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+          >
+            <MenuItem onClick={() => handleLanguageChange("en")}>English</MenuItem>
+            <MenuItem onClick={() => handleLanguageChange("ar")}>Arabic</MenuItem>
+          </Menu>
           <Typography variant="body1" className="user-info">
             {user.name}
           </Typography>

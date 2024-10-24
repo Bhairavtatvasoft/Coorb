@@ -14,18 +14,35 @@ const Workflow = () => {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      {/* Container for the tabs */}
+      <Box sx={{ display: "flex", justifyContent: "flex-start", p: 2 }}>
         <Tabs
           value={value}
           onChange={handleChange}
+          variant="scrollable"
+          scrollButtons="auto"
           sx={{
-            direction: isRtl ? "rtl" : "ltr"
+            direction: isRtl ? "rtl" : "ltr",
+            borderBottom: 1,
+            borderColor: "divider",
+            ".MuiTabs-flexContainer": {
+              justifyContent: "flex-start",
+            },
+            width: "100%",
+          }}
+          TabIndicatorProps={{
+            sx: {
+              height: "6px",
+              backgroundColor: "rgb(36, 75, 98)",
+            },
           }}
         >
           <Tab key={0} label={t("STARTABLE")} />
           <Tab key={1} label={t("PENDING")} />
         </Tabs>
       </Box>
+
+      {/* Tab content */}
       <Box sx={{ p: 3 }}>
         {value === 0 && <StartableWorkflows />}
         {value === 1 && <PendingTab />}

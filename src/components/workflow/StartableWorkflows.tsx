@@ -33,7 +33,7 @@ const StartableWorkflows = () => {
     <Box sx={{ p: 2 }}>
       <Grid2 container spacing={2}>
         {workflows.map((workflow) => (
-          <Grid2 size={{xs:6, md:4} } key={workflow.id}>
+          <Grid2 size={{ xs: 6, md: 4 }} key={workflow.id}>
             <Card
               variant="outlined"
               sx={{
@@ -46,17 +46,17 @@ const StartableWorkflows = () => {
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
-                backgroundColor: "#ffffff", 
+                backgroundColor: "rgb(36, 75, 98)",
                 border: "1px solid #d7ccc8",
                 borderRadius: 4,
               }}
               onClick={() => handleWorkflowClick(workflow.id, workflow.tokenId)}
             >
               <CardContent>
-                <Typography variant="h6">
+                <Typography variant="h6" color="rgb(253, 196, 3)">
                   {t(workflow.name) || workflow.name}
                 </Typography>
-                <Typography color="textSecondary">
+                <Typography color="white">
                   {t(`${workflow.name}_FLOW_DESCRIPTION`) ||
                     "No description available."}
                 </Typography>

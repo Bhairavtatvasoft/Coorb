@@ -17,5 +17,7 @@
   "MAIN_OFFICE": "المكتب الرئيسي",
   "DOWNTOWN_OFFICE": "المكتب في وسط المدينة",
   "STARTABLE":"قابلة للبدء",
-  "PENDING":"قيد الانتظار"
+  "PENDING":"قيد الانتظار",
+  "WORKFLOW":"سير العمل",
+  "WORKFLOW_FORM":"نموذج سير العمل"
 }
