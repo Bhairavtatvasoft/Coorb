@@ -239,6 +239,7 @@ export const JDBC_TYPE = {
   DecimalInput: 3,
   IntegerInput: 4,
   TextInput: 12,
+  TextAreaInput: 2005,
   Checkbox: 16,
   URL: 70,
   DatePicker: 91,

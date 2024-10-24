@@ -6,7 +6,7 @@ export interface IGenericFieldProps {
   placeholder?: string;
   readOnly?: 0 | 1;
   required?: 0 | 1;
-  type?: "text" | "textarea" | "password";
+  fieldType?: "text" | "textarea" | "password";
   variant?: "text" | "outlined" | "contained";
   hidden?: 0 | 1;
   valRegex?: RegExp;
