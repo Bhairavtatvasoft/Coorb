@@ -1,0 +1,34 @@
+/* Workflow.css */
+.main-content {
+  width: 100%;
+  flex-grow: 0.5rem;
+  transition: margin 0.3s ease;
+  overflow: auto;
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    margin-inline-start: 50px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 960px) {
+  /* sm */
+  .main-content {
+    margin-inline-start: 50px;
+  }
+}
+
+@media (min-width: 960px) {
+  .main-content.open-sidebar {
+    margin-inline-start: 240px;
+  }
+
+  .main-content.closed-sidebar {
+    margin-inline-start: 64px;
+  }
+}
+
+.layoutContainer {
+  display: flex;
+}

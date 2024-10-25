@@ -5,6 +5,8 @@ import { mockFetchWorkflows } from "./mockfunctions";
 import { Workflow } from "../../service/workflow/WorkflowModel";
 import { workflowService } from "../../service/workflow/WorkflowService";
 import { useTranslation } from "react-i18next";
+import "./StartableWorkflow.css"
+
 const StartableWorkflows = () => {
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const { t } = useTranslation();
@@ -30,33 +32,24 @@ const StartableWorkflows = () => {
   };
 
   return (
-    <Box sx={{ p: 2 }}>
+    <Box className="workflowContainer">
       <Grid2 container spacing={2}>
         {workflows.map((workflow) => (
-          <Grid2 size={{ xs: 6, md: 4 }} key={workflow.id}>
+          <Grid2
+            className="gridItem"
+            size={{ xs: 12, sm: 6, md: 4 }}
+            key={workflow.id}
+          >
             <Card
+              className="card"
               variant="outlined"
-              sx={{
-                cursor: "pointer",
-                transition: "0.3s",
-                "&:hover": {
-                  boxShadow: 6,
-                  transform: "scale(1.02)",
-                },
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                backgroundColor: "rgb(36, 75, 98)",
-                border: "1px solid #d7ccc8",
-                borderRadius: 4,
-              }}
               onClick={() => handleWorkflowClick(workflow.id, workflow.tokenId)}
             >
               <CardContent>
-                <Typography variant="h6" color="rgb(253, 196, 3)">
+                <Typography variant="h6" className="cardTitle">
                   {t(workflow.name) || workflow.name}
                 </Typography>
-                <Typography color="white">
+                <Typography className="cardDescription">
                   {t(`${workflow.name}_FLOW_DESCRIPTION`) ||
                     "No description available."}
                 </Typography>

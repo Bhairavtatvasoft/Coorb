@@ -1,0 +1,33 @@
+@import url('../style-variables.css');
+.workflowContainer {
+  width: 100%;
+}
+
+.workflowTabBox {
+  display: "flex";
+  justify-content: "flex-start";
+  padding: 1rem;
+}
+
+.workflowTabContent {
+  padding: 1.5rem;
+}
+
+.workflowTabs {
+  position: static;
+  width: 100%;
+  border-bottom: 1px solid;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.workflowTabs .MuiTabs-indicator {
+  height: 6px;
+  background-color: var(
+    --secondaryBackground
+  );
+}
+
+.workflowTab.Mui-selected {
+    color: var(--secondaryBackground) !important;
+    font-weight: bold !important;
+}

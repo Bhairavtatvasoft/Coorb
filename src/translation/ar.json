@@ -19,5 +19,9 @@
   "STARTABLE":"قابلة للبدء",
   "PENDING":"قيد الانتظار",
   "WORKFLOW":"سير العمل",
-  "WORKFLOW_FORM":"نموذج سير العمل"
+  "WORKFLOW_FORM":"نموذج سير العمل",
+  "rowsPerPage":"عدد الصفوف لكل صفحة",
+  "paginationText": "{{to}}-{{from}} من {{count}}",
+  "moreThan": "أكثر من {{to}}"
+  
 }

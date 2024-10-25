@@ -1,0 +1,55 @@
+@import url("../../style-variables.css");
+
+.drawer .MuiDrawer-paper {
+  transition: width 0.3s ease;
+  top: 64px;
+  background-color: var(--secondaryBackground);
+}
+
+.drawerOpen .MuiDrawer-paper {
+  width: 240px !important; /* Use !important to override MUI styles */
+}
+
+.drawerClosed .MuiDrawer-paper {
+  width: 64px !important; /* Use !important to override MUI styles */
+}
+.sidebarDrawerPaperOpen {
+  width: 240px;
+}
+
+.sidebarDrawerPaperClosed {
+  width: 64px;
+}
+
+.sidebarListItemIcon {
+  color: var(--textLight);
+}
+
+.sidebarListItemIconSelected {
+  color: var(--selected);
+}
+
+.sidebarListItemText {
+  font-weight: normal;
+  font-size: 0.9rem;
+  color: var(--textLight);
+}
+
+.sidebarListItemTextSelected {
+  font-weight: bold !important;
+  font-size: 1.1rem !important;
+  color: var(--selected);
+}
+
+@media (max-width: 960px) {
+  .sidebarOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 10;
+  }
+}
+

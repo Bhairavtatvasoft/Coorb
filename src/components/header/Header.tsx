@@ -57,11 +57,12 @@ const Header = ({ onSidebarToggle }:any) => {
   };
   return (
     <AppBar
+    //
       position="fixed"
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
-      <Toolbar className="appbar">
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Toolbar className="headerAppBar">
+        <Box className="headerBox" >
           <IconButton
             edge="start"
             color="inherit"
@@ -73,20 +74,20 @@ const Header = ({ onSidebarToggle }:any) => {
           <img
             src="./logo3.png"
             alt="Logo"
-            style={{ height: "40px", marginInlineStart: "8px" }}
+            className="headerLogo"
           />
         </Box>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box className="headerBox">
           <Tooltip title="Select Language">
             <IconButton
               onClick={handleLanguageMenuClick}
-              className="language-select"
-              sx={{ marginInlineEnd: "2rem" }}
+              className="headerLanguageSelect"
             >
-              <TranslateIcon sx={{ color: "white" }} />
+              <TranslateIcon className="headerLanguageIcon" />
               <Typography
+                className="headerLanguageText"
                 variant="body2"
-                sx={{ marginInlineStart: "0.5rem", color: "white" }}
+
               >
                 {language === "en" ? "EN" : "AR"}
               </Typography>
@@ -108,7 +109,7 @@ const Header = ({ onSidebarToggle }:any) => {
             <MenuItem onClick={() => handleLanguageChange("en")}>English</MenuItem>
             <MenuItem onClick={() => handleLanguageChange("ar")}>Arabic</MenuItem>
           </Menu>
-          <Typography variant="body1" className="user-info">
+          <Typography variant="body1" className="headerUserInfo">
             {user.name}
           </Typography>
           <IconButton onClick={handleMenuClick}>

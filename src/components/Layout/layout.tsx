@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, CssBaseline, Toolbar } from "@mui/material";
 import Header from "../header/Header";
 import Sidebar from "../sidebar/Sidebar";
-
+import "./layout.css";
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -15,19 +15,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box className="layoutContainer">
       <CssBaseline />
       <Header onSidebarToggle={handleSidebarToggle} />
-      <Sidebar isOpen={isSidebarOpen} />
+      <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
 
       <Box
         component="main"
-        sx={{
-          flexGrow: 1,
-          marginInlineStart: isSidebarOpen ? "240px" : "64px",
-          transition: "margin 0.3s ease",
-          overflow: "auto",
-        }}
+        className={`main-content ${
+          isSidebarOpen ? "open-sidebar" : "closed-sidebar"
+        }`}
       >
         <Toolbar />
         {children}

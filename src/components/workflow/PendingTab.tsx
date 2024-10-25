@@ -10,7 +10,7 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-
+import "./PendingTab.css";
 import { mockFetchPendingTasks } from "./mockfunctions";
 import { workflowService } from "../../service/workflow/WorkflowService";
 import { TaskResponse } from "../../service/workflow/WorkflowModel";
@@ -24,7 +24,7 @@ const PendingTab = () => {
   const [sortDirection, setSortDirection] = useState("asc");
   const [sortColumn, setSortColumn] = useState("");
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +49,6 @@ const PendingTab = () => {
   };
 
   const handleRowClick = (row: any) => {
-    // Implement the click handler for rows where loadedByOwner is false
     console.log("Row clicked:", row);
   };
 
@@ -97,165 +96,115 @@ const PendingTab = () => {
     setSortDirection(sortDirection === "asc" ? "desc" : "asc");
   };
   return (
-    <Paper
-      elevation={3} // Add shadow to the Paper
-      sx={{
-        borderRadius: "10px", // Set border radius
-        overflow: "hidden", // Ensure table contents respect the border radius
-      }}
-    >
-      <TableContainer
-        sx={{
-          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // Custom shadow
-        }}
-      >
+    <Paper elevation={3} className="pendingTabPaper">
+      <TableContainer className="pendingTabTableContainer">
         <Table>
-          <TableHead
-            sx={{
-              "& .MuiTableCell-root": { fontWeight: "bold", color: "white" },
-            }}
-          >
-            <TableRow sx={{ backgroundColor: "rgb(3, 39, 60)" }}>
+          <TableHead className="pendingTabTableHead">
+            <TableRow className="pendingTabTableRow">
               <TableCell
                 onClick={() => handleSort("workflowI18Name")}
-                sx={{ cursor: "pointer" }}
+                className="pendingTabTableRow"
               >
                 {t("workflowName")}
                 {sortColumn === "workflowI18Name" &&
                   (sortDirection === "asc" ? (
                     <ArrowUpwardIcon
-                      sx={{
-                        color: "rgb(253, 196, 3)",
-                        verticalAlign: "middle",
-                      }}
+                      className="pendingTabArrowIcon"
                       fontSize="small"
                     />
                   ) : (
                     <ArrowDownwardIcon
-                      sx={{
-                        color: "rgb(253, 196, 3)",
-                        verticalAlign: "middle",
-                      }}
+                      className="pendingTabArrowIcon"
                       fontSize="small"
                     />
                   ))}
               </TableCell>
               <TableCell
                 onClick={() => handleSort("taskI18Name")}
-                sx={{ cursor: "pointer" }}
+                className="pendingTabTableRow"
               >
                 {t("taskName")}
                 {sortColumn === "taskI18Name" &&
                   (sortDirection === "asc" ? (
                     <ArrowUpwardIcon
-                      sx={{
-                        color: "rgb(253, 196, 3)",
-                        verticalAlign: "middle",
-                      }}
+                      className="pendingTabArrowIcon"
                       fontSize="small"
                     />
                   ) : (
                     <ArrowDownwardIcon
-                      sx={{
-                        color: "rgb(253, 196, 3)",
-                        verticalAlign: "middle",
-                      }}
+                      className="pendingTabArrowIcon"
                       fontSize="small"
                     />
                   ))}
               </TableCell>
               <TableCell
                 onClick={() => handleSort("userDisplayName")}
-                sx={{ cursor: "pointer" }}
+                className="pendingTabTableRow"
               >
                 {t("addedBy")}
                 {sortColumn === "userDisplayName" &&
                   (sortDirection === "asc" ? (
                     <ArrowUpwardIcon
-                      sx={{
-                        color: "rgb(253, 196, 3)",
-                        verticalAlign: "middle",
-                      }}
+                      className="pendingTabArrowIcon"
                       fontSize="small"
                     />
                   ) : (
                     <ArrowDownwardIcon
-                      sx={{
-                        color: "rgb(253, 196, 3)",
-                        verticalAlign: "middle",
-                      }}
+                      className="pendingTabArrowIcon"
                       fontSize="small"
                     />
                   ))}
               </TableCell>
               <TableCell
                 onClick={() => handleSort("addedOn")}
-                sx={{ cursor: "pointer" }}
+                className="pendingTabTableRow"
               >
                 {t("addedOn")}
                 {sortColumn === "addedOn" &&
                   (sortDirection === "asc" ? (
                     <ArrowUpwardIcon
-                      sx={{
-                        color: "rgb(253, 196, 3)",
-                        verticalAlign: "middle",
-                      }}
+                      className="pendingTabArrowIcon"
                       fontSize="small"
                     />
                   ) : (
                     <ArrowDownwardIcon
-                      sx={{
-                        color: "rgb(253, 196, 3)",
-                        verticalAlign: "middle",
-                      }}
+                      className="pendingTabArrowIcon"
                       fontSize="small"
                     />
                   ))}
               </TableCell>
               <TableCell
                 onClick={() => handleSort("statusInDesc")}
-                sx={{ cursor: "pointer" }}
+                className="pendingTabTableRow"
               >
                 {t("statusIn")}
                 {sortColumn === "statusInDesc" &&
                   (sortDirection === "asc" ? (
                     <ArrowUpwardIcon
-                      sx={{
-                        color: "rgb(253, 196, 3)",
-                        verticalAlign: "middle",
-                      }}
+                      className="pendingTabArrowIcon"
                       fontSize="small"
                     />
                   ) : (
                     <ArrowDownwardIcon
-                      sx={{
-                        color: "rgb(253, 196, 3)",
-                        verticalAlign: "middle",
-                      }}
+                      className="pendingTabArrowIcon"
                       fontSize="small"
                     />
                   ))}
               </TableCell>
               <TableCell
                 onClick={() => handleSort("tenantI18Name")}
-                sx={{ cursor: "pointer" }}
+                className="pendingTabTableRow"
               >
                 {t("tenant")}
                 {sortColumn === "tenantI18Name" &&
                   (sortDirection === "asc" ? (
                     <ArrowUpwardIcon
-                      sx={{
-                        color: "rgb(253, 196, 3)",
-                        verticalAlign: "middle",
-                      }}
+                      className="pendingTabArrowIcon"
                       fontSize="small"
                     />
                   ) : (
                     <ArrowDownwardIcon
-                      sx={{
-                        color: "rgb(253, 196, 3)",
-                        verticalAlign: "middle",
-                      }}
+                      className="pendingTabArrowIcon"
                       fontSize="small"
                     />
                   ))}
@@ -273,48 +222,32 @@ const PendingTab = () => {
                   onClick={
                     row.loadedByOwner ? undefined : () => handleRowClick(row)
                   }
-                  sx={{
-                    "&:hover": {
-                      backgroundColor: row.loadedByOwner
-                        ? "inherit"
-                        : "#f5f5f5",
-                      cursor: row.loadedByOwner ? "default" : "pointer",
-                    },
-                  }}
+                  className={
+                    row.loadedByOwner
+                      ? "pendingTabTableRowHoverInherited"
+                      : "pendingTabTableRowHover"
+                  }
                 >
-                  <TableCell key={row.taskInstanceId + "workflowI18Name"}>
-                    {t(row.workflowI18Name)}
-                  </TableCell>
-                  <TableCell key={row.taskInstanceId + "taskI18Name"}>
-                    {t(row.taskI18Name)}
-                  </TableCell>
-                  <TableCell key={row.taskInstanceId + "userDisplayName"}>
-                    {row.userDisplayName}
-                  </TableCell>
-                  <TableCell key={row.taskInstanceId + "addedOn"}>
+                  <TableCell>{t(row.workflowI18Name)}</TableCell>
+                  <TableCell>{t(row.taskI18Name)}</TableCell>
+                  <TableCell>{row.userDisplayName}</TableCell>
+                  <TableCell>
                     {new Date(row.addedOn).toLocaleString()}
                   </TableCell>
-                  <TableCell key={row.taskInstanceId + "statusInDesc"}>
-                    {row.statusInDesc}
-                  </TableCell>
-                  <TableCell key={row.taskInstanceId + "tenantI18Name"}>
-                    {t(row.tenantI18Name)}
-                  </TableCell>
-                  <TableCell key={row.taskInstanceId + "loadedByOwner"}>
-                    {row.loadedByOwner ? (
+                  <TableCell>{row.statusInDesc}</TableCell>
+                  <TableCell>{t(row.tenantI18Name)}</TableCell>
+                  <TableCell>
+                    {row.loadedByOwner && (
                       <Button
-                        key={row.taskInstanceId + "loadedByOwnerBtn"}
                         variant="contained"
                         color="primary"
-                        sx={{ backgroundColor: "rgb(253, 196, 3)" }}
+                        className="pendingTabReleaseButton"
                         onClick={() =>
                           handleRelease(row.taskInstanceId, row.tokenId)
                         }
                       >
                         Release Task
                       </Button>
-                    ) : (
-                      ""
                     )}
                   </TableCell>
                 </TableRow>
@@ -330,6 +263,32 @@ const PendingTab = () => {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        labelRowsPerPage={t("rowsPerPage")}
+        labelDisplayedRows={({ from, to, count }) => {
+          const displayedCount =
+            count !== -1 ? count.toString() : i18n.t("moreThan", { to });
+          const translationOptions = {
+            from: from.toString(),
+            to: to.toString(),
+            count: displayedCount,
+          };
+          return i18n.t(
+            "paginationText",
+            translationOptions as Record<string, string>
+          );
+        }}
+        slotProps={
+          i18n.language === "ar"
+            ? {
+                actions: {
+                  nextButton: { sx: { rotate: "180deg" } },
+                  previousButton: {
+                    sx: { rotate: "180deg" },
+                  },
+                },
+              }
+            : {}
+        }
       />
     </Paper>
   );

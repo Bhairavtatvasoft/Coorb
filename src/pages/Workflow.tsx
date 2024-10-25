@@ -3,47 +3,30 @@ import { useState } from "react";
 import StartableWorkflows from "../components/workflow/StartableWorkflows";
 import PendingTab from "../components/workflow/PendingTab";
 import { useTranslation } from "react-i18next";
-
+import "./Workflow.css";
 const Workflow = () => {
   const [value, setValue] = useState(0);
-    const { t } = useTranslation();
+  const { t } = useTranslation();
   const handleChange = (_: any, newValue: any) => {
     setValue(newValue);
   };
-  const isRtl = document.documentElement.dir === "rtl";
 
   return (
-    <Box sx={{ width: "100%" }}>
-      {/* Container for the tabs */}
-      <Box sx={{ display: "flex", justifyContent: "flex-start", p: 2 }}>
+    <Box className="workflowContainer">
+      <Box className="workflowTabBox">
         <Tabs
           value={value}
           onChange={handleChange}
           variant="scrollable"
           scrollButtons="auto"
-          sx={{
-            direction: isRtl ? "rtl" : "ltr",
-            borderBottom: 1,
-            borderColor: "divider",
-            ".MuiTabs-flexContainer": {
-              justifyContent: "flex-start",
-            },
-            width: "100%",
-          }}
-          TabIndicatorProps={{
-            sx: {
-              height: "6px",
-              backgroundColor: "rgb(36, 75, 98)",
-            },
-          }}
+          className="workflowTabs"
         >
-          <Tab key={0} label={t("STARTABLE")} />
-          <Tab key={1} label={t("PENDING")} />
+          <Tab key={0} label={t("STARTABLE")} className="workflowTab" />
+          <Tab key={1} label={t("PENDING")} className="workflowTab" />
         </Tabs>
       </Box>
 
-      {/* Tab content */}
-      <Box sx={{ p: 3 }}>
+      <Box className="workflowTabContent">
         {value === 0 && <StartableWorkflows />}
         {value === 1 && <PendingTab />}
       </Box>

@@ -1,4 +1,5 @@
-import { Workflow } from "../../types/Workflow";
+import { Workflow } from "../../service/workflow/WorkflowModel";
+
 
 // Mock function to simulate fetching data from API
 export const mockFetchPendingTasks = async () => {

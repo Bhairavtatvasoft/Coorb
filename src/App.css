@@ -40,3 +40,44 @@
 .Mui-disabled {
   opacity: 0.7;
 }
+
+/* Custom Scrollbar Styles for Webkit Browsers */
+::-webkit-scrollbar {
+  height: 6px; 
+  width: 8px; 
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--textDark);
+  border-radius: 4px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--textDark);
+}
+
+/* Firefox Scrollbar Styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--textDark) transparent; 
+}
+
+/* Responsive Design: Adjust styles based on screen width */
+@media (max-width: 600px) {
+  ::-webkit-scrollbar {
+    height: 4px;
+    width: 6px; 
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 3px; 
+  }
+
+  * {
+    scrollbar-width: thin; 
+  }
+}

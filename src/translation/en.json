@@ -19,5 +19,8 @@
   "STARTABLE":"Startable",
   "PENDING":"Pending",
   "WORKFLOW":"Workflow",
-  "WORKFLOW_FORM":"Workflow Form"
+  "WORKFLOW_FORM":"Workflow Form",
+  "rowsPerPage":"Rows per page",
+  "paginationText": "Showing {{from}}-{{to}} of {{count}}",
+  "moreThan": "more than {{to}}"
 }
