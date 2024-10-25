@@ -1,10 +1,13 @@
-import { ToastContainer } from "react-toastify";
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import WorkflowFormPage from "./pages/WorkflowFormPage";
 import Workflow from "./pages/Workflow";
 import "./translation/i18n";
 import Layout from "./components/Layout/layout";
+
+import "react-datepicker/dist/react-datepicker.css";
+import "./translation/i18n";
+import "./App.css";
 
 function App() {
   return (

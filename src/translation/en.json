@@ -16,11 +16,15 @@
   "CHECK_ATTACHMENTS": "Language translated text for Check Attachments",
   "MAIN_OFFICE": "Language translated text for Main Office",
   "DOWNTOWN_OFFICE": "Language translated text for Downtown Office",
-  "STARTABLE":"Startable",
-  "PENDING":"Pending",
-  "WORKFLOW":"Workflow",
-  "WORKFLOW_FORM":"Workflow Form",
-  "rowsPerPage":"Rows per page",
+  "STARTABLE": "Startable",
+  "PENDING": "Pending",
+  "WORKFLOW": "Workflow",
+  "WORKFLOW_FORM": "Workflow Form",
+  "rowsPerPage": "Rows per page",
   "paginationText": "Showing {{from}}-{{to}} of {{count}}",
-  "moreThan": "more than {{to}}"
+  "moreThan": "more than {{to}}",
+  "time": "Time",
+  "uploadFile": "Upload File",
+  "viewFile": "View File",
+  "uploadFileDesc": "Upload file here"
 }

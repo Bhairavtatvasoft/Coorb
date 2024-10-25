@@ -16,12 +16,15 @@
   "CHECK_ATTACHMENTS": "فحص المرفقات",
   "MAIN_OFFICE": "المكتب الرئيسي",
   "DOWNTOWN_OFFICE": "المكتب في وسط المدينة",
-  "STARTABLE":"قابلة للبدء",
-  "PENDING":"قيد الانتظار",
-  "WORKFLOW":"سير العمل",
-  "WORKFLOW_FORM":"نموذج سير العمل",
-  "rowsPerPage":"عدد الصفوف لكل صفحة",
+  "STARTABLE": "قابلة للبدء",
+  "PENDING": "قيد الانتظار",
+  "WORKFLOW": "سير العمل",
+  "WORKFLOW_FORM": "نموذج سير العمل",
+  "rowsPerPage": "عدد الصفوف لكل صفحة",
   "paginationText": "{{to}}-{{from}} من {{count}}",
-  "moreThan": "أكثر من {{to}}"
-  
+  "moreThan": "أكثر من {{to}}",
+  "time": "وقت",
+  "uploadFile": "تحميل ملف",
+  "viewFile": "عرض ملف",
+  "uploadFileDesc": "قم بتحميل الملف هنا"
 }
