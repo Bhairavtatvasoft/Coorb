@@ -43,9 +43,9 @@ axiosInstance.interceptors.response.use(
 );
 
 class ApiRequest {
-  get = async (url: string) => {
+  get = async (url: string, queryParams?: any) => {
     updateRequestArr(url);
-    return await axiosInstance.get(url);
+    return await axiosInstance.get(url, { params: queryParams });
   };
 
   post = async (url: string, data: any) => {

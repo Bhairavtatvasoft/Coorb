@@ -1,7 +1,8 @@
 export interface IGenericFieldProps {
   name: string;
-  // instanceId: string;
-  // tokenId: string;
+  instanceId: string;
+  tokenId: string;
+  id: string;
 
   placeholder?: string;
   readOnly?: 0 | 1;

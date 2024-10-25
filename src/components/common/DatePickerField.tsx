@@ -1,0 +1,79 @@
+import { InputAdornment, TextField } from "@mui/material";
+import { Field, FieldProps, FormikContextType, useFormikContext } from "formik";
+import { FC } from "react";
+import DatePicker from "react-datepicker";
+import { useTranslation } from "react-i18next";
+import { IGenericFieldProps, IObject } from "../../service/commonModel";
+import FieldHelper from "./FieldHelper";
+import * as locale from "date-fns/locale";
+import { isValid } from "date-fns";
+import { CalendarMonth } from "@mui/icons-material";
+
+const DatePickerField: FC<IGenericFieldProps> = (props) => {
+  const { t, i18n } = useTranslation();
+  const { setFieldValue, setFieldTouched }: FormikContextType<IObject> =
+    useFormikContext();
+
+  const { name, required, readOnly } = props;
+  return (
+    <Field name={name}>
+      {({ field, meta }: FieldProps) => {
+        const isValidValue = field.value && isValid(new Date(field.value));
+
+        return (
+          <div className="fieldWrapper">
+            <div>
+              <DatePicker
+                isClearable
+                popperClassName="custom-datepicker"
+                customInput={
+                  <TextField
+                    size="small"
+                    variant="outlined"
+                    fullWidth
+                    label={`${t(name)} ${required ? "*" : ""}`}
+                    error={Boolean(meta.touched && meta.error)}
+                    helperText={
+                      meta.touched && meta.error ? meta.error : undefined
+                    }
+                    autoComplete="off"
+                    slotProps={{
+                      input: {
+                        readOnly: true,
+                        endAdornment: (!field.value || !isValidValue) && (
+                          <InputAdornment position="end">
+                            <CalendarMonth />
+                          </InputAdornment>
+                        ),
+                      },
+                    }}
+                  />
+                }
+                onChange={(date) => {
+                  setFieldTouched(name, true, true);
+                  setFieldValue(name, date, true);
+                }}
+                selected={isValidValue ? new Date(field.value) : null}
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+                locale={
+                  locale[i18n.language as "ar" | "enUS"]
+                    ? locale[i18n.language as "ar" | "enUS"]
+                    : locale.enUS
+                }
+                disabled={readOnly === 1}
+                dateFormat={"dd/MM/YYYY"}
+                showPopperArrow={false}
+                disabledKeyboardNavigation
+              />
+            </div>
+            <FieldHelper desc={t(name + "_desc")} />
+          </div>
+        );
+      }}
+    </Field>
+  );
+};
+
+export default DatePickerField;

@@ -26,5 +26,6 @@
   "time": "Time",
   "uploadFile": "Upload File",
   "viewFile": "View File",
-  "uploadFileDesc": "Upload file here"
+  "uploadFileDesc": "Upload file here",
+  "close": "Close"
 }
