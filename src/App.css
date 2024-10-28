@@ -116,7 +116,7 @@ body[dir="rtl"] {
 
   .fileUploadLabel {
     padding: 10px;
-    border: 1px dashed var(--lightSecondaryBg);
+    border: 1px dashed var(--gray);
     border-radius: 4px;
     display: block;
     width: 100%;
@@ -149,6 +149,18 @@ body[dir="rtl"] {
         scale: 1.05;
       }
     }
+
+    &.disabled {
+      opacity: 0.6;
+      transition: none;
+      border-color: initial;
+      pointer-events: none;
+
+      svg {
+        transition: none;
+        scale: 1;
+      }
+    }
   }
 
   .fileViewButton {
@@ -157,6 +169,8 @@ body[dir="rtl"] {
     margin-top: 8px;
     width: 100%;
     gap: 8px;
+    color: var(--secondaryBackground);
+    border-color: var(--secondaryBackground);
 
     label {
       cursor: pointer;

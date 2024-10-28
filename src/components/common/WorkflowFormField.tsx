@@ -8,7 +8,7 @@ import LabelField from "./LabelField";
 import URLField from "./URLField";
 import DatePickerField from "./DatePickerField";
 import TimePickerField from "./TimePickerField";
-// import FileUploadField from "./FileUpload/FileUploadField";
+import FileUploadField from "./FileUpload/FileUploadField";
 
 const WorkflowFormField: FC<any> = (props) => {
   const { jdbcType, hidden } = props;
@@ -43,8 +43,8 @@ const WorkflowFormField: FC<any> = (props) => {
     case JDBC_TYPE.TimePicker:
       return <TimePickerField {...transferredProps} />;
 
-    // case JDBC_TYPE.UploadDocument:
-    //   return <FileUploadField {...transferredProps} />;
+    case JDBC_TYPE.UploadDocument:
+      return <FileUploadField {...transferredProps} />;
 
     default:
       return <></>;

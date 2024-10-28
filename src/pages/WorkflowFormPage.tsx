@@ -117,7 +117,7 @@ const WorkflowFormPage = () => {
       comboListName: "<string>",
       required: 1,
       hidden: 0,
-      readOnly: 0,
+      readOnly: 1,
       i18nGroupName: "<string>",
       mimeType: "<string>",
       jdbcType: JDBC_TYPE.UploadDocument,
