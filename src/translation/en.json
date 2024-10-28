@@ -27,5 +27,11 @@
   "uploadFile": "Upload File",
   "viewFile": "View File",
   "uploadFileDesc": "Upload file here",
-  "close": "Close"
+  "close": "Close",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "dateOfBirth": "Date Of Birth",
+  "appointmentTime": "Appointment Time",
+  "passport": "Passport",
+  "errMsg": "Please enter a valid name and email address"
 }

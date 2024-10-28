@@ -39,8 +39,8 @@ body[dir="rtl"] {
   }
 }
 
-.react-datepicker__close-icon{
-  right: 15px ;
+.react-datepicker__close-icon {
+  right: 15px;
 }
 
 .react-datepicker__close-icon::after,
@@ -78,8 +78,8 @@ body[dir="rtl"] {
 
 .react-datepicker__month-select > option:checked,
 .react-datepicker__year-select > option:checked {
-  color: var(--textLight) ;
-  background-color: var(--secondaryBackground) ;
+  color: var(--textLight);
+  background-color: var(--secondaryBackground);
 }
 
 /* React Date Picker End */
@@ -106,9 +106,6 @@ body[dir="rtl"] {
   .MuiFormControlLabel-root {
     margin-right: 0;
     margin-left: 0;
-  }
-  .MuiFormControl-root {
-    min-height: 64px ;
   }
 
   .checkboxFormField {

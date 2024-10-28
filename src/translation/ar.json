@@ -26,5 +26,11 @@
   "time": "وقت",
   "uploadFile": "تحميل ملف",
   "viewFile": "عرض ملف",
-  "uploadFileDesc": "قم بتحميل الملف هنا"
+  "uploadFileDesc": "قم بتحميل الملف هنا",
+  "firstName": "الاسم الأول",
+  "lastName": "اسم العائلة",
+  "dateOfBirth": "تاريخ الميلاد",
+  "appointmentTime": "وقت الموعد",
+  "passport": "جواز السفر",
+  "errMsg": "الرجاء ادخال اسم فعال عنوان البريد الإلكتروني"
 }

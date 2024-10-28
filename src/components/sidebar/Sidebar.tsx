@@ -12,11 +12,11 @@ import { useTranslation } from "react-i18next";
 import "./Sidebar.css";
 interface SidebarProps {
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen,setIsOpen }) => {
-  const { t, i18n } = useTranslation();
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
+  const { t } = useTranslation();
   const location = useLocation();
 
   const isPathSelected = (path: string) => {
@@ -24,9 +24,15 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen,setIsOpen }) => {
   };
   return (
     <>
-      {isOpen && <div onClick={()=>{setIsOpen(false)}} className="sidebarOverlay" />}
+      {isOpen && (
+        <div
+          onClick={() => {
+            setIsOpen(false);
+          }}
+          className="sidebarOverlay"
+        />
+      )}
       <Drawer
-        anchor={i18n.language === "ar" ? "right" : "left"}
         variant="permanent"
         className={`drawer ${isOpen ? "drawerOpen" : "drawerClosed"}`}
       >

@@ -53,7 +53,7 @@ const FileUploadField: FC<IGenericFieldProps> = (props) => {
               >
                 <div className="labelWrapper">
                   <UploadFile />
-                  {t(`uploadFile`)} {required ? "*" : ""}
+                  {t(name ? name : `uploadFile`)} {required ? "*" : ""}
                 </div>
                 <p>{t("uploadFileDesc")}</p>
               </label>
