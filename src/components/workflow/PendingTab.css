@@ -1,6 +1,6 @@
 @import url("../../style-variables.css");
 .pendingTabPaper {
-  width: 100% !important;
+  width: 100% ;
     border-radius: 1rem !important;
     overflow: hidden;
   }

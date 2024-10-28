@@ -29,5 +29,5 @@
 
 .workflowTab.Mui-selected {
     color: var(--secondaryBackground) !important;
-    font-weight: bold !important;
+    font-weight: bold ;
 }

@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 import { Field, FieldProps, FormikContextType, useFormikContext } from "formik";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IGenericFieldProps, IObject } from "../../service/commonModel";
 import FieldHelper from "./FieldHelper";
@@ -20,21 +20,26 @@ const DecimalField: FC<IDecimalFieldProps> = ({
   const { t } = useTranslation();
   const valRegex = regex.Decimal;
 
-  const {
-    setFieldValue,
-    setFieldTouched,
-    values,
-  }: FormikContextType<IObject> = useFormikContext();
-  const [displayValue, setDisplayValue] = useState(
-    () => values?.[name] && formatDecimal(values?.[name])
-  );
+  const { setFieldValue, setFieldTouched, values }: FormikContextType<IObject> =
+    useFormikContext();
+  const [displayValue, setDisplayValue] = useState<string>("");
+  useEffect(() => {
+    if (values?.[name] && displayValue === "") {
+      setFieldValue(
+        name,
+        parseFloat(values[name]).toFixed(fractionDigits),
+        true
+      );
+      setDisplayValue(formatDecimal(values[name]));
+    }
+  }, [values[name]]);
 
-  const formatDecimal=(value: string)=> {
+  const formatDecimal = (value: string) => {
     return parseFloat(value).toLocaleString("en-US", {
       minimumFractionDigits: fractionDigits,
       maximumFractionDigits: fractionDigits,
     });
-  }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.value) {

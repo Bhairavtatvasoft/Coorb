@@ -7,11 +7,11 @@
 }
 
 .drawerOpen .MuiDrawer-paper {
-  width: 240px !important; /* Use !important to override MUI styles */
+  width: 240px ; 
 }
 
 .drawerClosed .MuiDrawer-paper {
-  width: 64px !important; /* Use !important to override MUI styles */
+  width: 64px ; 
 }
 .sidebarDrawerPaperOpen {
   width: 240px;

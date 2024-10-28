@@ -39,6 +39,10 @@ body[dir="rtl"] {
   }
 }
 
+.react-datepicker__close-icon{
+  right: 15px ;
+}
+
 .react-datepicker__close-icon::after,
 .react-datepicker__day--selected {
   background-color: var(--secondaryBackground);
@@ -71,6 +75,13 @@ body[dir="rtl"] {
 .react-datepicker__day--selected:not([aria-disabled="true"]):hover {
   background-color: var(--secondaryBackground) !important;
 }
+
+.react-datepicker__month-select > option:checked,
+.react-datepicker__year-select > option:checked {
+  color: var(--textLight) ;
+  background-color: var(--secondaryBackground) ;
+}
+
 /* React Date Picker End */
 
 /* Common Field Wrapper Start */
@@ -78,7 +89,7 @@ body[dir="rtl"] {
   height: 100%;
   display: grid;
   grid-template-columns: 9fr 1fr;
-  align-items: center;
+  /* align-items: center; */
   gap: 8px;
 
   .helperIcon {
@@ -95,6 +106,9 @@ body[dir="rtl"] {
   .MuiFormControlLabel-root {
     margin-right: 0;
     margin-left: 0;
+  }
+  .MuiFormControl-root {
+    min-height: 64px ;
   }
 
   .checkboxFormField {

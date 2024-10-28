@@ -9,6 +9,7 @@ import URLField from "./URLField";
 import DatePickerField from "./DatePickerField";
 import TimePickerField from "./TimePickerField";
 import FileUploadField from "./FileUpload/FileUploadField";
+import DecimalField from "./DecimalField";
 
 const WorkflowFormField: FC<any> = (props) => {
   const { jdbcType, hidden } = props;
@@ -45,6 +46,9 @@ const WorkflowFormField: FC<any> = (props) => {
 
     case JDBC_TYPE.UploadDocument:
       return <FileUploadField {...transferredProps} />;
+      
+    case JDBC_TYPE.DecimalInput:
+      return <DecimalField {...transferredProps} />;
 
     default:
       return <></>;
