@@ -36,5 +36,10 @@
   "errMsg": "Please enter a valid name and email address",
   "readonlyLbl": "Readonly Label Control",
   "clickMeToOpenLink": "Click Me To Open, Link Control",
-  "description": "Description"
+  "description": "Description",
+  "save": "Save",
+  "commit": "Commit",
+  "cancel": "Cancel",
+  "noOptionsAvailable": "No Options Available",
+  "status": "Status"
 }

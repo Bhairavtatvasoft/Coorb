@@ -10,6 +10,7 @@ import DatePickerField from "./DatePickerField";
 import TimePickerField from "./TimePickerField";
 import FileUploadField from "./FileUpload/FileUploadField";
 import DecimalField from "./DecimalField";
+import SelectField from "./SelectField";
 
 const WorkflowFormField: FC<any> = (props) => {
   const { jdbcType, hidden } = props;
@@ -21,6 +22,13 @@ const WorkflowFormField: FC<any> = (props) => {
       return <ButtonField {...transferredProps} />;
 
     case JDBC_TYPE.IntegerInput:
+      if (transferredProps.comboListName)
+        return (
+          <SelectField
+            {...transferredProps}
+            options={[{ value: 1, label: 1 }]}
+          />
+        );
       return <InputTextField valRegex={regex.Integer} {...transferredProps} />;
 
     case JDBC_TYPE.TextInput:
@@ -46,7 +54,7 @@ const WorkflowFormField: FC<any> = (props) => {
 
     case JDBC_TYPE.UploadDocument:
       return <FileUploadField {...transferredProps} />;
-      
+
     case JDBC_TYPE.DecimalInput:
       return <DecimalField {...transferredProps} />;
 

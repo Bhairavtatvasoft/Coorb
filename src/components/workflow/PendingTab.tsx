@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import "./PendingTab.css";
 import { mockFetchPendingTasks } from "./mockfunctions";
-import { workflowService } from "../../service/workflow/WorkflowService";
+import { taskService } from "../../service/task/TaskService";
 import { TaskResponse } from "../../service/workflow/WorkflowModel";
 import { useTranslation } from "react-i18next";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -44,7 +44,7 @@ const PendingTab = () => {
   };
 
   const handleRelease = async (taskInstanceId: string, tokenId: number) => {
-    const response = await workflowService.release(taskInstanceId, tokenId);
+    const response = await taskService.release(taskInstanceId, tokenId);
     console.log(response.data);
   };
 

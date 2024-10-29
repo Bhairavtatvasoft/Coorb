@@ -38,7 +38,7 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
   }, [values?.[name]]);
 
   const handleSetFieldVal = (newVal = val) => {
-    setFieldTouched(name, true, true);
+    if (values?.[name] !== val) setFieldTouched(name, true, true);
     setFieldValue(name, newVal, true);
   };
 
@@ -68,7 +68,8 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
               }
             }}
             onBlur={(e) => {
-              handleSetFieldVal(e.target.value?.trim());
+              setFieldTouched(name, true, true);
+              setFieldValue(name, e.target?.value?.trim(), true);
             }}
             error={Boolean(meta.touched && meta.error)}
             helperText={meta.touched && meta.error ? meta.error : undefined}

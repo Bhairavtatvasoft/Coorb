@@ -35,5 +35,9 @@
   "errMsg": "الرجاء ادخال اسم فعال عنوان البريد الإلكتروني",
   "readonlyLbl": "تحكم في التسمية للقراءة فقط",
   "clickMeToOpenLink": "اضغط علي لفتح، تحكم في الرابط",
-  "description": "الوصف"
+  "description": "الوصف",
+  "save": "احفظ",
+  "commit": "التزام",
+  "cancel": "إلغاء",
+  "noOptionsAvailable": "لا توجد خيارات متاحة"
 }

@@ -1,5 +1,5 @@
 import { apiRequest } from "../interceptor";
-import { IDownloadFile } from "./Filemodel";
+import { IDownloadFile } from "./FileModel";
 
 class FileService {
   upload = async (payload: IDownloadFile) => {

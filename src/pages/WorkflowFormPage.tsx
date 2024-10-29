@@ -3,9 +3,11 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import WorkflowFormField from "../components/common/WorkflowFormField";
 import { IObject } from "../service/commonModel";
 import { JDBC_TYPE, yup } from "../utils/constant";
-import { Grid2, Paper } from "@mui/material";
+import { Button, Grid2, Paper } from "@mui/material";
 import { ObjectSchema } from "yup";
 import { useTranslation } from "react-i18next";
+import "./Workflow.css";
+import SelectField from "../components/common/SelectField";
 
 const WorkflowFormPage = () => {
   const { t } = useTranslation();
@@ -25,12 +27,12 @@ const WorkflowFormPage = () => {
       readOnly: 0,
       i18nGroupName: "<string>",
       mimeType: "<string>",
-      jdbcType: "4",
+      jdbcType: JDBC_TYPE.IntegerInput,
       auditable: "<integer>",
       exitClassId: "<string>",
       exitClassDataId: "<string>",
       instanceId: "<string>",
-      textValue: "John",
+      textValue: "",
       numericValue: "<string>",
     },
     {
@@ -195,7 +197,7 @@ const WorkflowFormPage = () => {
     >
       {() => {
         return (
-          <form>
+          <form className="workflowDetailWrapper">
             <Paper sx={{ m: 3 }}>
               <Grid2 container spacing={3} sx={{ p: 2 }}>
                 {[...datVariables].map((item: any, i: number) => {
@@ -209,6 +211,25 @@ const WorkflowFormPage = () => {
                   );
                 })}
               </Grid2>
+            </Paper>
+            <Paper className="workflowBtnWrapper">
+              <Button variant="contained" type="button">
+                {t("save")}
+              </Button>
+              <Button variant="contained" type="button">
+                {t("cancel")}
+              </Button>
+              <Button variant="contained" type="button">
+                {t("commit")}
+              </Button>
+              <SelectField
+                options={[]}
+                name={"status"}
+                instanceId=""
+                id=""
+                tokenId=""
+                hideHelp
+              />
             </Paper>
           </form>
         );

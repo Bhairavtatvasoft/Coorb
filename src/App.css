@@ -1,7 +1,19 @@
+body[dir="ltr"] {
+  .MuiAutocomplete-endAdornment {
+    left: auto !important;
+    right: 9px;
+  }
+}
+
 body[dir="rtl"] {
   .react-datepicker__close-icon {
     right: unset;
     left: 8px;
+  }
+
+  .MuiAutocomplete-endAdornment {
+    right: auto !important;
+    left: 9px;
   }
 }
 
@@ -190,6 +202,9 @@ body[dir="rtl"] {
   .genericBtn {
     height: max-content;
   }
+}
+.fullGrid {
+  grid-template-columns: 1fr;
 }
 /* Common Field Wrapper End */
 

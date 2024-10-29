@@ -1,4 +1,4 @@
-@import url('../style-variables.css');
+@import url("../style-variables.css");
 .workflowContainer {
   width: 100%;
 }
@@ -22,12 +22,22 @@
 
 .workflowTabs .MuiTabs-indicator {
   height: 6px;
-  background-color: var(
-    --secondaryBackground
-  );
+  background-color: var(--secondaryBackground);
 }
 
 .workflowTab.Mui-selected {
-    color: var(--secondaryBackground) !important;
-    font-weight: bold ;
+  color: var(--secondaryBackground) !important;
+  font-weight: bold;
+}
+
+.workflowDetailWrapper {
+  .workflowBtnWrapper {
+    margin: 0 24px;
+    padding: 10px;
+    position: fixed;
+    bottom: 15px;
+    display: flex;
+    width: -webkit-fill-available;
+    justify-content: space-between;
+  }
 }
