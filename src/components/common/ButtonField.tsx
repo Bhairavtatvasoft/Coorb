@@ -12,7 +12,12 @@ const ButtonField: FC<IGenericFieldProps> = (props) => {
 
   return (
     <div className="fieldWrapper">
-      <Button type="button" variant={variant} onClick={handleBtnClick}>
+      <Button
+        type="button"
+        variant={variant}
+        onClick={handleBtnClick}
+        className="genericBtn"
+      >
         {t(name)}
       </Button>
       <FieldHelper desc={t(name + "_desc")} />

@@ -89,7 +89,6 @@ body[dir="rtl"] {
   height: 100%;
   display: grid;
   grid-template-columns: 9fr 1fr;
-  /* align-items: center; */
   gap: 8px;
 
   .helperIcon {
@@ -186,6 +185,10 @@ body[dir="rtl"] {
     label {
       cursor: pointer;
     }
+  }
+
+  .genericBtn {
+    height: max-content;
   }
 }
 /* Common Field Wrapper End */

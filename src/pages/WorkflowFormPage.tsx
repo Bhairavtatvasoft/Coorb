@@ -5,17 +5,19 @@ import { IObject } from "../service/commonModel";
 import { JDBC_TYPE, yup } from "../utils/constant";
 import { Grid2, Paper } from "@mui/material";
 import { ObjectSchema } from "yup";
+import { useTranslation } from "react-i18next";
 
 const WorkflowFormPage = () => {
+  const { t } = useTranslation();
   const validationSchema = useRef<ObjectSchema<IObject> | null>(null);
 
   const [initValues, setInitialValues] = useState<IObject>({});
 
-  const abcd: any[] = [
+  const datVariables: any[] = [
     {
       id: "<string>",
       tokenId: "<integer>",
-      i18nName: "field1",
+      i18nName: "firstName",
       type: "text",
       comboListName: "<string>",
       required: 1,
@@ -28,13 +30,13 @@ const WorkflowFormPage = () => {
       exitClassId: "<string>",
       exitClassDataId: "<string>",
       instanceId: "<string>",
-      textValue: "<string>",
+      textValue: "John",
       numericValue: "<string>",
     },
     {
       id: "<string>",
-      tokenId: "<integer>",
-      i18nName: "field2",
+      tokenId: "Last Name",
+      i18nName: "lastName",
       type: "text",
       comboListName: "<string>",
       required: 1,
@@ -47,32 +49,13 @@ const WorkflowFormPage = () => {
       exitClassId: "<string>",
       exitClassDataId: "<string>",
       instanceId: "<string>",
-      textValue: "<string>",
+      textValue: "Doe",
       numericValue: "<string>",
     },
     {
       id: "<string>",
       tokenId: "<integer>",
-      i18nName: "field3",
-      type: "text",
-      comboListName: "<string>",
-      required: 1,
-      hidden: 0,
-      readOnly: 0,
-      i18nGroupName: "<string>",
-      mimeType: "<string>",
-      jdbcType: JDBC_TYPE.URL,
-      auditable: "<integer>",
-      exitClassId: "<string>",
-      exitClassDataId: "<string>",
-      instanceId: "<string>",
-      textValue: "https://google.com",
-      numericValue: "1",
-    },
-    {
-      id: "<string>",
-      tokenId: "<integer>",
-      i18nName: "field",
+      i18nName: "dateOfBirth",
       type: "text",
       comboListName: "<string>",
       required: 1,
@@ -85,14 +68,32 @@ const WorkflowFormPage = () => {
       exitClassId: "<string>",
       exitClassDataId: "<string>",
       instanceId: "<string>",
+      textValue: "https://google.com",
+      numericValue: "1",
+    },
+    {
+      id: "<string>",
+      tokenId: "<integer>",
+      i18nName: "appointmentTime",
+      type: "text",
+      comboListName: "<string>",
+      required: 1,
+      hidden: 0,
+      readOnly: 0,
+      i18nGroupName: "<string>",
+      mimeType: "<string>",
+      jdbcType: JDBC_TYPE.TimePicker,
+      auditable: "<integer>",
+      exitClassId: "<string>",
+      exitClassDataId: "<string>",
+      instanceId: "<string>",
       textValue: "10/11/2025",
       numericValue: "1",
     },
     {
       id: "<string>",
       tokenId: "<integer>",
-      i18nName:
-        "field 3field 3field 3field 3field 3 field 3field 3field 3field 3field 3",
+      i18nName: "passport",
       type: "text",
       comboListName: "<string>",
       required: 1,
@@ -111,16 +112,53 @@ const WorkflowFormPage = () => {
     {
       id: "<string>",
       tokenId: "<integer>",
-      i18nName:
-        "field 3field 3field 3field 3field 3 field 3field 3field 3field 3field 3",
+      i18nName: "description",
       type: "text",
       comboListName: "<string>",
       required: 1,
       hidden: 0,
-      readOnly: 1,
+      readOnly: 0,
       i18nGroupName: "<string>",
       mimeType: "<string>",
-      jdbcType: JDBC_TYPE.UploadDocument,
+      jdbcType: JDBC_TYPE.TextAreaInput,
+      auditable: "<integer>",
+      exitClassId: "<string>",
+      exitClassDataId: "<string>",
+      instanceId: "<string>",
+      textValue: "",
+      numericValue: "1",
+    },
+    {
+      id: "<string>",
+      tokenId: "<integer>",
+      i18nName: "readonlyLbl",
+      type: "text",
+      comboListName: "<string>",
+      required: 1,
+      hidden: 0,
+      readOnly: 0,
+      i18nGroupName: "<string>",
+      mimeType: "<string>",
+      jdbcType: JDBC_TYPE.Label,
+      auditable: "<integer>",
+      exitClassId: "<string>",
+      exitClassDataId: "<string>",
+      instanceId: "<string>",
+      textValue: "",
+      numericValue: "1",
+    },
+    {
+      id: "<string>",
+      tokenId: "<integer>",
+      i18nName: "clickMeToOpenLink",
+      type: "text",
+      comboListName: "<string>",
+      required: 1,
+      hidden: 0,
+      readOnly: 0,
+      i18nGroupName: "<string>",
+      mimeType: "<string>",
+      jdbcType: JDBC_TYPE.URL,
       auditable: "<integer>",
       exitClassId: "<string>",
       exitClassDataId: "<string>",
@@ -132,13 +170,13 @@ const WorkflowFormPage = () => {
 
   useLayoutEffect(() => {
     validationSchema.current = yup.object().shape({});
-  });
+  }, []);
 
   useEffect(() => {
     const newInitVal: IObject = {};
     const newValidationSchema: IObject = {};
-    abcd.forEach((obj) => {
-      newValidationSchema[obj.i18nName] = yup.mixed().required();
+    datVariables.forEach((obj) => {
+      newValidationSchema[obj.i18nName] = yup.mixed().required(t("errMsg"));
       if (+obj.jdbcType === JDBC_TYPE.Checkbox)
         newInitVal[obj.i18nName] =
           obj.numericValue?.toString() === "1" ? true : false;
@@ -160,7 +198,7 @@ const WorkflowFormPage = () => {
           <form>
             <Paper sx={{ m: 3 }}>
               <Grid2 container spacing={3} sx={{ p: 2 }}>
-                {[...abcd].map((item: any, i: number) => {
+                {[...datVariables].map((item: any, i: number) => {
                   return (
                     <Grid2
                       size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
