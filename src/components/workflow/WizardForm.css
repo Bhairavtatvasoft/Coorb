@@ -1,3 +1,29 @@
-.wizardTitle{
-    padding: 10px 10px 0px 0px;
+.wizardContainer {
+  padding: 20px 0;
+}
+
+.formContainer {
+  padding: 30px 10px;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  max-height: calc(84vh - 160px);
+}
+
+.stepper {
+  overflow: auto;
+}
+
+.wizardFooter {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  flex: 0 0 auto;
+  margin-top: 16px;
+  text-align: right;
+}
+
+@media (max-width: 600px) {
+  .formContainer {
+    max-height: calc(75vh - 160px) ;
+  }
 }

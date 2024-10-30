@@ -16,6 +16,13 @@ class WorkflowService {
     });
   };
 
+  instantiate = async (workflowTypeToken:string,workflowTypeTokenId:number) =>{
+    return apiRequest.post(`/api/v1/workflow/instantiate`,{
+      workflowTypeToken,
+      workflowTypeTokenId
+    })
+  }
+
   startWorkflow=async (id: string, tokenId: number) => {
     return apiRequest.post(`/api/v1/workflow/start/${id}`, {
       tokenId,

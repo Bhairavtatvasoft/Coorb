@@ -5,7 +5,7 @@ import { ILoadRes } from "./TaskModel";
 class TaskService {
   load = async (
     taskInstanceId: string,
-    tokenId: string
+    tokenId: number
   ): Promise<AxiosResponse<ILoadRes>> => {
     return apiRequest.post(`task/load`, {
       taskInstanceId,

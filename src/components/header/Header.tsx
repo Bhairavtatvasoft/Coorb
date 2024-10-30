@@ -24,25 +24,21 @@ const Header = ({ onSidebarToggle }:any) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { i18n } = useTranslation();
-  // Dummy user data
   const user = {
     name: "John Doe",
     avatar: "./user.jpg",
   };
 
-  // Handle language change
   const handleLanguageChange = (event: string) => {
     setLanguage(event);
     i18n.changeLanguage(event);
     document.body.dir = event === "ar" ? "rtl" : "ltr";
     handleLanguageMenuClose();
   };
-  // Handle user menu click
+
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
-  // Handle user menu close
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
@@ -51,13 +47,11 @@ const Header = ({ onSidebarToggle }:any) => {
     setLanguageAnchorEl(event.currentTarget);
   };
 
-  // Handle language menu close
   const handleLanguageMenuClose = () => {
     setLanguageAnchorEl(null);
   };
   return (
     <AppBar
-    //
       position="fixed"
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >

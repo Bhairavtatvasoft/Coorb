@@ -37,7 +37,6 @@ const PendingTab = () => {
   const fetchData = async () => {
     const responseLive = await workflowService.getpendingWorkflows();
     const data: PendingTaskResponse[] = responseLive.data;
-    console.log(data);
     setData(data);
   };
 
@@ -52,7 +51,8 @@ const PendingTab = () => {
 
   const handleRelease = async (taskInstanceId: string, tokenId: number) => {
     const response = await taskService.release(taskInstanceId, tokenId);
-    console.log(response.data);
+    if (response.status === 200) {
+    }
   };
 
   const handleRowClick = (row: any) => {

@@ -5,11 +5,13 @@ import { useTranslation } from "react-i18next";
 import { Workflow } from "../../service/workflow/WorkflowModel";
 import { workflowService } from "../../service/workflow/WorkflowService";
 import "./StartableWorkflow.css";
+import { useNavigate } from "react-router";
 
 const StartableWorkflows = () => {
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const { t } = useTranslation();
   const requestInitiated = useRef(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!requestInitiated.current) {
@@ -25,9 +27,9 @@ const StartableWorkflows = () => {
   };
 
   const handleWorkflowClick = async (id: string, tokenId: number) => {
-    const response = await workflowService.startWorkflow(id, tokenId);
+    const response = await workflowService.instantiate(id, tokenId);
     if (response.status === 200) {
-      console.log(response.data);
+      navigate(`/workflow-form/${response.data?.taskInstanceId}/${tokenId}`);
     }
   };
 

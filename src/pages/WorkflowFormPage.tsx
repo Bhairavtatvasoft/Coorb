@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { IObject } from "../service/commonModel";
-import { JDBC_TYPE, yup } from "../utils/constant";
+import { FORM_TYPE, JDBC_TYPE, yup } from "../utils/constant";
 import { Button, Grid2, Paper } from "@mui/material";
 import { ObjectSchema } from "yup";
 import { useTranslation } from "react-i18next";
@@ -14,193 +14,43 @@ import { getMockWorkflowResponse } from "../components/workflow/mockfunctions";
 import TabsComponent from "../components/workflow/TabForm";
 import { taskService } from "../service/task/TaskService";
 
+import { Variable } from "../service/workflow/WorkflowModel";
+import { useParams } from "react-router";
 const WorkflowFormPage = () => {
   const { t } = useTranslation();
   const validationSchema = useRef<ObjectSchema<IObject> | null>(null);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [initValues, setInitialValues] = useState<IObject>({});
-  const instanceId = "-9023496148167317498";
-  const tokenId = "6";
-
-  const datVariables: any[] = [
-    {
-      id: "<string>",
-      tokenId: "<integer>",
-      i18nName: "firstName",
-      type: "text",
-      comboListName: "Commodities",
-      required: 1,
-      hidden: 0,
-      readOnly: 0,
-      i18nGroupName: "<string>",
-      mimeType: "<string>",
-      jdbcType: JDBC_TYPE.IntegerInput,
-      auditable: "<integer>",
-      exitClassId: "<string>",
-      exitClassDataId: "<string>",
-      instanceId: "<string>",
-      textValue: "",
-      numericValue: "<string>",
-    },
-    {
-      id: "<string>",
-      tokenId: "Last Name",
-      i18nName: "lastName",
-      type: "text",
-      comboListName: "<string>",
-      required: 1,
-      hidden: 0,
-      readOnly: 0,
-      i18nGroupName: "<string>",
-      mimeType: "<string>",
-      jdbcType: JDBC_TYPE.TextInput,
-      auditable: "<integer>",
-      exitClassId: "<string>",
-      exitClassDataId: "<string>",
-      instanceId: "<string>",
-      textValue: "Doe",
-      numericValue: "<string>",
-    },
-    {
-      id: "<string>",
-      tokenId: "<integer>",
-      i18nName: "dateOfBirth",
-      type: "text",
-      comboListName: "<string>",
-      required: 1,
-      hidden: 0,
-      readOnly: 0,
-      i18nGroupName: "<string>",
-      mimeType: "<string>",
-      jdbcType: JDBC_TYPE.DatePicker,
-      auditable: "<integer>",
-      exitClassId: "<string>",
-      exitClassDataId: "<string>",
-      instanceId: "<string>",
-      textValue: "https://google.com",
-      numericValue: "1",
-    },
-    {
-      id: "<string>",
-      tokenId: "<integer>",
-      i18nName: "appointmentTime",
-      type: "text",
-      comboListName: "<string>",
-      required: 1,
-      hidden: 0,
-      readOnly: 0,
-      i18nGroupName: "<string>",
-      mimeType: "<string>",
-      jdbcType: JDBC_TYPE.TimePicker,
-      auditable: "<integer>",
-      exitClassId: "<string>",
-      exitClassDataId: "<string>",
-      instanceId: "<string>",
-      textValue: "10/11/2025",
-      numericValue: "1",
-    },
-    {
-      id: "<string>",
-      tokenId: "<integer>",
-      i18nName: "passport",
-      type: "text",
-      comboListName: "<string>",
-      required: 1,
-      hidden: 0,
-      readOnly: 0,
-      i18nGroupName: "<string>",
-      mimeType: "<string>",
-      jdbcType: JDBC_TYPE.UploadDocument,
-      auditable: "<integer>",
-      exitClassId: "<string>",
-      exitClassDataId: "<string>",
-      instanceId: "<string>",
-      textValue: "",
-      numericValue: "1",
-    },
-    {
-      id: "<string>",
-      tokenId: "<integer>",
-      i18nName: "description",
-      type: "text",
-      comboListName: "<string>",
-      required: 1,
-      hidden: 0,
-      readOnly: 0,
-      i18nGroupName: "<string>",
-      mimeType: "<string>",
-      jdbcType: JDBC_TYPE.TextAreaInput,
-      auditable: "<integer>",
-      exitClassId: "<string>",
-      exitClassDataId: "<string>",
-      instanceId: "<string>",
-      textValue: "",
-      numericValue: "1",
-    },
-    {
-      id: "<string>",
-      tokenId: "<integer>",
-      i18nName: "readonlyLbl",
-      type: "text",
-      comboListName: "<string>",
-      required: 1,
-      hidden: 0,
-      readOnly: 0,
-      i18nGroupName: "<string>",
-      mimeType: "<string>",
-      jdbcType: JDBC_TYPE.Label,
-      auditable: "<integer>",
-      exitClassId: "<string>",
-      exitClassDataId: "<string>",
-      instanceId: "<string>",
-      textValue: "",
-      numericValue: "1",
-    },
-    {
-      id: "<string>",
-      tokenId: "<integer>",
-      i18nName: "clickMeToOpenLink",
-      type: "text",
-      comboListName: "<string>",
-      required: 1,
-      hidden: 0,
-      readOnly: 0,
-      i18nGroupName: "<string>",
-      mimeType: "<string>",
-      jdbcType: JDBC_TYPE.URL,
-      auditable: "<integer>",
-      exitClassId: "<string>",
-      exitClassDataId: "<string>",
-      instanceId: "<string>",
-      textValue: "",
-      numericValue: "1",
-    },
-  ];
+  const { taskInstanceId, tokenId } = useParams();
 
   useLayoutEffect(() => {
     validationSchema.current = yup.object().shape({});
   }, []);
 
+  const { variables, renderingStyle } = getMockWorkflowResponse();
+
   useEffect(() => {
-    const newInitVal: IObject = {};
-    const newValidationSchema: IObject = {};
-    datVariables.forEach((obj) => {
-      newValidationSchema[obj.i18nName] = yup.mixed().required(t("errMsg"));
-      if (+obj.jdbcType === JDBC_TYPE.Checkbox)
-        newInitVal[obj.i18nName] =
-          obj.numericValue?.toString() === "1" ? true : false;
-      else newInitVal[obj.i18nName] = obj.textValue;
+    const newInitVal: Record<string, any> = {};
+    const newValidationSchema: Record<string, any> = {};
+    Object.values(variables).forEach((variable) => {
+      newValidationSchema[variable.i18nName] = yup
+        .mixed()
+        .required(t("errMsg"));
+      if (variable.jdbcType === JDBC_TYPE.Checkbox) {
+        newInitVal[variable.i18nName] =
+          variable.numericValue?.toString() === "1" ? true : false;
+      } else {
+        newInitVal[variable.i18nName] = variable.textValue;
+      }
     });
     validationSchema.current = yup.object().shape(newValidationSchema);
     setInitialValues(newInitVal);
-
-    getTaskDetail();
+    if (taskInstanceId && tokenId)
+      getTaskDetail(taskInstanceId, Number(tokenId));
   }, []);
 
-  const { variables, renderingStyle } = getMockWorkflowResponse();
-
   const groupedVariables = Object.values(variables).reduce(
-    (acc: any, variable: any) => {
+    (acc: Record<string, Variable[]>, variable: Variable) => {
       const group = variable.i18nGroupName;
       acc[group] = acc[group] || [];
       acc[group].push(variable);
@@ -209,8 +59,8 @@ const WorkflowFormPage = () => {
     {}
   );
 
-  const getTaskDetail = () => {
-    taskService.load(instanceId, tokenId).then((res) => {
+  const getTaskDetail = (taskInstanceId: string, tokenId: number) => {
+    taskService.load(taskInstanceId, tokenId).then((res) => {
       if (res?.data) setInitialValues(res.data);
     });
   };
@@ -231,7 +81,7 @@ const WorkflowFormPage = () => {
                   size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
                   key={`form-field-${1}`}
                 >
-                  {renderingStyle === "Tabs" ? (
+                  {renderingStyle === FORM_TYPE.TAB ? (
                     <TabsComponent groupedVariables={groupedVariables} />
                   ) : (
                     <WizardComponent groupedVariables={groupedVariables} />

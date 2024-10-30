@@ -8,6 +8,12 @@
   left: 50%;
 }
 
-.workflowFormWrapper{
+.workflowFormWrapper {
   margin: 0 24px;
+}
+
+@media (max-width: 600px) {
+  .addNoteBtn {
+    left: 42%;
+  }
 }

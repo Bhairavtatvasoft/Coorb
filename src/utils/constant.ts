@@ -246,3 +246,8 @@ export const JDBC_TYPE = {
   TimePicker: 92,
   Label: 93,
 };
+
+export const FORM_TYPE = {
+  TAB: "Tab",
+  WIZARD: "Wizard",
+};
