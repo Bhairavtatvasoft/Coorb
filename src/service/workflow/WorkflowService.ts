@@ -2,29 +2,29 @@ import { apiRequest } from "../interceptor";
 
 class WorkflowService {
   getStartableWorkflows = async () => {
-    return await apiRequest.get(`api/v1/workflow/startable`);
+    return await apiRequest.get(`workflow/startable`);
   };
 
   getpendingWorkflows = async () => {
-    return await apiRequest.get(`api/v1/tasks/pending`);
+    return await apiRequest.get(`tasks/pending`);
   }
 
   releaseTask = async (taskInstanceId: string, tokenId: number) => {
-    return apiRequest.post(`/api/v1/task/release`, {
+    return apiRequest.post(`task/release`, {
       taskInstanceId,
       tokenId,
     });
   };
 
   instantiate = async (workflowTypeToken:string,workflowTypeTokenId:number) =>{
-    return apiRequest.post(`/api/v1/workflow/instantiate`,{
+    return apiRequest.post(`workflow/instantiate`,{
       workflowTypeToken,
       workflowTypeTokenId
     })
   }
 
   startWorkflow=async (id: string, tokenId: number) => {
-    return apiRequest.post(`/api/v1/workflow/start/${id}`, {
+    return apiRequest.post(`workflow/start/${id}`, {
       tokenId,
     });
   };
