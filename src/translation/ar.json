@@ -45,7 +45,8 @@
   "description": "وصف",
   "note": "ملاحظة",
   "addviewNote": "اضافة / عرض ملاحظة",
-  "Loan Request":"طلب تمويل",
+  "Loan Request": "طلب تمويل",
   "Loan Request_FLOW_DESCRIPTION": "نص مترجم لطلب وصف تدفق تمويل",
-  "noData":"لا يوجد بيانات متاحة"
+  "noData": "لا يوجد بيانات متاحة",
+  "status": "حالة"
 }

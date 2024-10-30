@@ -35,8 +35,12 @@
     padding: 10px;
     position: fixed;
     bottom: 15px;
-    display: flex;
     width: -webkit-fill-available;
-    justify-content: space-between;
+  }
+}
+
+@media (max-width: 900px) {
+  .actionBtn {
+    width: -webkit-fill-available;
   }
 }

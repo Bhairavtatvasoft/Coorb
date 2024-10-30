@@ -12,11 +12,15 @@ import "./WorkflowFormPage.css";
 import WizardComponent from "../components/workflow/WizardForm";
 import { getMockWorkflowResponse } from "../components/workflow/mockfunctions";
 import TabsComponent from "../components/workflow/TabForm";
+import { taskService } from "../service/task/TaskService";
+
 const WorkflowFormPage = () => {
   const { t } = useTranslation();
   const validationSchema = useRef<ObjectSchema<IObject> | null>(null);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [initValues, setInitialValues] = useState<IObject>({});
+  const instanceId = "-9023496148167317498";
+  const tokenId = "6";
 
   const datVariables: any[] = [
     {
@@ -24,7 +28,7 @@ const WorkflowFormPage = () => {
       tokenId: "<integer>",
       i18nName: "firstName",
       type: "text",
-      comboListName: "<string>",
+      comboListName: "Commodities",
       required: 1,
       hidden: 0,
       readOnly: 0,
@@ -189,9 +193,10 @@ const WorkflowFormPage = () => {
     });
     validationSchema.current = yup.object().shape(newValidationSchema);
     setInitialValues(newInitVal);
+
+    getTaskDetail();
   }, []);
 
-  ////////////
   const { variables, renderingStyle } = getMockWorkflowResponse();
 
   const groupedVariables = Object.values(variables).reduce(
@@ -204,13 +209,12 @@ const WorkflowFormPage = () => {
     {}
   );
 
-  // const initialValues = variables.reduce((acc:any, variable:any) => {
-  //   acc[variable.name] = ""; // Set initial values here
-  //   return acc;
-  // }, {});
-  console.log(groupedVariables);
+  const getTaskDetail = () => {
+    taskService.load(instanceId, tokenId).then((res) => {
+      if (res?.data) setInitialValues(res.data);
+    });
+  };
 
-  ///////////
   return (
     <Paper className="workflowFormWrapper">
       <Formik
@@ -249,23 +253,45 @@ const WorkflowFormPage = () => {
                 />
               </Paper>
               <Paper className="workflowBtnWrapper">
-                <Button variant="contained" type="button">
-                  {t("save")}
-                </Button>
-                <Button variant="contained" type="button">
-                  {t("cancel")}
-                </Button>
-                <Button variant="contained" type="button">
-                  {t("commit")}
-                </Button>
-                <SelectField
-                  options={[]}
-                  name={"status"}
-                  instanceId=""
-                  id=""
-                  tokenId=""
-                  hideHelp
-                />
+                <Grid2 container spacing={1}>
+                  <Grid2 size={{ xs: 12, md: 3.5 }}>
+                    <Button
+                      variant="contained"
+                      type="button"
+                      className="actionBtn"
+                    >
+                      {t("save")}
+                    </Button>
+                  </Grid2>
+                  <Grid2 size={{ xs: 12, md: 3.5 }}>
+                    <Button
+                      variant="contained"
+                      type="button"
+                      className="actionBtn"
+                    >
+                      {t("cancel")}
+                    </Button>
+                  </Grid2>
+                  <Grid2 size={{ xs: 12, md: 3.5 }}>
+                    <Button
+                      variant="contained"
+                      type="button"
+                      className="actionBtn"
+                    >
+                      {t("commit")}
+                    </Button>
+                  </Grid2>
+                  <Grid2 size={{ xs: 12, md: 1.5 }}>
+                    <SelectField
+                      options={[]}
+                      name={"status"}
+                      instanceId=""
+                      id=""
+                      tokenId=""
+                      hideHelp
+                    />
+                  </Grid2>
+                </Grid2>
               </Paper>
             </form>
           );
