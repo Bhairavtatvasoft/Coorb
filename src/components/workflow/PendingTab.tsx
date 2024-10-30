@@ -11,12 +11,12 @@ import {
   Button,
 } from "@mui/material";
 import "./PendingTab.css";
-import { mockFetchPendingTasks } from "./mockfunctions";
 import { taskService } from "../../service/task/TaskService";
 import { PendingTaskResponse } from "../../service/workflow/WorkflowModel";
 import { useTranslation } from "react-i18next";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { workflowService } from "../../service/workflow/WorkflowService";
 const PendingTab = () => {
   const [data, setData] = useState<PendingTaskResponse[]>([]);
   const [page, setPage] = useState(0);
