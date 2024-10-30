@@ -1,11 +1,11 @@
 import { AxiosResponse } from "axios";
 import { apiRequest } from "../interceptor";
-import { IListRecord } from "./ListModel";
+import { IObject } from "../commonModel";
 
 class ListService {
   getListOptions = async (
     listName: string
-  ): Promise<AxiosResponse<IListRecord[]>> => {
+  ): Promise<AxiosResponse<IObject>> => {
     return await apiRequest.get(`lists/${listName}`);
   };
 }

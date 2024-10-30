@@ -23,12 +23,7 @@ const WorkflowFormField: FC<any> = (props) => {
 
     case JDBC_TYPE.IntegerInput:
       if (transferredProps.comboListName)
-        return (
-          <SelectField
-            {...transferredProps}
-            options={[{ value: 1, label: 1 }]}
-          />
-        );
+        return <SelectField {...transferredProps} fetchOpt />;
       return <InputTextField valRegex={regex.Integer} {...transferredProps} />;
 
     case JDBC_TYPE.TextInput:

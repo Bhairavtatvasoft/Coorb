@@ -33,7 +33,7 @@ axiosInstance.interceptors.response.use(
     removeRequest(error.request.responseURL);
 
     if (error.response && error.response.status === 401) {
-      alert("unauthorized");
+      // alert("unauthorized");
     }
     if (error.response?.data?.message) {
       errorToast(error.response.data?.message);

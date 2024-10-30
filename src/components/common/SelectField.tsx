@@ -12,7 +12,7 @@ import { listService } from "../../service/list/ListService";
 
 const SelectField: FC<IGenericFieldProps & IObject> = ({
   name,
-  options = [],
+  options,
   onChange,
   required = false,
   readOnly,
@@ -26,7 +26,7 @@ const SelectField: FC<IGenericFieldProps & IObject> = ({
 
   const [localOptions, setLocalOptions] = useState<ISelectOpt[]>([]);
   useEffect(() => {
-    setLocalOptions(options);
+    if (Array.isArray(options)) setLocalOptions(options);
   }, [options]);
 
   useEffect(() => {
@@ -36,16 +36,15 @@ const SelectField: FC<IGenericFieldProps & IObject> = ({
   const getOptions = () => {
     listService.getListOptions(comboListName).then((res) => {
       if (res?.data) {
-        setLocalOptions(
-          res.data?.map((x) => ({
-            ...x,
-            value: x.labore_eb,
-            label: x.occaecat_6f,
-          }))
-        );
+        const newOpts: ISelectOpt[] = [];
+        Object.keys(res.data).forEach((key) => {
+          newOpts.push({ label: res.data[key], value: key });
+        });
+        setLocalOptions(newOpts);
       }
     });
   };
+
   const handleChange = (_: React.SyntheticEvent, value: any) => {
     setFieldValue(name, value);
     setTimeout(() => {
