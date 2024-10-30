@@ -1,9 +1,3 @@
-export interface SelectedTaskStatus {
-  id: string;
-  i18nName: string;
-  startingTask: boolean;
-  endingTask: boolean;
-}
 
 export interface Status {
   id: string;
@@ -32,7 +26,7 @@ export interface Variable {
   numericValue: string;
 }
 
-export interface TaskResponse {
+export interface PendingTaskResponse {
   taskInstanceId: string;
   workflowInstanceId: string;
   addedOn: string; 
@@ -49,7 +43,7 @@ export interface TaskResponse {
   taskTypeId: string;
   data: number[]; 
   note: string;
-  selectedTaskStatus: SelectedTaskStatus;
+  selectedTaskStatus: Status;
   businessErrorMessage: string;
   statuses: { [key: string]: Status };
   variables: { [key: string]: Variable };
@@ -60,7 +54,7 @@ export interface TaskResponse {
   tenantI18Name: string;
   statusInDesc: string;
   loadedByOwner: boolean;
-  tokenId: number; 
+ // tokenId: number; 
 }
 
 export interface Workflow {

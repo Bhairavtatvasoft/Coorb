@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Table,
   TableBody,
@@ -13,26 +13,33 @@ import {
 import "./PendingTab.css";
 import { mockFetchPendingTasks } from "./mockfunctions";
 import { taskService } from "../../service/task/TaskService";
-import { TaskResponse } from "../../service/workflow/WorkflowModel";
+import { PendingTaskResponse } from "../../service/workflow/WorkflowModel";
 import { useTranslation } from "react-i18next";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 const PendingTab = () => {
-  const [data, setData] = useState<TaskResponse[]>([]);
+  const [data, setData] = useState<PendingTaskResponse[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [sortDirection, setSortDirection] = useState("asc");
   const [sortColumn, setSortColumn] = useState("");
+  const requestInitiated = useRef(false);
 
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await mockFetchPendingTasks();
-      setData(response);
-    };
-    fetchData();
+    if (!requestInitiated.current) {
+      requestInitiated.current = true;
+      fetchData();
+    }
   }, []);
+
+  const fetchData = async () => {
+    const responseLive = await workflowService.getpendingWorkflows();
+    const data: PendingTaskResponse[] = responseLive.data;
+    console.log(data);
+    setData(data);
+  };
 
   const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
@@ -213,45 +220,53 @@ const PendingTab = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .sort(sortData)
-              .map((row) => (
-                <TableRow
-                  key={row.taskInstanceId}
-                  onClick={
-                    row.loadedByOwner ? undefined : () => handleRowClick(row)
-                  }
-                  className={
-                    row.loadedByOwner
-                      ? "pendingTabTableRowHoverInherited"
-                      : "pendingTabTableRowHover"
-                  }
-                >
-                  <TableCell>{t(row.workflowI18Name)}</TableCell>
-                  <TableCell>{t(row.taskI18Name)}</TableCell>
-                  <TableCell>{row.userDisplayName}</TableCell>
-                  <TableCell>
-                    {new Date(row.addedOn).toLocaleString()}
-                  </TableCell>
-                  <TableCell>{row.statusInDesc}</TableCell>
-                  <TableCell>{t(row.tenantI18Name)}</TableCell>
-                  <TableCell>
-                    {row.loadedByOwner && (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        className="pendingTabReleaseButton"
-                        onClick={() =>
-                          handleRelease(row.taskInstanceId, row.tokenId)
-                        }
-                      >
-                        Release Task
-                      </Button>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
+            {data.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={7} align="center">
+                  {t("noData")}
+                </TableCell>
+              </TableRow>
+            ) : (
+              data
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .sort(sortData)
+                .map((row) => (
+                  <TableRow
+                    key={row.taskInstanceId}
+                    onClick={
+                      row.loadedByOwner ? undefined : () => handleRowClick(row)
+                    }
+                    className={
+                      row.loadedByOwner
+                        ? "pendingTabTableRowHoverInherited"
+                        : "pendingTabTableRowHover"
+                    }
+                  >
+                    <TableCell>{t(row.workflowI18Name)}</TableCell>
+                    <TableCell>{t(row.taskI18Name)}</TableCell>
+                    <TableCell>{row.userDisplayName}</TableCell>
+                    <TableCell>
+                      {new Date(row.addedOn).toLocaleString()}
+                    </TableCell>
+                    <TableCell>{row.statusInDesc}</TableCell>
+                    <TableCell>{t(row.tenantI18Name)}</TableCell>
+                    <TableCell>
+                      {row.loadedByOwner && (
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          className="pendingTabReleaseButton"
+                          onClick={() =>
+                            handleRelease(row.taskInstanceId, row.variables[0].tokenId)
+                          }
+                        >
+                          Release Task
+                        </Button>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

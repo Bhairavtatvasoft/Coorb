@@ -39,5 +39,13 @@
   "save": "احفظ",
   "commit": "التزام",
   "cancel": "إلغاء",
-  "noOptionsAvailable": "لا توجد خيارات متاحة"
+  "noOptionsAvailable": "لا توجد خيارات متاحة",
+  "close": "اغلاق",
+  "saveandclose": "حفظ واغلاق",
+  "description": "وصف",
+  "note": "ملاحظة",
+  "addviewNote": "اضافة / عرض ملاحظة",
+  "Loan Request":"طلب تمويل",
+  "Loan Request_FLOW_DESCRIPTION": "نص مترجم لطلب وصف تدفق تمويل",
+  "noData":"لا يوجد بيانات متاحة"
 }
