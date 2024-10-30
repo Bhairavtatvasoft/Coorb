@@ -1,28 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Box, Card, CardContent, Typography, Grid2 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
-import { mockFetchWorkflows } from "./mockfunctions";
 import { Workflow } from "../../service/workflow/WorkflowModel";
 import { workflowService } from "../../service/workflow/WorkflowService";
-import { useTranslation } from "react-i18next";
-import "./StartableWorkflow.css"
+import "./StartableWorkflow.css";
 
 const StartableWorkflows = () => {
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const { t } = useTranslation();
+  const requestInitiated = useRef(false);
 
   useEffect(() => {
-    const fetchWorkflows = async () => {
-      try {
-        const data: Workflow[] = await mockFetchWorkflows();
-        setWorkflows(data);
-      } catch (error) {
-        console.error("Error fetching workflows:", error);
-      }
-    };
-
-    fetchWorkflows();
+    if (!requestInitiated.current) {
+      requestInitiated.current = true;
+      fetchWorkflows();
+    }
   }, []);
+
+  const fetchWorkflows = async () => {
+    const response = await workflowService.getStartableWorkflows();
+    const data: Workflow[] = response.data;
+    setWorkflows(data);
+  };
 
   const handleWorkflowClick = async (id: string, tokenId: number) => {
     const response = await workflowService.startWorkflow(id, tokenId);

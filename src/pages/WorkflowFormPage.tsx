@@ -1,6 +1,5 @@
 import { Formik } from "formik";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import WorkflowFormField from "../components/common/WorkflowFormField";
 import { IObject } from "../service/commonModel";
 import { JDBC_TYPE, yup } from "../utils/constant";
 import { Button, Grid2, Paper } from "@mui/material";
@@ -8,11 +7,15 @@ import { ObjectSchema } from "yup";
 import { useTranslation } from "react-i18next";
 import "./Workflow.css";
 import SelectField from "../components/common/SelectField";
-
+import NoteModal from "../components/workflow/NoteModal";
+import "./WorkflowFormPage.css";
+import WizardComponent from "../components/workflow/WizardForm";
+import { getMockWorkflowResponse } from "../components/workflow/mockfunctions";
+import TabsComponent from "../components/workflow/TabForm";
 const WorkflowFormPage = () => {
   const { t } = useTranslation();
   const validationSchema = useRef<ObjectSchema<IObject> | null>(null);
-
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [initValues, setInitialValues] = useState<IObject>({});
 
   const datVariables: any[] = [
@@ -188,53 +191,87 @@ const WorkflowFormPage = () => {
     setInitialValues(newInitVal);
   }, []);
 
+  ////////////
+  const { variables, renderingStyle } = getMockWorkflowResponse();
+
+  const groupedVariables = Object.values(variables).reduce(
+    (acc: any, variable: any) => {
+      const group = variable.i18nGroupName;
+      acc[group] = acc[group] || [];
+      acc[group].push(variable);
+      return acc;
+    },
+    {}
+  );
+
+  // const initialValues = variables.reduce((acc:any, variable:any) => {
+  //   acc[variable.name] = ""; // Set initial values here
+  //   return acc;
+  // }, {});
+  console.log(groupedVariables);
+
+  ///////////
   return (
-    <Formik
-      initialValues={initValues}
-      validationSchema={validationSchema.current}
-      onSubmit={() => {}}
-      enableReinitialize
-    >
-      {() => {
-        return (
-          <form className="workflowDetailWrapper">
-            <Paper sx={{ m: 3 }}>
-              <Grid2 container spacing={3} sx={{ p: 2 }}>
-                {[...datVariables].map((item: any, i: number) => {
-                  return (
-                    <Grid2
-                      size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
-                      key={`form-field-${i}`}
-                    >
-                      <WorkflowFormField {...item} />
-                    </Grid2>
-                  );
-                })}
-              </Grid2>
-            </Paper>
-            <Paper className="workflowBtnWrapper">
-              <Button variant="contained" type="button">
-                {t("save")}
-              </Button>
-              <Button variant="contained" type="button">
-                {t("cancel")}
-              </Button>
-              <Button variant="contained" type="button">
-                {t("commit")}
-              </Button>
-              <SelectField
-                options={[]}
-                name={"status"}
-                instanceId=""
-                id=""
-                tokenId=""
-                hideHelp
-              />
-            </Paper>
-          </form>
-        );
-      }}
-    </Formik>
+    <Paper className="workflowFormWrapper">
+      <Formik
+        initialValues={initValues}
+        validationSchema={validationSchema.current}
+        onSubmit={() => {}}
+        enableReinitialize
+      >
+        {() => {
+          return (
+            <form className="workflowDetailWrapper">
+              <Paper sx={{ m: 3, boxShadow: "none" }}>
+                <Grid2
+                  size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
+                  key={`form-field-${1}`}
+                >
+                  {renderingStyle === "Tabs" ? (
+                    <TabsComponent groupedVariables={groupedVariables} />
+                  ) : (
+                    <WizardComponent groupedVariables={groupedVariables} />
+                  )}
+                </Grid2>
+              </Paper>
+              <Paper className="addNoteBtn">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setModalOpen(true)}
+                >
+                  {t("addviewNote")}
+                </Button>
+                <NoteModal
+                  open={isModalOpen}
+                  description={"This is read only field"}
+                  onClose={() => setModalOpen(false)}
+                />
+              </Paper>
+              <Paper className="workflowBtnWrapper">
+                <Button variant="contained" type="button">
+                  {t("save")}
+                </Button>
+                <Button variant="contained" type="button">
+                  {t("cancel")}
+                </Button>
+                <Button variant="contained" type="button">
+                  {t("commit")}
+                </Button>
+                <SelectField
+                  options={[]}
+                  name={"status"}
+                  instanceId=""
+                  id=""
+                  tokenId=""
+                  hideHelp
+                />
+              </Paper>
+            </form>
+          );
+        }}
+      </Formik>{" "}
+    </Paper>
   );
 };
 

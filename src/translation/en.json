@@ -41,5 +41,12 @@
   "commit": "Commit",
   "cancel": "Cancel",
   "noOptionsAvailable": "No Options Available",
-  "status": "Status"
+  "status": "Status",
+  "saveandclose": "Save and Close",
+  "description": "Description",
+  "note": "Note",
+  "addviewNote": "Add/View Note",
+  "Loan Request": "Loan Request",
+  "Loan Request_FLOW_DESCRIPTION": "Loan Request Flow Description",
+  "noData":"No data available"
 }

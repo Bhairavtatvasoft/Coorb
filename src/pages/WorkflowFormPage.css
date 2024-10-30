@@ -1,0 +1,13 @@
+.addNoteBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1rem;
+  position: fixed;
+  bottom: 4rem;
+  left: 50%;
+}
+
+.workflowFormWrapper{
+  margin: 0 24px;
+}
