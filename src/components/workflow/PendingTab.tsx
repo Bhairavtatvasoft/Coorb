@@ -49,7 +49,7 @@ const PendingTab = () => {
     setPage(0);
   };
 
-  const handleRelease = async (taskInstanceId: string, tokenId: number) => {
+  const handleRelease = async (taskInstanceId: string, tokenId: string) => {
     const response = await taskService.release(taskInstanceId, tokenId);
     if (response.status === 200) {
     }
@@ -257,7 +257,10 @@ const PendingTab = () => {
                           color="primary"
                           className="pendingTabReleaseButton"
                           onClick={() =>
-                            handleRelease(row.taskInstanceId, row.variables[0].tokenId)
+                            handleRelease(
+                              row.taskInstanceId,
+                              row.variables[0].tokenId?.toString()
+                            )
                           }
                         >
                           {t("releaseTask")}

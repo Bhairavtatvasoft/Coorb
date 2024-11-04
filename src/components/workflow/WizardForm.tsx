@@ -25,18 +25,18 @@ const WizardComponent = ({ groupedVariables }: WizardFormProps) => {
     const currentGroupVariables = groupedVariables[currentGroupName];
     currentGroupVariables.forEach((variable) => {
       const fieldName = variable.i18nName;
-      setFieldTouched(fieldName, true, false);
+      setFieldTouched(`formField.${fieldName}`, true, false);
     });
     await validateForm();
     const hasErrors = currentGroupVariables.some((variable) => {
       const fieldName = variable.i18nName;
-      return errors[fieldName];
+      return errors.formField[fieldName];
     });
 
     if (!hasErrors) {
       setStepIndex((prev) => Math.min(prev + 1, groupNames.length - 1));
     } else {
-      errorToast("Validation errors exist in the current step.");
+      errorToast(t("commonValidationMsg"));
     }
   };
 
@@ -61,7 +61,7 @@ const WizardComponent = ({ groupedVariables }: WizardFormProps) => {
         {Object.keys(groupedVariables)?.length > 0 &&
           groupedVariables[groupNames[stepIndex]]?.map((variable, idx) => (
             <Grid2
-              size={{ xs: 12, sm: 6, md: 4, lg: 4 }}
+              size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
               key={`wizard-field-${idx}`}
             >
               <WorkflowFormField {...variable} />

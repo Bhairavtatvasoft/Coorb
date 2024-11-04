@@ -16,6 +16,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./translation/i18n";
 import "./App.css";
 import { useTranslation } from "react-i18next";
+import Loader from "./components/common/Loader.tsx";
 
 function App() {
   const { i18n } = useTranslation();
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <>
+      <Loader />
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -33,7 +35,10 @@ function App() {
             <Layout>
               <Routes>
                 <Route path="/" element={<Workflow />} />
-                <Route path="/workflow-form/:taskInstanceId?/:tokenId?" element={<WorkflowFormPage />} />
+                <Route
+                  path="/workflow-form/:taskInstanceId?/:tokenId?"
+                  element={<WorkflowFormPage />}
+                />
                 <Route path="*" element={<>Page Not Found</>} />
               </Routes>
             </Layout>

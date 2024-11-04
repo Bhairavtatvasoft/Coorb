@@ -12,7 +12,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     config.headers["Content-Type"] = "application/json";
 
-    const token =  "Z2VvcmdlczpYWFg=";
+    const token = "Z2VvcmdlczpYWFg=";
     if (token) {
       config.headers["Authorization"] = `${token}`;
     }
@@ -74,11 +74,12 @@ const updateRequestArr = (url: string) => {
 };
 
 const showLoader = () => {
+  document.body.classList.add("showLoader");
   //add class name
 };
 
 const hideLoader = () => {
-  // remove class name
+  document.body.classList.remove("showLoader");
 };
 
 const removeRequest = (req: string) => {

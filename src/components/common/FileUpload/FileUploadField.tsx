@@ -14,7 +14,7 @@ export type ViewFileDetail = {
 
 const FileUploadField: FC<IGenericFieldProps> = (props) => {
   const { t } = useTranslation();
-  const { name, required, readOnly } = props;
+  const { name, required, readOnly, lbl } = props;
 
   const { setFieldValue, setFieldTouched } = useFormikContext();
 
@@ -29,11 +29,10 @@ const FileUploadField: FC<IGenericFieldProps> = (props) => {
       setFieldValue(name, file, true);
     }
   };
-
   return (
     <>
       <Field name={name}>
-        {({ meta }: FieldProps) => (
+        {({ meta, field }: FieldProps) => (
           <div className="fieldWrapper">
             <input
               accept="*"
@@ -53,24 +52,26 @@ const FileUploadField: FC<IGenericFieldProps> = (props) => {
               >
                 <div className="labelWrapper">
                   <UploadFile />
-                  {t(name ? name : `uploadFile`)} {required ? "*" : ""}
+                  {t(lbl ? lbl : `uploadFile`)} {required ? "*" : ""}
                 </div>
                 <p>{t("uploadFileDesc")}</p>
               </label>
 
-              <Button
-                variant="outlined"
-                type="button"
-                size="small"
-                className="fileViewButton"
-                title={t("viewFile")}
-                onClick={() => {
-                  setViewFileDetail({ ...viewFileDetail, show: true });
-                }}
-              >
-                <Visibility fontSize={"small"} />
-                {t("viewFile")}
-              </Button>
+              {field.value && (
+                <Button
+                  variant="outlined"
+                  type="button"
+                  size="small"
+                  className="fileViewButton"
+                  title={t("viewFile")}
+                  onClick={() => {
+                    setViewFileDetail({ ...viewFileDetail, show: true });
+                  }}
+                >
+                  <Visibility fontSize={"small"} />
+                  {t("viewFile")}
+                </Button>
+              )}
             </div>
             <FieldHelper desc={t(lbl + "_desc")} />
 
@@ -90,10 +91,10 @@ const FileUploadField: FC<IGenericFieldProps> = (props) => {
             setViewFileDetail({ ...viewFileDetail, file });
           }}
           viewFileDetail={viewFileDetail}
-          taskInstanceId={props.instanceId}
-          taskInstanceTokenId={props.instanceId}
-          variableTypeId={props.id}
-          variableTypeTokenId={props.tokenId}
+          taskInstanceId={props.instanceId!}
+          taskInstanceTokenId={props.instanceId!}
+          variableTypeId={props.id!}
+          variableTypeTokenId={props.tokenId!}
         />
       )}
     </>
