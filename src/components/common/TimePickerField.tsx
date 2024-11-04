@@ -14,7 +14,7 @@ const TimePickerField: FC<IGenericFieldProps> = (props) => {
   const { setFieldValue, setFieldTouched }: FormikContextType<IObject> =
     useFormikContext();
 
-  const { name, required, readOnly } = props;
+  const { name, required, readOnly, lbl } = props;
   return (
     <Field name={name}>
       {({ field, meta }: FieldProps) => {
@@ -29,7 +29,7 @@ const TimePickerField: FC<IGenericFieldProps> = (props) => {
                     size="small"
                     variant="outlined"
                     fullWidth
-                    label={`${t(name)} ${required ? "*" : ""}`}
+                    label={`${t(lbl)} ${required ? "*" : ""}`}
                     error={Boolean(meta.touched && meta.error)}
                     helperText={
                       meta.touched && meta.error ? meta.error : undefined
@@ -67,7 +67,7 @@ const TimePickerField: FC<IGenericFieldProps> = (props) => {
                 disabledKeyboardNavigation
               />
             </div>
-            <FieldHelper desc={t(name + "_desc")} />
+            <FieldHelper desc={t(lbl + "_desc")} />
           </div>
         );
       }}

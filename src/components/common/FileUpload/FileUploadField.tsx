@@ -72,7 +72,7 @@ const FileUploadField: FC<IGenericFieldProps> = (props) => {
                 {t("viewFile")}
               </Button>
             </div>
-            <FieldHelper desc={t(name + "_desc")} />
+            <FieldHelper desc={t(lbl + "_desc")} />
 
             {meta.touched && meta.error && (
               <div className="errorText">{meta.error}</div>

@@ -5,12 +5,12 @@ import FieldHelper from "./FieldHelper";
 
 const LabelField: FC<IGenericFieldProps> = (props) => {
   const { t } = useTranslation();
-  const { name } = props;
+  const { name, lbl } = props;
 
   return (
     <div className="fieldWrapper">
-      <label>{t(name)}</label>
-      <FieldHelper desc={t(name + "_desc")} />
+      <label>{t(lbl ? lbl : name)}</label>
+      <FieldHelper desc={t(lbl + "_desc")} />
     </div>
   );
 };

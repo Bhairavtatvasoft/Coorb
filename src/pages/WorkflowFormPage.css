@@ -1,19 +1,27 @@
-.addNoteBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 1rem;
-  position: fixed;
-  bottom: 4rem;
-  left: 50%;
-}
-
 .workflowFormWrapper {
   margin: 0 24px;
 }
 
+.addNoteBtn {
+  margin-bottom: 1rem !important;
+}
+
+.addNoteBtnWrapper {
+  display: flex;
+  justify-content: center;
+  margin-left: 20%;
+}
+
 @media (max-width: 600px) {
+  .workflowForm {
+    overflow-y: auto;
+    max-height: 325px;
+  }
   .addNoteBtn {
-    left: 42%;
+    margin-bottom: 0.5rem !important;
+    margin-left: 0 !important;
+  }
+  .addNoteBtnWrapper {
+    margin-left: 0;
   }
 }

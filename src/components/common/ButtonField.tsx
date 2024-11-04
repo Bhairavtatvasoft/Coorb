@@ -6,7 +6,7 @@ import FieldHelper from "./FieldHelper";
 
 const ButtonField: FC<IGenericFieldProps> = (props) => {
   const { t } = useTranslation();
-  const { name, variant = "contained" } = props;
+  const { variant = "contained", lbl } = props;
 
   const handleBtnClick = () => {};
 
@@ -18,9 +18,9 @@ const ButtonField: FC<IGenericFieldProps> = (props) => {
         onClick={handleBtnClick}
         className="genericBtn"
       >
-        {t(name)}
+        {t(lbl)}
       </Button>
-      <FieldHelper desc={t(name + "_desc")} />
+      <FieldHelper desc={t(lbl + "_desc")} />
     </div>
   );
 };

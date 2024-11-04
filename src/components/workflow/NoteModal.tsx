@@ -67,7 +67,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
           color="primary"
           variant="contained"
         >
-          {t("saveandclose")}
+          {t("saveAndClose")}
         </Button>
       </DialogActions>
     </Dialog>

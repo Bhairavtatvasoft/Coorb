@@ -75,7 +75,7 @@ const WorkflowFormPage = () => {
         {() => {
           return (
             <form className="workflowDetailWrapper">
-              <Paper sx={{ m: 3, boxShadow: "none" }}>
+              <Paper className="workflowForm" sx={{ m: 3, boxShadow: "none" }}>
                 <Grid2
                   size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
                   key={`form-field-${1}`}
@@ -87,16 +87,20 @@ const WorkflowFormPage = () => {
                   )}
                 </Grid2>
               </Paper>
-              <Paper className="addNoteBtn">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => setShowNoteModal(true)}
-                >
-                  {t("addviewNote")}
-                </Button>
-              </Paper>
+
               <Paper className="workflowBtnWrapper">
+                <Grid2 container spacing={1} className="addNoteBtnWrapper">
+                  <Grid2 size={{ xs: 12, md: 3.5 }}>
+                    <Button
+                      className="actionBtn addNoteBtn"
+                      variant="contained"
+                      color="primary"
+                      onClick={() => setShowNoteModal(true)}
+                    >
+                      {t("addViewNote")}
+                    </Button>
+                  </Grid2>
+                </Grid2>
                 <Grid2 container spacing={1}>
                   <Grid2 size={{ xs: 12, md: 3.5 }}>
                     <Button

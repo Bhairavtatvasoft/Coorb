@@ -210,6 +210,16 @@ body[dir="rtl"] {
 .fullGrid {
   grid-template-columns: 1fr;
 }
+
+.MuiTabs-indicator {
+  height: 6px !important;
+  background-color: var(--secondaryBackground);
+}
+
+.Mui-selected {
+  color: var(--secondaryBackground);
+  font-weight: bold !important;
+}
 /* Common Field Wrapper End */
 
 /* Custom Scrollbar Styles for Webkit Browsers */

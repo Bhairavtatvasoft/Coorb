@@ -1,6 +1,46 @@
-.tabContainer{
-    padding: 2rem 0;
-      flex: 1 1 auto;
-  overflow-y: auto;
-  max-height: calc(90vh - 160px) ;
+.tabContainer {
+  padding: 2rem 0;
+  flex: 1 1 auto;
+  max-height: calc(90vh - 160px);
+}
+
+.tabWrapper {
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: hidden;
+  padding: 0 8px;
+}
+
+@media (max-width: 600px) {
+  .tabWrapper {
+    overflow-x: auto;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .tabContainer {
+    margin: 0;
+  }
+
+  .responsiveGrid {
+    flex-basis: 100%;
+    max-width: 100%;
+    padding: 8px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 960px) {
+  .responsiveGrid {
+    flex-basis: 50%;
+    max-width: 50%;
+    padding: 12px;
+  }
+}
+
+@media (min-width: 960px) {
+  .responsiveGrid {
+    flex-basis: 33.33%;
+    max-width: 33.33%;
+    padding: 16px;
+  }
 }

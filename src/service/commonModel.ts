@@ -1,8 +1,9 @@
 export interface IGenericFieldProps {
+  lbl: string;
   name: string;
-  instanceId: string;
-  tokenId: string;
-  id: string;
+  instanceId?: string;
+  tokenId?: string;
+  id?: string;
 
   hideHelp?: boolean;
   placeholder?: string;
