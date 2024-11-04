@@ -1,10 +1,10 @@
-import { TextField } from "@mui/material";
-import { Field, FieldProps, FormikContextType, useFormikContext } from "formik";
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { IGenericFieldProps, IObject } from "../../service/commonModel";
+import { Field, FieldProps, FormikContextType, useFormikContext } from "formik";
+import { NumericFormat } from "react-number-format";
 import FieldHelper from "./FieldHelper";
-import { regex } from "../../utils/regex";
+import { IGenericFieldProps, IObject } from "../../service/commonModel";
+import { TextField } from "@mui/material";
 
 interface IDecimalFieldProps extends IGenericFieldProps {
   fractionDigits?: number;
@@ -19,56 +19,44 @@ const DecimalField: FC<IDecimalFieldProps> = ({
   fractionDigits = 2,
 }) => {
   const { t } = useTranslation();
-  const valRegex = regex.Decimal;
-
   const { setFieldValue, setFieldTouched, values }: FormikContextType<IObject> =
     useFormikContext();
   const [displayValue, setDisplayValue] = useState<string>("");
+
   useEffect(() => {
     if (values?.[name] && displayValue === "") {
-      setFieldValue(
-        name,
-        parseFloat(values[name]).toFixed(fractionDigits),
-        true
+      const initialFormattedValue = parseFloat(values[name]).toFixed(
+        fractionDigits
       );
-      setDisplayValue(formatDecimal(values[name]));
+      setFieldValue(name, initialFormattedValue, true);
+      setDisplayValue(formatDecimal(initialFormattedValue));
     }
   }, [values[name]]);
 
-  const formatDecimal = (value: string) => {
-    return parseFloat(value).toLocaleString("en-US", {
+  const formatDecimal = (value: string | number) => {
+    return parseFloat(value as string).toLocaleString("en-US", {
       minimumFractionDigits: fractionDigits,
       maximumFractionDigits: fractionDigits,
     });
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.value) {
-      setDisplayValue("");
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      const rawValue = parseFloat(e.target.value.replace(/,/g, ""));
+      setFieldValue(name, rawValue.toFixed(fractionDigits), true);
+      setDisplayValue(formatDecimal(rawValue));
+    } else {
       setFieldValue(name, "", true);
-      return;
+      setDisplayValue("");
     }
-    const inputElement = e.target;
-    const rawValue = inputElement.value.replace(/,/g, "");
-    if (!valRegex.test(rawValue)) return;
-    const cursorPosition = inputElement.selectionStart || 0;
-    setFieldValue(name, parseFloat(rawValue).toFixed(fractionDigits), true);
-    const formattedValue = formatDecimal(rawValue);
-    setDisplayValue(formattedValue);
-    const commaDifference =
-      (formattedValue.match(/,/g) || []).length -
-      (inputElement.value.match(/,/g) || []).length;
-    const newCursorPosition = cursorPosition + commaDifference;
-    setTimeout(() => {
-      inputElement.setSelectionRange(newCursorPosition, newCursorPosition);
-    }, 0);
   };
 
   return (
     <Field name={name}>
       {({ field, meta }: FieldProps) => (
         <div className="fieldWrapper">
-          <TextField
+          <NumericFormat
+            customInput={TextField}
             size="small"
             id={`decimalField-${name}`}
             label={`${t(lbl)} ${required ? "*" : ""}`}
@@ -77,7 +65,11 @@ const DecimalField: FC<IDecimalFieldProps> = ({
             placeholder={placeholder}
             {...field}
             value={displayValue}
-            onChange={handleInputChange}
+            onChange={handleValueChange}
+            decimalScale={fractionDigits}
+            fixedDecimalScale
+            thousandSeparator=","
+            allowNegative={false}
             onBlur={() => {
               setFieldTouched(name, true, true);
             }}
