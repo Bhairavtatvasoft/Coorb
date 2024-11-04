@@ -17,7 +17,7 @@ const WizardComponent = ({ groupedVariables }: WizardFormProps) => {
   const [stepIndex, setStepIndex] = useState(0);
   const groupNames = Object.keys(groupedVariables);
   const { errors, validateForm, setFieldTouched }: any = useFormikContext();
-  const { t,i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const handleBack = () => setStepIndex((prev) => Math.max(prev - 1, 0));
   const handleNext = async () => {
@@ -48,7 +48,7 @@ const WizardComponent = ({ groupedVariables }: WizardFormProps) => {
   return (
     <div className="wizardContainer">
       <Stepper className="stepper" activeStep={stepIndex} alternativeLabel>
-        {groupNames.map((groupName, idx) => (
+        {groupNames?.map((groupName, idx) => (
           <Step key={idx}>
             <StepLabel onClick={() => handleStepClick(idx)}>
               {groupName}
@@ -58,18 +58,20 @@ const WizardComponent = ({ groupedVariables }: WizardFormProps) => {
       </Stepper>
 
       <Grid2 container className="formContainer" spacing={3}>
-        {groupedVariables[groupNames[stepIndex]].map((variable, idx) => (
-          <Grid2
-            size={{ xs: 12, sm: 6, md: 4, lg: 4 }}
-            key={`wizard-field-${idx}`}
-          >
-            <WorkflowFormField {...variable} />
-          </Grid2>
-        ))}
+        {Object.keys(groupedVariables)?.length > 0 &&
+          groupedVariables[groupNames[stepIndex]]?.map((variable, idx) => (
+            <Grid2
+              size={{ xs: 12, sm: 6, md: 4, lg: 4 }}
+              key={`wizard-field-${idx}`}
+            >
+              <WorkflowFormField {...variable} />
+            </Grid2>
+          ))}
       </Grid2>
       <hr />
       <div className="wizardFooter">
         <Button
+          type="button"
           onClick={handleBack}
           variant="outlined"
           disabled={stepIndex === 0}
@@ -79,6 +81,7 @@ const WizardComponent = ({ groupedVariables }: WizardFormProps) => {
           {t("back")}
         </Button>
         <Button
+          type="button"
           onClick={handleNext}
           variant="outlined"
           disabled={stepIndex === groupNames.length - 1}

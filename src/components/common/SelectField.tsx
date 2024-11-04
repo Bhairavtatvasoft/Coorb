@@ -19,6 +19,7 @@ const SelectField: FC<IGenericFieldProps & IObject> = ({
   hideClr = false,
   fetchOpt = false,
   comboListName,
+  lbl,
   hideHelp = false,
 }) => {
   const { t } = useTranslation();
@@ -63,18 +64,20 @@ const SelectField: FC<IGenericFieldProps & IObject> = ({
             disablePortal
             options={localOptions}
             size="small"
-            onChange={handleChange}
             getOptionLabel={(x) => x.label?.toString()}
-            value={localOptions?.find(
-              (x) => x.value?.toString() === field.value?.toString()
-            )}
+            value={
+              localOptions?.find(
+                (x) => x.value?.toString() === field.value?.value?.toString()
+              ) || null
+            }
+            onChange={handleChange}
             noOptionsText={t("noOptionsAvailable")}
             disabled={readOnly === 1}
             disableClearable={hideClr || required ? true : false}
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={`${t(name)} ${required ? "*" : ""}`}
+                label={`${t(lbl)} ${required ? "*" : ""}`}
                 error={Boolean(meta.touched && meta.error)}
                 helperText={meta.touched && meta.error ? meta.error : undefined}
                 disabled={readOnly === 1}
@@ -83,7 +86,7 @@ const SelectField: FC<IGenericFieldProps & IObject> = ({
             onClose={() => setFieldTouched(name, true, true)}
             onBlur={() => setFieldTouched(name, true, true)}
           />
-          {!hideHelp && <FieldHelper desc={t(name + "_desc")} />}
+          {!hideHelp && <FieldHelper desc={t(lbl + "_desc")} />}
         </div>
       )}
     </Field>

@@ -16,7 +16,11 @@ const WorkflowFormField: FC<any> = (props) => {
   const { jdbcType, hidden } = props;
   if (hidden) return <></>;
 
-  const transferredProps = { ...props, name: props.i18nName };
+  const transferredProps = {
+    ...props,
+    name: "formField." + props.i18nName,
+    lbl: props.i18nName,
+  };
   switch (Number(jdbcType)) {
     case JDBC_TYPE.Button:
       return <ButtonField {...transferredProps} />;

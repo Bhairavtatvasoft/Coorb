@@ -17,7 +17,7 @@ const CheckboxField: FC<IGenericFieldProps> = (props) => {
     setFieldTouched,
   }: FormikContextType<{ [key: string]: any }> = useFormikContext();
 
-  const { name, required, readOnly } = props;
+  const { name, required, readOnly, lbl } = props;
 
   return (
     <Field name={name}>
@@ -45,14 +45,14 @@ const CheckboxField: FC<IGenericFieldProps> = (props) => {
                   disabled={Boolean(readOnly)}
                 />
               }
-              label={`${t(name)} ${required ? "*" : ""}`}
+              label={`${t(lbl)} ${required ? "*" : ""}`}
             />
 
             <FormHelperText>
               {meta.touched && meta.error ? meta.error : undefined}
             </FormHelperText>
           </FormControl>
-          <FieldHelper desc={t(name + "_desc")} />
+          <FieldHelper desc={t(lbl + "_desc")} />
         </div>
       )}
     </Field>

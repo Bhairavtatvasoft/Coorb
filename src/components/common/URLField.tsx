@@ -6,15 +6,15 @@ import { useField } from "formik";
 
 const URLField: FC<IGenericFieldProps> = (props) => {
   const { t } = useTranslation();
-  const { name } = props;
+  const { name, lbl } = props;
   const [field] = useField(name);
 
   return (
     <div className="fieldWrapper">
       <a href={field.value} target="_blank">
-        {t(name)}
+        {t(lbl ? lbl : name)}
       </a>
-      <FieldHelper desc={t(name + "_desc")} />
+      <FieldHelper desc={t(lbl + "_desc")} />
     </div>
   );
 };

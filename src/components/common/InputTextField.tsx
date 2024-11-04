@@ -8,6 +8,7 @@ import FieldHelper from "./FieldHelper";
 const InputTextField: FC<IGenericFieldProps> = (props) => {
   const { t } = useTranslation();
   const {
+    lbl,
     name,
     fieldType = "text",
     placeholder,
@@ -51,7 +52,7 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
           <TextField
             size="small"
             id={`textfield-${name}`}
-            label={`${t(name)} ${required ? "*" : ""}`}
+            label={`${t(lbl ? lbl : name)} ${required ? "*" : ""}`}
             variant="outlined"
             type={fieldType}
             placeholder={placeholder}
@@ -76,7 +77,7 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
             disabled={Boolean(readOnly)}
             autoComplete="off"
           />
-          <FieldHelper desc={t(name + "_desc")} />
+          <FieldHelper desc={t(lbl + "_desc")} />
         </div>
       )}
     </Field>

@@ -1,9 +1,10 @@
-
 export interface Status {
   id: string;
   i18nName: string;
   startingTask: boolean;
   endingTask: boolean;
+  value?: string | number;
+  label?: string | number;
 }
 
 export interface Variable {
@@ -29,11 +30,11 @@ export interface Variable {
 export interface PendingTaskResponse {
   taskInstanceId: string;
   workflowInstanceId: string;
-  addedOn: string; 
+  addedOn: string;
   addedBy: string;
-  savedOn: string; 
+  savedOn: string;
   savedBy: string;
-  committedOn: string; 
+  committedOn: string;
   committedBy: string;
   statusInId: string;
   statusOutId: string;
@@ -41,7 +42,7 @@ export interface PendingTaskResponse {
   nextTenantId: string;
   nextTaskTypeId: string;
   taskTypeId: string;
-  data: number[]; 
+  data: number[];
   note: string;
   selectedTaskStatus: Status;
   businessErrorMessage: string;
@@ -54,7 +55,7 @@ export interface PendingTaskResponse {
   tenantI18Name: string;
   statusInDesc: string;
   loadedByOwner: boolean;
- // tokenId: number; 
+  // tokenId: number;
 }
 
 export interface Workflow {

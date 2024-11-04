@@ -1,8 +1,5 @@
-import {
-  SelectedTaskStatus,
-  Status,
-  Variable,
-} from "../workflow/WorkflowModel";
+import { IObject } from "../commonModel";
+import { Status, Variable } from "../workflow/WorkflowModel";
 
 export interface IDownloadFile {
   taskInstanceId: string;
@@ -11,7 +8,7 @@ export interface IDownloadFile {
   variableTypeTokenId: string;
 }
 
-export interface ILoadRes {
+export interface ITaskDetail {
   taskInstanceId: string;
   workflowInstanceId: string;
   addedOn: string;
@@ -28,9 +25,11 @@ export interface ILoadRes {
   taskTypeId: string;
   data: number[];
   note: string;
-  selectedTaskStatus: SelectedTaskStatus;
+  selectedTaskStatus: Status;
   businessErrorMessage: string;
   statuses: { [key: string]: Status };
   variables: { [key: string]: Variable };
   variablesByName: { [key: string]: string };
+
+  formField?: IObject;
 }

@@ -14,7 +14,7 @@ const DatePickerField: FC<IGenericFieldProps> = (props) => {
   const { setFieldValue, setFieldTouched }: FormikContextType<IObject> =
     useFormikContext();
 
-  const { name, required, readOnly } = props;
+  const { name, required, readOnly, lbl } = props;
   return (
     <Field name={name}>
       {({ field, meta }: FieldProps) => {
@@ -31,7 +31,7 @@ const DatePickerField: FC<IGenericFieldProps> = (props) => {
                     size="small"
                     variant="outlined"
                     fullWidth
-                    label={`${t(name)} ${required ? "*" : ""}`}
+                    label={`${t(lbl)} ${required ? "*" : ""}`}
                     error={Boolean(meta.touched && meta.error)}
                     helperText={
                       meta.touched && meta.error ? meta.error : undefined
@@ -66,9 +66,12 @@ const DatePickerField: FC<IGenericFieldProps> = (props) => {
                 dateFormat={"dd/MM/YYYY"}
                 showPopperArrow={false}
                 disabledKeyboardNavigation
+                onBlur={() => {
+                  setFieldTouched(name, true, true);
+                }}
               />
             </div>
-            <FieldHelper desc={t(name + "_desc")} />
+            <FieldHelper desc={t(lbl + "_desc")} />
           </div>
         );
       }}

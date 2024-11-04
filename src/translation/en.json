@@ -50,5 +50,7 @@
   "noData": "No data available",
   "next": "Next",
   "back": "Back",
-  "releaseTask": "Release Task"
+  "releaseTask": "Release Task",
+  "isRequired": "is required",
+  "successSave": "Record saved successfully."
 }

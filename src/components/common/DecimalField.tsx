@@ -12,6 +12,7 @@ interface IDecimalFieldProps extends IGenericFieldProps {
 
 const DecimalField: FC<IDecimalFieldProps> = ({
   name,
+  lbl,
   placeholder,
   required,
   readOnly,
@@ -70,7 +71,7 @@ const DecimalField: FC<IDecimalFieldProps> = ({
           <TextField
             size="small"
             id={`decimalField-${name}`}
-            label={`${t(name)} ${required ? "*" : ""}`}
+            label={`${t(lbl)} ${required ? "*" : ""}`}
             variant="outlined"
             type="text"
             placeholder={placeholder}
@@ -85,7 +86,7 @@ const DecimalField: FC<IDecimalFieldProps> = ({
             disabled={Boolean(readOnly)}
             autoComplete="off"
           />
-          <FieldHelper desc={t(name + "_desc")} />
+          <FieldHelper desc={t(lbl + "_desc")} />
         </div>
       )}
     </Field>
