@@ -45,8 +45,7 @@ const WorkflowFormPage = () => {
     });
     validationSchema.current = yup.object().shape(newValidationSchema);
     setInitialValues(newInitVal);
-    if (taskInstanceId && tokenId)
-      getTaskDetail(taskInstanceId, Number(tokenId));
+    if (taskInstanceId && tokenId) getTaskDetail(taskInstanceId, tokenId);
   }, []);
 
   const groupedVariables = Object.values(variables).reduce(
@@ -59,7 +58,7 @@ const WorkflowFormPage = () => {
     {}
   );
 
-  const getTaskDetail = (taskInstanceId: string, tokenId: number) => {
+  const getTaskDetail = (taskInstanceId: string, tokenId: string) => {
     taskService.load(taskInstanceId, tokenId).then((res) => {
       if (res?.data) setInitialValues(res.data);
     });

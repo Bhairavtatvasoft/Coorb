@@ -26,10 +26,12 @@ const StartableWorkflows = () => {
     setWorkflows(data);
   };
 
-  const handleWorkflowClick = async (id: string, tokenId: number) => {
+  const handleWorkflowClick = async (id: string, tokenId: string) => {
     const response = await workflowService.instantiate(id, tokenId);
     if (response.status === 200) {
-      navigate(`/workflow-form/${response.data?.taskInstanceId}/${tokenId}`);
+      navigate(
+        `/workflow-form/${response.data?.taskInstanceId}/${response.data.taskInstanceTokenId}`
+      );
     }
   };
 
@@ -45,7 +47,9 @@ const StartableWorkflows = () => {
             <Card
               className="card"
               variant="outlined"
-              onClick={() => handleWorkflowClick(workflow.id, workflow.tokenId)}
+              onClick={() =>
+                handleWorkflowClick(workflow.id, workflow.tokenId?.toString())
+              }
             >
               <CardContent>
                 <Typography variant="h6" className="cardTitle">

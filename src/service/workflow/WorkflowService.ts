@@ -7,7 +7,7 @@ class WorkflowService {
 
   getpendingWorkflows = async () => {
     return await apiRequest.get(`tasks/pending`);
-  }
+  };
 
   releaseTask = async (taskInstanceId: string, tokenId: number) => {
     return apiRequest.post(`task/release`, {
@@ -16,14 +16,17 @@ class WorkflowService {
     });
   };
 
-  instantiate = async (workflowTypeToken:string,workflowTypeTokenId:number) =>{
-    return apiRequest.post(`workflow/instantiate`,{
+  instantiate = async (
+    workflowTypeToken: string,
+    workflowTypeTokenId: string
+  ) => {
+    return apiRequest.post(`workflow/instantiate`, {
       workflowTypeToken,
-      workflowTypeTokenId
-    })
-  }
+      workflowTypeTokenId,
+    });
+  };
 
-  startWorkflow=async (id: string, tokenId: number) => {
+  startWorkflow = async (id: string, tokenId: number) => {
     return apiRequest.post(`workflow/start/${id}`, {
       tokenId,
     });
