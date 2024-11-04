@@ -8,7 +8,7 @@ import {
 import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { ViewFileDetail } from "./FileUploadField";
-import { fileService } from "../../../service/file/fileService";
+import { fileService } from "../../../service/file/FileService";
 
 type Props = {
   handleClose: () => void;
