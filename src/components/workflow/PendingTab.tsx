@@ -260,7 +260,7 @@ const PendingTab = () => {
                             handleRelease(row.taskInstanceId, row.variables[0].tokenId)
                           }
                         >
-                          Release Task
+                          {t("releaseTask")}
                         </Button>
                       )}
                     </TableCell>

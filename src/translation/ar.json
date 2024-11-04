@@ -41,12 +41,14 @@
   "cancel": "إلغاء",
   "noOptionsAvailable": "لا توجد خيارات متاحة",
   "close": "اغلاق",
-  "saveandclose": "حفظ واغلاق",
-  "description": "وصف",
+  "saveAndClose": "حفظ واغلاق",
   "note": "ملاحظة",
-  "addviewNote": "اضافة / عرض ملاحظة",
+  "addViewNote": "اضافة / عرض ملاحظة",
   "Loan Request": "طلب تمويل",
   "Loan Request_FLOW_DESCRIPTION": "نص مترجم لطلب وصف تدفق تمويل",
   "noData": "لا يوجد بيانات متاحة",
-  "status": "حالة"
+  "status": "حالة",
+  "next": "التالي",
+  "back": "رجوع",
+  "releaseTask": "تحرير المهمة"
 }

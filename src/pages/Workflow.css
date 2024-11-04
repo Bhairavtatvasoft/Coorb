@@ -20,19 +20,10 @@
   border-color: rgba(0, 0, 0, 0.12);
 }
 
-.workflowTabs .MuiTabs-indicator {
-  height: 6px;
-  background-color: var(--secondaryBackground);
-}
-
-.workflowTab.Mui-selected {
-  color: var(--secondaryBackground) !important;
-  font-weight: bold;
-}
-
 .workflowDetailWrapper {
   .workflowBtnWrapper {
-    padding: 10px;
+    padding: 10px 15px;
+    margin-right: 24px;
     position: fixed;
     bottom: 15px;
     width: -webkit-fill-available;

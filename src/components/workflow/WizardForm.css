@@ -22,8 +22,17 @@
   text-align: right;
 }
 
+.wizardBtn{
+  z-index: 9;
+}
+
+.btnRotate {
+  rotate: 180deg;
+  transform: 0.3s ease;
+}
+
 @media (max-width: 600px) {
   .formContainer {
-    max-height: calc(75vh - 160px) ;
+    max-height: calc(75vh - 160px);
   }
 }
