@@ -19,7 +19,7 @@ import { useParams } from "react-router";
 const WorkflowFormPage = () => {
   const { t } = useTranslation();
   const validationSchema = useRef<ObjectSchema<IObject> | null>(null);
-  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [showNoteModal, setShowNoteModal] = useState<boolean>(false);
   const [initValues, setInitialValues] = useState<IObject>({});
   const { taskInstanceId, tokenId } = useParams();
 
@@ -92,15 +92,10 @@ const WorkflowFormPage = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => setModalOpen(true)}
+                  onClick={() => setShowNoteModal(true)}
                 >
                   {t("addviewNote")}
                 </Button>
-                <NoteModal
-                  open={isModalOpen}
-                  description={"This is read only field"}
-                  onClose={() => setModalOpen(false)}
-                />
               </Paper>
               <Paper className="workflowBtnWrapper">
                 <Grid2 container spacing={1}>
@@ -143,6 +138,13 @@ const WorkflowFormPage = () => {
                   </Grid2>
                 </Grid2>
               </Paper>
+              {showNoteModal && (
+                <NoteModal
+                  open={showNoteModal}
+                  description={"This is read only field"}
+                  onClose={() => setShowNoteModal(false)}
+                />
+              )}
             </form>
           );
         }}

@@ -35,6 +35,10 @@ body[dir="rtl"] {
   opacity: 0.7;
 }
 
+.MuiTabs-root {
+  border-bottom: 1px solid var(--borderColor);
+}
+
 /* React Date Picker Start */
 .react-datepicker-wrapper {
   width: 100%;
