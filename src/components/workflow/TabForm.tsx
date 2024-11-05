@@ -26,15 +26,17 @@ const TabsComponent = ({ groupedVariables }: TabFormProps) => {
       </Box>
 
       <Grid2 container spacing={3} className="tabContainer">
-        {groupedVariables[groupNames[tabIndex]].map((variable, idx) => (
-          <Grid2
-            size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
-            key={`tab-field-${idx}`}
-            className="responsiveGrid"
-          >
-            <WorkflowFormField {...variable} />
-          </Grid2>
-        ))}
+        {groupedVariables &&
+          groupedVariables[groupNames] &&
+          groupedVariables[groupNames[tabIndex]].map((variable, idx) => (
+            <Grid2
+              size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+              key={`tab-field-${idx}`}
+              className="responsiveGrid"
+            >
+              <WorkflowFormField {...variable} />
+            </Grid2>
+          ))}
       </Grid2>
     </>
   );

@@ -1,22 +1,25 @@
 import { Button } from "@mui/material";
-import { Field, FieldProps, useFormikContext } from "formik";
+import { Field, FieldProps, FormikContextType, useFormikContext } from "formik";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { IGenericFieldProps } from "../../../service/commonModel";
+import { IGenericFieldProps, IObject } from "../../../service/commonModel";
 import FieldHelper from "../FieldHelper";
 import { UploadFile, Visibility } from "@mui/icons-material";
 import ViewUploadedFile from "./ViewUploadedFileModal";
+import { fileService } from "../../../service/file/FileService";
 
 export type ViewFileDetail = {
   show: boolean;
   file: any;
 };
 
-const FileUploadField: FC<IGenericFieldProps> = (props) => {
+const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
+  props
+) => {
   const { t } = useTranslation();
-  const { name, required, readOnly, lbl } = props;
-
-  const { setFieldValue, setFieldTouched } = useFormikContext();
+  const { name, required, readOnly, lbl, isServerUpload = false } = props;
+  const { setFieldValue, setFieldTouched, values }: FormikContextType<IObject> =
+    useFormikContext();
 
   const [viewFileDetail, setViewFileDetail] = useState<ViewFileDetail>({
     file: null,
@@ -27,6 +30,35 @@ const FileUploadField: FC<IGenericFieldProps> = (props) => {
     const file = event.currentTarget.files?.[0];
     if (file) {
       setFieldValue(name, file, true);
+      if (isServerUpload) {
+        const reader = new FileReader();
+
+        reader.onload = function (e: ProgressEvent<FileReader>) {
+          const arrayBuffer = e.target?.result;
+
+          if (arrayBuffer instanceof ArrayBuffer) {
+            const byteArray = new Uint8Array(arrayBuffer);
+            fileService
+              .upload(
+                {
+                  fileName: file.name,
+                  flowInstanceId: 0,
+                  flowInstanceTokenId: 0,
+                  taskInstanceId: values.taskInstanceId,
+                  taskInstanceTokenId: values.taskInstanceTokenId,
+                  variableTypeId: Number(props.id),
+                  variableTypeTokenId: Number(props.tokenId),
+                },
+                byteArray
+              )
+              .then((res) => {
+                console.log("------rajlog---res", res);
+              });
+          }
+        };
+
+        reader.readAsArrayBuffer(file);
+      }
     }
   };
   return (

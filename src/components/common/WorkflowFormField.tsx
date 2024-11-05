@@ -52,7 +52,7 @@ const WorkflowFormField: FC<any> = (props) => {
       return <TimePickerField {...transferredProps} />;
 
     case JDBC_TYPE.UploadDocument:
-      return <FileUploadField {...transferredProps} />;
+      return <FileUploadField {...transferredProps} isServerUpload />;
 
     case JDBC_TYPE.DecimalInput:
       return <DecimalField {...transferredProps} />;
