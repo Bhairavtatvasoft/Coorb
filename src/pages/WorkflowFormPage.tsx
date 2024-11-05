@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import { useLayoutEffect, useRef, useState } from "react";
 import { IObject, ISelectOpt } from "../service/commonModel";
-import { FORM_TYPE, JDBC_TYPE, yup } from "../utils/constant";
+import { CONST_WORDS, FORM_TYPE, JDBC_TYPE, yup } from "../utils/constant";
 import { Button, Grid2, Paper } from "@mui/material";
 import { ObjectSchema } from "yup";
 import { useTranslation } from "react-i18next";
@@ -24,6 +24,13 @@ const WorkflowFormPage = () => {
   const { t } = useTranslation();
   const { taskInstanceId, taskInstanceTokeId } = useParams();
 
+  const taskSessionKey =
+    taskInstanceId +
+    "_" +
+    taskInstanceTokeId +
+    "_" +
+    CONST_WORDS.sessionTaskDetail;
+
   const validationSchema = useRef<ObjectSchema<IObject> | null>(null);
 
   const [showNoteModal, setShowNoteModal] = useState<boolean>(false);
@@ -43,80 +50,93 @@ const WorkflowFormPage = () => {
     taskInstanceId: string,
     taskInstanceTokeId: string
   ) => {
-    taskService.load(taskInstanceId, taskInstanceTokeId).then((res) => {
-      if (res?.data) {
-        const newInitVal: Record<string, any> = {};
-        const newValidationSchema: Record<string, any> = {};
-        Object.values(res.data.variables).forEach((variable) => {
-          if (variable.required && !variable.hidden) {
-            newValidationSchema[variable.i18nName] = yup
-              .mixed()
-              .required(t(variable.i18nName) + " " + t("isRequired"));
-          }
-
-          if (variable.jdbcType === JDBC_TYPE.Checkbox) {
-            newInitVal[variable.i18nName] =
-              variable.numericValue?.toString() === "1" ? true : false;
-          } else {
-            newInitVal[variable.i18nName] = variable.textValue;
-          }
-        });
-
-        const newGrpVariables = Object.values(res.data.variables).reduce(
-          (acc: Record<string, Variable[]>, variable: Variable) => {
-            const group = variable.i18nGroupName;
-            acc[group] = acc[group] || [];
-            acc[group].push(variable);
-            return acc;
-          },
-          {}
-        );
-        setGroupedVariables(newGrpVariables);
-
-        validationSchema.current = yup.object().shape({
-          formField: yup.object().shape(newValidationSchema),
-        });
-        const newInitialValues = {
-          ...res.data,
-          formField: newInitVal,
-          taskInstanceId: taskInstanceId,
-          taskInstanceTokeId: taskInstanceTokeId,
-        };
-
-        const statuses = res.data.statuses;
-        if (statuses) {
-          setCommitStatus(
-            Object.keys(statuses).map((x) => ({
-              ...statuses[x],
-              value: statuses[x].id,
-              label: t(statuses[x].i18nName),
-            }))
-          );
+    const existingTaskDetail = localStorage.getItem(taskSessionKey);
+    if (existingTaskDetail) {
+      setupInitialValues(JSON.parse(existingTaskDetail) as ITaskDetail);
+    } else {
+      taskService.load(taskInstanceId, taskInstanceTokeId).then((res) => {
+        if (res?.data) {
+          localStorage.setItem(taskSessionKey, JSON.stringify(res.data));
+          setupInitialValues(res.data);
         }
+      });
+    }
+  };
 
-        if (res.data.selectedTaskStatus.i18nName) {
-          newInitialValues["selectedTaskStatus"] = {
-            ...res.data.selectedTaskStatus,
-            value: res.data.selectedTaskStatus.id,
-            label: t(res.data.selectedTaskStatus.i18nName),
-          };
-        } else if (Object.keys(statuses)?.length === 1) {
-          const val = Object.values(statuses)[0];
-          newInitialValues["selectedTaskStatus"] = {
-            ...val,
-            value: val.id,
-            label: t(val.i18nName),
-          };
-        }
+  const setupInitialValues = (data: ITaskDetail) => {
+    const newInitVal: Record<string, any> = {};
+    const newValidationSchema: Record<string, any> = {};
+    Object.values(data.variables).forEach((variable) => {
+      if (variable.required && !variable.hidden) {
+        newValidationSchema[variable.i18nName] = yup
+          .mixed()
+          .required(t(variable.i18nName) + " " + t("isRequired"));
+      }
 
-        setInitialValues(newInitialValues);
+      if (variable.jdbcType === JDBC_TYPE.Checkbox) {
+        newInitVal[variable.i18nName] =
+          variable.numericValue?.toString() === "1" ? true : false;
+      } else {
+        newInitVal[variable.i18nName] = variable.textValue;
       }
     });
+
+    const newGrpVariables = Object.values(data.variables).reduce(
+      (acc: Record<string, Variable[]>, variable: Variable) => {
+        const group = variable.i18nGroupName;
+        acc[group] = acc[group] || [];
+        acc[group].push(variable);
+        return acc;
+      },
+      {}
+    );
+    setGroupedVariables(newGrpVariables);
+
+    validationSchema.current = yup.object().shape({
+      formField: yup.object().shape(newValidationSchema),
+    });
+    const newInitialValues = {
+      ...data,
+      formField: newInitVal,
+      taskInstanceId: taskInstanceId,
+      taskInstanceTokeId: taskInstanceTokeId,
+    };
+
+    const statuses = data.statuses;
+    if (statuses) {
+      setCommitStatus(
+        Object.keys(statuses).map((x) => ({
+          ...statuses[x],
+          value: statuses[x].id,
+          label: t(statuses[x].i18nName),
+        }))
+      );
+    }
+
+    if (data.selectedTaskStatus.i18nName) {
+      newInitialValues["selectedTaskStatus"] = {
+        ...data.selectedTaskStatus,
+        value: data.selectedTaskStatus.id,
+        label: t(data.selectedTaskStatus.i18nName),
+      };
+    } else if (Object.keys(statuses)?.length === 1) {
+      const val = Object.values(statuses)[0];
+      newInitialValues["selectedTaskStatus"] = {
+        ...val,
+        value: val.id,
+        label: t(val.i18nName),
+      };
+    }
+
+    setInitialValues(newInitialValues);
   };
 
   const handleCancel = () => {
     taskService.release(taskInstanceId!, taskInstanceTokeId!).then((res) => {
-      if (res) navigate(`pending`);
+      if (res) {
+        navigate(`pending`);
+        localStorage.removeItem(taskSessionKey);
+      }
     });
   };
 
@@ -126,6 +146,7 @@ const WorkflowFormPage = () => {
     taskService.commit(payload).then((res) => {
       if (res) {
         successToast(t("commitSave"));
+        localStorage.removeItem(taskSessionKey);
         navigate(`pending`);
       }
     });
@@ -136,6 +157,7 @@ const WorkflowFormPage = () => {
     transferObject(values);
     taskService.save(payload).then((res) => {
       if (res) {
+        localStorage.removeItem(taskSessionKey);
         successToast(t("successSave"));
         navigate(`pending`);
       }

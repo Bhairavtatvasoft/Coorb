@@ -251,3 +251,7 @@ export const FORM_TYPE = {
   TAB: "Tab",
   WIZARD: "Wizard",
 };
+
+export const CONST_WORDS = {
+  sessionTaskDetail: "CME_TASK_DETAIL",
+};
