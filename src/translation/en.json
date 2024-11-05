@@ -54,5 +54,6 @@
   "isRequired": "is required",
   "successSave": "Record saved successfully.",
   "commitSave": "Record committed successfully.",
-  "commonValidationMsg": "Please fill the proper data first"
+  "commonValidationMsg": "Please fill the proper data first",
+  "plzNoteFollowing": "Please note the following"
 }

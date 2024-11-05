@@ -177,7 +177,7 @@ const WorkflowFormPage = () => {
         onSubmit={() => {}}
         enableReinitialize
       >
-        {({ values }) => {
+        {({ values, setFieldValue }) => {
           return (
             <form className="workflowDetailWrapper">
               <Paper className="workflowForm" sx={{ m: 3, boxShadow: "none" }}>
@@ -252,7 +252,8 @@ const WorkflowFormPage = () => {
               {showNoteModal && (
                 <NoteModal
                   open={showNoteModal}
-                  description={"This is read only field"}
+                  noteVal={values.note}
+                  handleNoteChange={(val) => setFieldValue("note", val)}
                   onClose={() => setShowNoteModal(false)}
                 />
               )}

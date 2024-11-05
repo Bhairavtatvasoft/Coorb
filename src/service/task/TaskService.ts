@@ -456,7 +456,10 @@ class TaskService {
     });
   };
 
-  buttonClick = async (payload: ITaskDetail) => {
+  buttonClick = async (payload: {
+    task: ITaskDetail;
+    buttonVarialeId: string;
+  }) => {
     return apiRequest.post(`task/click`, {
       payload,
     });

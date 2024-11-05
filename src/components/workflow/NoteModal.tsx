@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Dialog,
   DialogActions,
@@ -7,30 +6,36 @@ import {
   Grid2,
   TextField,
 } from "@mui/material";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 interface NoteModalProps {
   open: boolean;
   onClose: () => void;
-  description:string;
+  noteVal: string;
+  handleNoteChange: (val: string) => void;
 }
 
 const NoteModal: React.FC<NoteModalProps> = ({
   open,
   onClose,
-  description,
+  noteVal,
+  handleNoteChange,
 }) => {
-  const [editableText, setEditableText] = useState<string>("");
   const { t } = useTranslation();
 
+  const [noteText, setNoteText] = useState(noteVal);
+
   const handleSaveAndClose = () => {
+    handleNoteChange(noteText);
     onClose();
   };
+
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogContent>
         <Grid2 container spacing={2}>
-          <Grid2 size={{ xs: 12 }}>
+          {/* <Grid2 size={{ xs: 12 }}>
             <TextField
               label={t("description")}
               defaultValue={description}
@@ -44,12 +49,13 @@ const NoteModal: React.FC<NoteModalProps> = ({
               minRows={2}
               maxRows={6}
             />
-          </Grid2>
+          </Grid2> */}
           <Grid2 size={{ xs: 12 }}>
+            <label>{t("plzNoteFollowing")}...</label>
             <TextField
-              label={t("note")}
-              value={editableText}
-              onChange={(e) => setEditableText(e.target.value)}
+              value={noteText}
+              onChange={(e) => setNoteText(e.target.value)}
+              onBlur={(e) => setNoteText(e.target.value?.trim())}
               fullWidth
               minRows={2}
               maxRows={6}

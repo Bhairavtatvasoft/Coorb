@@ -23,7 +23,7 @@ const WorkflowFormField: FC<any> = (props) => {
   };
   switch (Number(jdbcType)) {
     case JDBC_TYPE.Button:
-      return <ButtonField {...transferredProps} />;
+      return <ButtonField {...transferredProps} isServerClick />;
 
     case JDBC_TYPE.IntegerInput:
       if (transferredProps.comboListName)
