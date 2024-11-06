@@ -10,7 +10,7 @@
 .addNoteBtnWrapper {
   display: flex;
   justify-content: flex-end;
-  margin-left: 20%;
+
   & > div {
     display: flex;
     justify-content: end;
