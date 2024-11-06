@@ -20,6 +20,7 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { TFunction } from "i18next";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const transferObjectForTaskSave = (
   data: IObject,
   t: TFunction<"translation", undefined>
@@ -51,12 +52,12 @@ export const transferObjectForTaskSave = (
 const WorkflowFormPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { taskInstanceId, taskInstanceTokeId } = useParams();
+  const { taskInstanceId, taskInstanceTokenId } = useParams();
 
   const taskSessionKey =
     taskInstanceId +
     "_" +
-    taskInstanceTokeId +
+    taskInstanceTokenId +
     "_" +
     CONST_WORDS.sessionTaskDetail;
 
@@ -73,21 +74,21 @@ const WorkflowFormPage = () => {
 
   useLayoutEffect(() => {
     validationSchema.current = yup.object().shape({});
-    if (taskInstanceId && taskInstanceTokeId) {
-      getTaskDetail(taskInstanceId, taskInstanceTokeId);
+    if (taskInstanceId && taskInstanceTokenId) {
+      getTaskDetail(taskInstanceId, taskInstanceTokenId);
     }
   }, []);
 
   const getTaskDetail = (
     taskInstanceId: string,
-    taskInstanceTokeId: string
+    taskInstanceTokenId: string
   ) => {
     const existingTaskDetail = localStorage.getItem(taskSessionKey);
     if (existingTaskDetail) {
       setupInitialValues(JSON.parse(existingTaskDetail) as ITaskDetail);
     } else if (!requestInitiated.current) {
       requestInitiated.current = true;
-      taskService.load(taskInstanceId, taskInstanceTokeId).then((res) => {
+      taskService.load(taskInstanceId, taskInstanceTokenId).then((res) => {
         if (res?.data) {
           localStorage.setItem(taskSessionKey, JSON.stringify(res.data));
           setupInitialValues(res.data);
@@ -138,7 +139,7 @@ const WorkflowFormPage = () => {
       ...data,
       formField: newInitVal,
       taskInstanceId: taskInstanceId,
-      taskInstanceTokeId: taskInstanceTokeId,
+      taskInstanceTokenId: taskInstanceTokenId,
     };
 
     const statuses = data.statuses;
@@ -171,7 +172,7 @@ const WorkflowFormPage = () => {
   };
 
   const handleCancel = () => {
-    taskService.release(taskInstanceId!, taskInstanceTokeId!).then((res) => {
+    taskService.release(taskInstanceId!, taskInstanceTokenId!).then((res) => {
       if (res) {
         navigate("/", { state: { tab: 1 } });
         localStorage.removeItem(taskSessionKey);

@@ -56,5 +56,7 @@
   "commitSave": "Record committed successfully.",
   "commonValidationMsg": "Please fill the proper data first",
   "plzNoteFollowing": "Please note the following",
-  "notePlaceholder": "Write note"
+  "notePlaceholder": "Write note",
+  "canNotPreviewFile": "Cannot preview this file type",
+  "allowedFileExtensionError": "Only pdf, jpg, png, jpeg, gif files are allowed."
 }

@@ -36,7 +36,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Workflow />} />
                 <Route
-                  path="/workflow-form/:taskInstanceId?/:taskInstanceTokeId?"
+                  path="/workflow-form/:taskInstanceId?/:taskInstanceTokenId?"
                   element={<WorkflowFormPage />}
                 />
                 <Route path="*" element={<>Page Not Found</>} />

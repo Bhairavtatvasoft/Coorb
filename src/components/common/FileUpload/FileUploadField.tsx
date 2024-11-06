@@ -7,10 +7,13 @@ import FieldHelper from "../FieldHelper";
 import { UploadFile, Visibility } from "@mui/icons-material";
 import ViewUploadedFile from "./ViewUploadedFileModal";
 import { fileService } from "../../../service/file/FileService";
+import { ALLOWED_FILE_EXTENSION } from "../../../utils/constant";
+import { errorToast } from "../ToastMsg";
 
 export type ViewFileDetail = {
   show: boolean;
-  file: any;
+  fileData: string;
+  fileType: string;
 };
 
 const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
@@ -26,7 +29,8 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
   }: FormikContextType<IObject> = useFormikContext();
 
   const [viewFileDetail, setViewFileDetail] = useState<ViewFileDetail>({
-    file: null,
+    fileData: "",
+    fileType: "",
     show: false,
   });
 
@@ -34,49 +38,59 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
     const file = event.currentTarget.files?.[0];
 
     if (file) {
-      if (isServerUpload) {
-        const reader = new FileReader();
+      if (
+        ALLOWED_FILE_EXTENSION.includes(
+          file.name.split(".").at(-1)!.toLowerCase()
+        )
+      ) {
+        if (isServerUpload) {
+          if (file) {
+            const reader = new FileReader();
 
-        reader.onload = function (e: ProgressEvent<FileReader>) {
-          const arrayBuffer = e.target?.result;
-
-          if (arrayBuffer instanceof ArrayBuffer) {
-            const byteArray = new Uint8Array(arrayBuffer);
-            fileService
-              .upload(
-                {
-                  fileName: file.name,
-                  flowInstanceId: values.workflowInstanceId,
-                  flowInstanceTokenId: values.data[8],
-                  taskInstanceId: values.taskInstanceId,
-                  taskInstanceTokenId: values.taskInstanceTokeId,
-                  variableTypeId: Number(props.type),
-                  variableTypeTokenId: Number(props.tokenId),
-                },
-                byteArray
-              )
-              .then((res) => {
-                if (res?.data?.message) {
-                  const existingValues = JSON.parse(JSON.stringify(values));
-                  const varName = name?.split(".")?.at(-1) ?? name;
-                  Object.values(existingValues.variables).forEach(
-                    (x: any, index: number) => {
-                      if (x.i18nName === varName) {
-                        existingValues.variables[index + 1].textValue =
-                          res?.data?.message;
+            reader.onloadend = () => {
+              fileService
+                .upload(
+                  {
+                    fileName: file.name,
+                    flowInstanceId: values.workflowInstanceId,
+                    flowInstanceTokenId: values.data[8],
+                    taskInstanceId: values.taskInstanceId,
+                    taskInstanceTokenId: values.taskInstanceTokenId,
+                    variableTypeId: Number(props.type),
+                    variableTypeTokenId: Number(props.tokenId),
+                  },
+                  reader.result!.toString()
+                )
+                .then((res) => {
+                  if (res?.data?.message) {
+                    const existingValues = JSON.parse(JSON.stringify(values));
+                    const varName = name?.split(".")?.at(-1) ?? name;
+                    Object.values(existingValues.variables).forEach(
+                      (x: any, index: number) => {
+                        if (x.i18nName === varName) {
+                          existingValues.variables[index + 1].textValue =
+                            res?.data?.message;
+                        }
                       }
-                    }
-                  );
-                  setValues(existingValues);
-                  setFieldValue(name, res?.data?.message, true);
-                }
-              });
-          }
-        };
+                    );
+                    setValues(existingValues);
+                    setFieldValue(name, res?.data?.message, true);
+                    setViewFileDetail({
+                      fileData: "",
+                      fileType: "",
+                      show: false,
+                    });
+                  }
+                });
+            };
 
-        reader.readAsArrayBuffer(file);
+            reader.readAsDataURL(file);
+          }
+        } else {
+          setFieldValue(name, file, true);
+        }
       } else {
-        setFieldValue(name, file, true);
+        errorToast(t("allowedFileExtensionError"));
       }
     }
   };
@@ -86,12 +100,12 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
         {({ meta, field }: FieldProps) => (
           <div className="fieldWrapper">
             <input
-              accept="*"
               id={`upload-button-${name}`}
               type="file"
               className="dNone"
               onChange={handleFileChange}
               disabled={Boolean(readOnly)}
+              accept=".pdf,.jpeg,.jpg,.png,.gif"
             />
             <div>
               <label
@@ -137,13 +151,13 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
           handleClose={() =>
             setViewFileDetail({ ...viewFileDetail, show: false })
           }
-          setFileDetail={(file) => {
-            setViewFileDetail({ ...viewFileDetail, file });
+          setFileDetail={(fileData, fileType) => {
+            setViewFileDetail({ ...viewFileDetail, fileData, fileType });
           }}
           viewFileDetail={viewFileDetail}
-          taskInstanceId={props.instanceId!}
-          taskInstanceTokenId={props.instanceId!}
-          variableTypeId={props.id!}
+          taskInstanceId={values.taskInstanceId}
+          taskInstanceTokenId={values.taskInstanceTokenId}
+          variableTypeId={props.type!}
           variableTypeTokenId={props.tokenId!}
         />
       )}

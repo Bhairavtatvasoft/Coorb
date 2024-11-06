@@ -2,7 +2,7 @@ import { apiRequest } from "../interceptor";
 import { IUploadFile, IDownloadFile } from "./FileModel";
 
 class FileService {
-  upload = async (payload: IUploadFile, byteArr: Uint8Array) => {
+  upload = async (payload: IUploadFile, byteArr: string) => {
     let url = `task/file/upload`;
     Object.keys(payload).forEach((key, i) => {
       const value = payload[key as keyof typeof payload];

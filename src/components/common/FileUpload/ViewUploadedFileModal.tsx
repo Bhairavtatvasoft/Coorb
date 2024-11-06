@@ -15,9 +15,9 @@ type Props = {
   viewFileDetail: ViewFileDetail;
   taskInstanceId: string;
   taskInstanceTokenId: string;
-  variableTypeId: string;
+  variableTypeId: number;
   variableTypeTokenId: string;
-  setFileDetail: (file: string) => void;
+  setFileDetail: (file: string, fileType: string) => void;
 };
 
 const ViewUploadedFile: FC<Props> = (props) => {
@@ -33,10 +33,17 @@ const ViewUploadedFile: FC<Props> = (props) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (!viewFileDetail.file) getFileDetails();
+    if (!viewFileDetail.fileData) getFileDetails();
   }, []);
 
-  const getFileDetails = () => {
+  const getFileType = (base64Data: string) => {
+    if (/^data:application\/pdf/.test(base64Data)) return "pdf";
+    if (/^data:text\/plain/.test(base64Data)) return "text";
+    if (/^data:image\/(jpeg|png|gif)/.test(base64Data)) return "image";
+    return "unknown";
+  };
+
+  const getFileDetails = async () => {
     fileService
       .download({
         taskInstanceId,
@@ -46,19 +53,40 @@ const ViewUploadedFile: FC<Props> = (props) => {
       })
       .then((res) => {
         if (res?.data) {
-          setFileDetail(res.data);
-          console.log("------rajlog---res", res);
+          setFileDetail(res.data, getFileType(res.data));
         }
       })
       .catch(() => {
-        setFileDetail("");
+        setFileDetail("", "");
       });
   };
 
   return (
     <Dialog onClose={handleClose} open={true} maxWidth="md" fullWidth>
       <DialogTitle>{t("viewFile")}</DialogTitle>
-      <DialogContent></DialogContent>
+      <DialogContent>
+        {(viewFileDetail.fileType === "pdf" ||
+          viewFileDetail.fileType === "txt") && (
+          <iframe
+            src={viewFileDetail.fileData}
+            width="100%"
+            height="100%"
+            style={{ border: "none" }}
+          />
+        )}
+
+        {viewFileDetail.fileType === "image" && (
+          <img
+            src={viewFileDetail.fileData}
+            alt="Preview"
+            style={{ maxWidth: "100%" }}
+          />
+        )}
+
+        {viewFileDetail.fileType === "unknown" && (
+          <p>{t("canNotPreviewFile")}</p>
+        )}
+      </DialogContent>
       <DialogActions>
         <Button type="button" onClick={handleClose} variant="contained">
           {t("close")}

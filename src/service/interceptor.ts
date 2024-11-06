@@ -46,8 +46,17 @@ axiosInstance.interceptors.response.use(
 
 class ApiRequest {
   get = async (url: string, queryParams?: any) => {
-    updateRequestArr(url);
-    return await axiosInstance.get(url, { params: queryParams });
+    let newUrl = url;
+    if (queryParams)
+      Object.keys(queryParams).forEach((key, i) => {
+        const value = queryParams[key as keyof typeof queryParams];
+        const encodedValue = encodeURIComponent(value as string);
+
+        newUrl +=
+          i === 0 ? `?${key}=${encodedValue}` : `&${key}=${encodedValue}`;
+      });
+    updateRequestArr(newUrl);
+    return await axiosInstance.get(newUrl);
   };
 
   post = async (url: string, data: any) => {
