@@ -456,9 +456,7 @@ class TaskService {
     task: ITaskDetail;
     buttonVarialeId: string;
   }) => {
-    return apiRequest.post(`task/click`, {
-      payload,
-    });
+    return apiRequest.post(`task/click`, payload);
   };
 }
 

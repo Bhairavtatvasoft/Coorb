@@ -1,4 +1,4 @@
-import { Formik } from "formik";
+import { Formik, FormikErrors, FormikTouched } from "formik";
 import { useLayoutEffect, useRef, useState } from "react";
 import { IObject, ISelectOpt } from "../service/commonModel";
 import { CONST_WORDS, FORM_TYPE, JDBC_TYPE, yup } from "../utils/constant";
@@ -67,10 +67,16 @@ const WorkflowFormPage = () => {
     const newInitVal: Record<string, any> = {};
     const newValidationSchema: Record<string, any> = {};
     Object.values(data.variables).forEach((variable) => {
-      if (variable.required && !variable.hidden) {
-        newValidationSchema[variable.i18nName] = yup
-          .mixed()
-          .required(t(variable.i18nName) + " " + t("isRequired"));
+      if (
+        ![JDBC_TYPE.Button, JDBC_TYPE.Label, JDBC_TYPE.URL].includes(
+          variable.jdbcType
+        )
+      ) {
+        if (variable.required && !variable.hidden) {
+          newValidationSchema[variable.i18nName] = yup
+            .mixed()
+            .required(t(variable.i18nName) + " " + t("isRequired"));
+        }
       }
 
       if (variable.jdbcType === JDBC_TYPE.Checkbox) {
@@ -191,6 +197,28 @@ const WorkflowFormPage = () => {
     return newData;
   };
 
+  const isFormValid = (
+    values: IObject,
+    validateForm: (values?: any) => Promise<FormikErrors<IObject>>,
+    setTouched: (
+      touched: FormikTouched<IObject>,
+      shouldValidate?: boolean
+    ) => Promise<void | FormikErrors<IObject>>,
+    callBack: any
+  ) => {
+    return validateForm(values).then((errors: IObject) => {
+      if (errors.formField) {
+        const touchedFields: IObject = { formField: {} };
+        Object.keys(errors.formField).forEach((field) => {
+          touchedFields.formField[field] = true;
+        });
+        setTouched(touchedFields);
+        errorToast(t("commonValidationMsg"));
+      } else {
+        callBack();
+      }
+    });
+  };
   return (
     <Grid2 className="workflowFormWrapper">
       <Formik
@@ -199,7 +227,7 @@ const WorkflowFormPage = () => {
         onSubmit={() => {}}
         enableReinitialize
       >
-        {({ values, setFieldValue }) => {
+        {({ values, setFieldValue, validateForm, setTouched }) => {
           return (
             <form className="workflowDetailWrapper">
               <Paper className="workflowForm">
@@ -234,7 +262,11 @@ const WorkflowFormPage = () => {
                       variant="contained"
                       type="button"
                       className="actionBtn"
-                      onClick={() => handleSaveTask(values)}
+                      onClick={() => {
+                        isFormValid(values, validateForm, setTouched, () =>
+                          handleSaveTask(values)
+                        );
+                      }}
                     >
                       {t("save")}
                     </Button>
@@ -254,7 +286,11 @@ const WorkflowFormPage = () => {
                       variant="contained"
                       type="button"
                       className="actionBtn"
-                      onClick={() => handleCommitTask(values)}
+                      onClick={() => {
+                        isFormValid(values, validateForm, setTouched, () =>
+                          handleCommitTask(values)
+                        );
+                      }}
                     >
                       {t("commit")}
                     </Button>

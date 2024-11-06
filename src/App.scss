@@ -39,6 +39,10 @@ body[dir="rtl"] {
   margin-right: 14px;
 }
 
+.errorBorderDashed {
+  border: 1px dashed var(--error) !important;
+}
+
 .Mui-disabled {
   opacity: 0.7;
 }

@@ -1,5 +1,11 @@
 import { TextField } from "@mui/material";
-import { Field, FieldProps, FormikContextType, useFormikContext } from "formik";
+import {
+  Field,
+  FieldProps,
+  FormikContextType,
+  useField,
+  useFormikContext,
+} from "formik";
 import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IGenericFieldProps } from "../../service/commonModel";
@@ -16,11 +22,11 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
     readOnly,
     valRegex,
   } = props;
+  const [field] = useField(name);
 
   const {
     setFieldValue,
     setFieldTouched,
-    values,
   }: FormikContextType<{ [key: string]: any }> = useFormikContext();
 
   const [val, setVal] = useState<string>("");
@@ -35,11 +41,11 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
   }, [val]);
 
   useEffect(() => {
-    setVal(values?.[name]);
-  }, [values?.[name]]);
+    setVal(field.value);
+  }, [field.value]);
 
   const handleSetFieldVal = (newVal = val) => {
-    if (values?.[name] !== val) setFieldTouched(name, true, true);
+    if (field.value !== val) setFieldTouched(name, true, true);
     setFieldValue(name, newVal, true);
   };
 

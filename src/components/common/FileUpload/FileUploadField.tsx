@@ -42,8 +42,8 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
               .upload(
                 {
                   fileName: file.name,
-                  flowInstanceId: 0,
-                  flowInstanceTokenId: 0,
+                  flowInstanceId: values.workflowInstanceId,
+                  flowInstanceTokenId: values.data[8],
                   taskInstanceId: values.taskInstanceId,
                   taskInstanceTokenId: values.taskInstanceTokenId,
                   variableTypeId: Number(props.id),
@@ -78,7 +78,7 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
               <label
                 className={`fileUploadLabel ${
                   readOnly === 1 ? "disabled" : ""
-                }`}
+                } ${meta.touched && meta.error ? "errorBorderDashed" : ""}`}
                 onClick={() => setFieldTouched(name, true, true)}
                 htmlFor={readOnly === 1 ? "" : `upload-button-${name}`}
               >
