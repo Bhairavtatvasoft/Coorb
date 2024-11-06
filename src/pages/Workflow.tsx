@@ -4,7 +4,7 @@ import StartableWorkflows from "../components/workflow/StartableWorkflows";
 import PendingTab from "../components/workflow/PendingTab";
 import { useTranslation } from "react-i18next";
 import "./Workflow.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 const Workflow = () => {
   const [value, setValue] = useState(0);
   const { t } = useTranslation();
@@ -12,10 +12,12 @@ const Workflow = () => {
     setValue(newValue);
   };
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.state) {
       setValue(location.state.tab as number);
+      navigate(".");
     }
   }, []);
 

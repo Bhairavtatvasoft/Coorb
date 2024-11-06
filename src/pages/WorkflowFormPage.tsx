@@ -140,7 +140,7 @@ const WorkflowFormPage = () => {
   const handleCancel = () => {
     taskService.release(taskInstanceId!, taskInstanceTokeId!).then((res) => {
       if (res) {
-        navigate(`pending`);
+        navigate("/", { state: { tab: 1 } });
         localStorage.removeItem(taskSessionKey);
       }
     });
