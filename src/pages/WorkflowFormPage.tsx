@@ -39,7 +39,7 @@ export const transferObjectForTaskSave = (
         newData.variables[i + 1].textValue = moment(
           data.formField[t(variable.i18nName)]
         ).format("HH:mm");
-      } else {
+      } else if (variable.jdbcType !== JDBC_TYPE.UploadDocument) {
         newData.variables[i + 1].textValue =
           data.formField[t(variable.i18nName)];
       }
@@ -73,9 +73,8 @@ const WorkflowFormPage = () => {
 
   useLayoutEffect(() => {
     validationSchema.current = yup.object().shape({});
-    if (taskInstanceId && taskInstanceTokeId && !requestInitiated.current) {
+    if (taskInstanceId && taskInstanceTokeId) {
       getTaskDetail(taskInstanceId, taskInstanceTokeId);
-      requestInitiated.current = true;
     }
   }, []);
 
@@ -86,7 +85,8 @@ const WorkflowFormPage = () => {
     const existingTaskDetail = localStorage.getItem(taskSessionKey);
     if (existingTaskDetail) {
       setupInitialValues(JSON.parse(existingTaskDetail) as ITaskDetail);
-    } else {
+    } else if (!requestInitiated.current) {
+      requestInitiated.current = true;
       taskService.load(taskInstanceId, taskInstanceTokeId).then((res) => {
         if (res?.data) {
           localStorage.setItem(taskSessionKey, JSON.stringify(res.data));

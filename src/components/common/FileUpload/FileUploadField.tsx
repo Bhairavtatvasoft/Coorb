@@ -18,8 +18,12 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
 ) => {
   const { t } = useTranslation();
   const { name, required, readOnly, lbl, isServerUpload = false } = props;
-  const { setFieldValue, setFieldTouched, values }: FormikContextType<IObject> =
-    useFormikContext();
+  const {
+    setFieldValue,
+    setFieldTouched,
+    values,
+    setValues,
+  }: FormikContextType<IObject> = useFormikContext();
 
   const [viewFileDetail, setViewFileDetail] = useState<ViewFileDetail>({
     file: null,
@@ -28,8 +32,8 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.currentTarget.files?.[0];
+
     if (file) {
-      setFieldValue(name, file, true);
       if (isServerUpload) {
         const reader = new FileReader();
 
@@ -45,19 +49,34 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
                   flowInstanceId: values.workflowInstanceId,
                   flowInstanceTokenId: values.data[8],
                   taskInstanceId: values.taskInstanceId,
-                  taskInstanceTokenId: values.taskInstanceTokenId,
-                  variableTypeId: Number(props.id),
+                  taskInstanceTokenId: values.taskInstanceTokeId,
+                  variableTypeId: Number(props.type),
                   variableTypeTokenId: Number(props.tokenId),
                 },
                 byteArray
               )
               .then((res) => {
-                console.log("------rajlog---res", res);
+                if (res?.data?.message) {
+                  const existingValues = JSON.parse(JSON.stringify(values));
+                  const varName = name?.split(".")?.at(-1) ?? name;
+                  Object.values(existingValues.variables).forEach(
+                    (x: any, index: number) => {
+                      if (x.i18nName === varName) {
+                        existingValues.variables[index + 1].textValue =
+                          res?.data?.message;
+                      }
+                    }
+                  );
+                  setValues(existingValues);
+                  setFieldValue(name, res?.data?.message, true);
+                }
               });
           }
         };
 
         reader.readAsArrayBuffer(file);
+      } else {
+        setFieldValue(name, file, true);
       }
     }
   };
