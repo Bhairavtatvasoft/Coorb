@@ -18,6 +18,35 @@ import { ITaskDetail } from "../service/task/TaskModel";
 import { errorToast, successToast } from "../components/common/ToastMsg";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { TFunction } from "i18next";
+
+export const transferObjectForTaskSave = (
+  data: IObject,
+  t: TFunction<"translation", undefined>
+) => {
+  const newData: ITaskDetail = JSON.parse(JSON.stringify(data));
+
+  Object.values(newData.variables).forEach((variable: Variable, i: number) => {
+    if (t(variable.i18nName) === t(variable.i18nName)) {
+      if (variable.jdbcType === JDBC_TYPE.Checkbox) {
+        newData.variables[i + 1].numericValue =
+          data.formField[t(variable.i18nName)];
+      } else if (variable.jdbcType === JDBC_TYPE.DatePicker) {
+        newData.variables[i + 1].textValue = moment(
+          data.formField[t(variable.i18nName)]
+        ).format("DD/MM/YYYY");
+      } else if (variable.jdbcType === JDBC_TYPE.TimePicker) {
+        newData.variables[i + 1].textValue = moment(
+          data.formField[t(variable.i18nName)]
+        ).format("HH:mm");
+      } else {
+        newData.variables[i + 1].textValue =
+          data.formField[t(variable.i18nName)];
+      }
+    }
+  });
+  return newData;
+};
 
 const WorkflowFormPage = () => {
   const navigate = useNavigate();
@@ -40,10 +69,14 @@ const WorkflowFormPage = () => {
   const [groupedVariables, setGroupedVariables] = useState<IObject>({});
   const [commitStatus, setCommitStatus] = useState<ISelectOpt[]>([]);
 
+  const requestInitiated = useRef(false);
+
   useLayoutEffect(() => {
     validationSchema.current = yup.object().shape({});
-    if (taskInstanceId && taskInstanceTokeId)
+    if (taskInstanceId && taskInstanceTokeId && !requestInitiated.current) {
       getTaskDetail(taskInstanceId, taskInstanceTokeId);
+      requestInitiated.current = true;
+    }
   }, []);
 
   const getTaskDetail = (
@@ -147,8 +180,8 @@ const WorkflowFormPage = () => {
   };
 
   const handleCommitTask = (values: IObject) => {
-    const payload = transferObject(values);
-    transferObject(values);
+    const payload = transferObjectForTaskSave(values, t);
+    transferObjectForTaskSave(values, t);
     taskService.commit(payload).then((res) => {
       if (res) {
         successToast(t("commitSave"));
@@ -159,8 +192,8 @@ const WorkflowFormPage = () => {
   };
 
   const handleSaveTask = (values: IObject) => {
-    const payload = transferObject(values);
-    transferObject(values);
+    const payload = transferObjectForTaskSave(values, t);
+    transferObjectForTaskSave(values, t);
     taskService.save(payload).then((res) => {
       if (res) {
         localStorage.removeItem(taskSessionKey);
@@ -168,33 +201,6 @@ const WorkflowFormPage = () => {
         navigate("/", { state: { tab: 1 } });
       }
     });
-  };
-
-  const transferObject = (data: IObject) => {
-    const newData: ITaskDetail = JSON.parse(JSON.stringify(data));
-
-    Object.values(newData.variables).forEach(
-      (variable: Variable, i: number) => {
-        if (t(variable.i18nName) === t(variable.i18nName)) {
-          if (variable.jdbcType === JDBC_TYPE.Checkbox) {
-            newData.variables[i + 1].numericValue =
-              data.formField[t(variable.i18nName)];
-          } else if (variable.jdbcType === JDBC_TYPE.DatePicker) {
-            newData.variables[i + 1].textValue = moment(
-              data.formField[t(variable.i18nName)]
-            ).format("DD/MM/YYYY");
-          } else if (variable.jdbcType === JDBC_TYPE.TimePicker) {
-            newData.variables[i + 1].textValue = moment(
-              data.formField[t(variable.i18nName)]
-            ).format("HH:mm");
-          } else {
-            newData.variables[i + 1].textValue =
-              data.formField[t(variable.i18nName)];
-          }
-        }
-      }
-    );
-    return newData;
   };
 
   const isFormValid = (
