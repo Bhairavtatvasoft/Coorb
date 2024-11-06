@@ -1,6 +1,6 @@
 @import url("../../style-variables.css");
 .workflowContainer {
-  padding: 1rem ; 
+  padding-block: 1rem;
 }
 
 .gridItem {
@@ -9,13 +9,13 @@
 
 .card {
   cursor: pointer;
-  transition: 0.3s ;
+  transition: 0.3s;
   height: 100%;
   display: flex;
   flex-direction: column;
   background-color: var(--secondaryBackground) !important;
   border: 0.0625rem solid var(--textLight) !important;
-  border-radius: 1rem !important;
+  border-radius: 0.8rem !important;
 }
 
 .card:hover {
@@ -24,13 +24,13 @@
 }
 
 .cardTitle {
-  font-size: 1.25rem ;
+  font-size: 1.25rem;
   overflow: hidden;
   color: var(--selected);
   font-weight: bolder !important;
   text-overflow: ellipsis;
   white-space: nowrap;
-  min-height: 3rem; 
+  min-height: 3rem;
   max-height: 3rem;
   word-wrap: break-word;
 }
@@ -41,25 +41,22 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3; 
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  line-height: 1.2rem !important; 
-  min-height: 3.6rem; 
+  line-height: 1.2rem !important;
+  min-height: 3.6rem;
   max-height: 3.6rem;
 }
 
-
-
 @media (max-width: 960px) {
-
   .cardTitle {
     font-size: 1rem !important;
     font-weight: bolder;
-    min-height: 2rem; 
+    min-height: 2rem;
     max-height: 2rem;
   }
 
-  .cardDescription{
+  .cardDescription {
     font-size: 0.85rem !important;
   }
 }

@@ -48,6 +48,7 @@ export const transferObjectForTaskSave = (
   });
   return newData;
 };
+import i18n from "../translation/i18n";
 
 const WorkflowFormPage = () => {
   const navigate = useNavigate();
@@ -250,7 +251,13 @@ const WorkflowFormPage = () => {
                 </Grid2>
               </Paper>
 
-              <Paper className="workflowBtnWrapper">
+              <Paper
+                className={`${
+                  i18n.dir() === "rtl"
+                    ? "workflowBtnWrapperRtl"
+                    : "workflowBtnWrapper"
+                }`}
+              >
                 <Grid2 container spacing={1} className="addNoteBtnWrapper">
                   <Grid2 size={{ xs: 12, md: 3.5 }}>
                     <Button

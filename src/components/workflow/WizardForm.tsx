@@ -51,7 +51,7 @@ const WizardComponent = ({ groupedVariables }: WizardFormProps) => {
         {groupNames?.map((groupName, idx) => (
           <Step key={idx}>
             <StepLabel onClick={() => handleStepClick(idx)}>
-              {groupName}
+              {t(groupName)}
             </StepLabel>
           </Step>
         ))}

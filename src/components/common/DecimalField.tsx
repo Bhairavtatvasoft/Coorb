@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Field, FieldProps, FormikContextType, useFormikContext } from "formik";
+import { Field, FieldProps, useFormikContext } from "formik";
 import { NumericFormat } from "react-number-format";
 import FieldHelper from "./FieldHelper";
-import { IGenericFieldProps, IObject } from "../../service/commonModel";
+import { IGenericFieldProps } from "../../service/commonModel";
 import { TextField } from "@mui/material";
 
 interface IDecimalFieldProps extends IGenericFieldProps {
@@ -19,35 +19,22 @@ const DecimalField: FC<IDecimalFieldProps> = ({
   fractionDigits = 2,
 }) => {
   const { t } = useTranslation();
-  const { setFieldValue, setFieldTouched, values }: FormikContextType<IObject> =
-    useFormikContext();
-  const [displayValue, setDisplayValue] = useState<string>("");
-
-  useEffect(() => {
-    if (values?.[name] && displayValue === "") {
-      const initialFormattedValue = parseFloat(values[name]).toFixed(
-        fractionDigits
-      );
-      setFieldValue(name, initialFormattedValue, true);
-      setDisplayValue(formatDecimal(initialFormattedValue));
-    }
-  }, [values[name]]);
-
-  const formatDecimal = (value: string | number) => {
-    return parseFloat(value as string).toLocaleString("en-US", {
-      minimumFractionDigits: fractionDigits,
-      maximumFractionDigits: fractionDigits,
-    });
-  };
+  const { setFieldValue, setFieldTouched } = useFormikContext();
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value) {
-      const rawValue = parseFloat(e.target.value.replace(/,/g, ""));
-      setFieldValue(name, rawValue.toFixed(fractionDigits), true);
-      setDisplayValue(formatDecimal(rawValue));
-    } else {
+    const rawValue = e.target.value.replace(/,/g, "");
+
+    setFieldTouched(name, true, true);
+
+    if (rawValue === "") {
       setFieldValue(name, "", true);
-      setDisplayValue("");
+    } else {
+      const parsedValue = parseFloat(rawValue);
+      if (!isNaN(parsedValue)) {
+        setFieldValue(name, parsedValue.toFixed(fractionDigits), true);
+      } else {
+        setFieldValue(name, "", true);
+      }
     }
   };
 
@@ -64,7 +51,7 @@ const DecimalField: FC<IDecimalFieldProps> = ({
             type="text"
             placeholder={placeholder}
             {...field}
-            value={displayValue}
+            value={field.value || ""}
             onChange={handleValueChange}
             decimalScale={fractionDigits}
             fixedDecimalScale

@@ -1,6 +1,8 @@
 import { createTheme } from "@mui/material/styles";
+import i18n from "../translation/i18n";
 
 const theme = createTheme({
+  direction: i18n.dir() === "rtl" ? "rtl" : "ltr",
   palette: {
     primary: {
       main: "#244b62",

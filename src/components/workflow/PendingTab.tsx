@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { workflowService } from "../../service/workflow/WorkflowService";
+import { successToast } from "../common/ToastMsg";
 const PendingTab = () => {
   const [data, setData] = useState<PendingTaskResponse[]>([]);
   const [page, setPage] = useState(0);
@@ -52,6 +53,8 @@ const PendingTab = () => {
   const handleRelease = async (taskInstanceId: string, tokenId: string) => {
     const response = await taskService.release(taskInstanceId, tokenId);
     if (response.status === 200) {
+      successToast(t("taskReleased"));
+      fetchData();
     }
   };
 
@@ -248,7 +251,7 @@ const PendingTab = () => {
                     <TableCell>
                       {new Date(row.addedOn).toLocaleString()}
                     </TableCell>
-                    <TableCell>{row.statusInDesc}</TableCell>
+                    <TableCell>{t(row.statusInDesc)}</TableCell>
                     <TableCell>{t(row.tenantI18Name)}</TableCell>
                     <TableCell>
                       {row.loadedByOwner && (
@@ -259,7 +262,7 @@ const PendingTab = () => {
                           onClick={() =>
                             handleRelease(
                               row.taskInstanceId,
-                              row.variables[0].tokenId?.toString()
+                              row.data[5].toString() // TokenId
                             )
                           }
                         >
