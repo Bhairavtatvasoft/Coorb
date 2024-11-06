@@ -59,6 +59,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
               fullWidth
               minRows={2}
               maxRows={6}
+              placeholder={t("notePlaceholder")}
               multiline
             />
           </Grid2>
