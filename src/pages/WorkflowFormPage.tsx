@@ -15,7 +15,7 @@ import { taskService } from "../service/task/TaskService";
 import { Variable } from "../service/workflow/WorkflowModel";
 import { useParams } from "react-router";
 import { ITaskDetail } from "../service/task/TaskModel";
-import { successToast } from "../components/common/ToastMsg";
+import { errorToast, successToast } from "../components/common/ToastMsg";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
@@ -147,7 +147,7 @@ const WorkflowFormPage = () => {
       if (res) {
         successToast(t("commitSave"));
         localStorage.removeItem(taskSessionKey);
-        navigate(`pending`);
+        navigate("/", { state: { tab: 1 } });
       }
     });
   };
@@ -159,7 +159,7 @@ const WorkflowFormPage = () => {
       if (res) {
         localStorage.removeItem(taskSessionKey);
         successToast(t("successSave"));
-        navigate(`pending`);
+        navigate("/", { state: { tab: 1 } });
       }
     });
   };
@@ -192,7 +192,7 @@ const WorkflowFormPage = () => {
   };
 
   return (
-    <Paper className="workflowFormWrapper">
+    <Grid2 className="workflowFormWrapper">
       <Formik
         initialValues={initValues}
         validationSchema={validationSchema.current}
@@ -202,7 +202,7 @@ const WorkflowFormPage = () => {
         {({ values, setFieldValue }) => {
           return (
             <form className="workflowDetailWrapper">
-              <Paper className="workflowForm" sx={{ m: 3, boxShadow: "none" }}>
+              <Paper className="workflowForm">
                 <Grid2
                   size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
                   key={`form-field-${1}`}
@@ -283,7 +283,7 @@ const WorkflowFormPage = () => {
           );
         }}
       </Formik>{" "}
-    </Paper>
+    </Grid2>
   );
 };
 

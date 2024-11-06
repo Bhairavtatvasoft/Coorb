@@ -228,8 +228,8 @@ const PendingTab = () => {
               </TableRow>
             ) : (
               data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .sort(sortData)
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <TableRow
                     key={row.taskInstanceId}

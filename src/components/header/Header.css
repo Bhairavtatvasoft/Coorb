@@ -30,7 +30,7 @@
 
 .headerLanguageText {
   margin-inline-start: 0.5rem !important;
-  color: var(--textLight)  ;
+  color: var(--textLight);
 }
 
 .headerLanguageSelect:hover {
@@ -56,7 +56,6 @@
 }
 
 .headerUserInfo {
-
   white-space: nowrap;
 }
 
@@ -69,5 +68,9 @@
 
   .headerLanguageSelect {
     margin: 0.5rem 0;
+  }
+
+  .headerUserInfo {
+    display: none;
   }
 }

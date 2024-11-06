@@ -8,14 +8,13 @@ import {
   MenuItem,
   Box,
   Avatar,
-
   Tooltip,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import "./Header.css";
 import TranslateIcon from "@mui/icons-material/Translate";
 import MenuIcon from "@mui/icons-material/Menu";
-const Header = ({ onSidebarToggle }:any) => {
+const Header = ({ onSidebarToggle }: any) => {
   // State for language dropdown
   const [language, setLanguage] = useState("en");
   const [languageAnchorEl, setLanguageAnchorEl] = useState<null | HTMLElement>(
@@ -56,7 +55,7 @@ const Header = ({ onSidebarToggle }:any) => {
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
       <Toolbar className="headerAppBar">
-        <Box className="headerBox" >
+        <Box className="headerBox">
           <IconButton
             edge="start"
             color="inherit"
@@ -65,11 +64,7 @@ const Header = ({ onSidebarToggle }:any) => {
           >
             <MenuIcon />
           </IconButton>
-          <img
-            src="./logo3.png"
-            alt="Logo"
-            className="headerLogo"
-          />
+          <img src="./logo3.png" alt="Logo" className="headerLogo" />
         </Box>
         <Box className="headerBox">
           <Tooltip title="Select Language">
@@ -78,11 +73,7 @@ const Header = ({ onSidebarToggle }:any) => {
               className="headerLanguageSelect"
             >
               <TranslateIcon className="headerLanguageIcon" />
-              <Typography
-                className="headerLanguageText"
-                variant="body2"
-
-              >
+              <Typography className="headerLanguageText" variant="body2">
                 {language === "en" ? "EN" : "AR"}
               </Typography>
             </IconButton>
@@ -100,8 +91,12 @@ const Header = ({ onSidebarToggle }:any) => {
               horizontal: "left",
             }}
           >
-            <MenuItem onClick={() => handleLanguageChange("en")}>English</MenuItem>
-            <MenuItem onClick={() => handleLanguageChange("ar")}>Arabic</MenuItem>
+            <MenuItem onClick={() => handleLanguageChange("en")}>
+              English
+            </MenuItem>
+            <MenuItem onClick={() => handleLanguageChange("ar")}>
+              Arabic
+            </MenuItem>
           </Menu>
           <Typography variant="body1" className="headerUserInfo">
             {user.name}

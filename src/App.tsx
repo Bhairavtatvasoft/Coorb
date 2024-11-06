@@ -14,7 +14,7 @@ import { prefixer } from "stylis";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./translation/i18n";
-import "./App.css";
+import "./App.scss";
 import { useTranslation } from "react-i18next";
 import Loader from "./components/common/Loader.tsx";
 

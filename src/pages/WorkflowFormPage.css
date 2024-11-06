@@ -1,5 +1,6 @@
 .workflowFormWrapper {
-  margin: 0 24px;
+  margin: 24px 24px 0 24px;
+  height: calc(100% - 88px);
 }
 
 .addNoteBtn {
@@ -8,15 +9,26 @@
 
 .addNoteBtnWrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   margin-left: 20%;
+  & > div {
+    display: flex;
+    justify-content: end;
+  }
+}
+
+.workflowForm {
+  padding: 20px;
 }
 
 @media (max-width: 600px) {
   .workflowForm {
     overflow-y: auto;
-    max-height: 325px;
+    /* max-height: 325px; */
   }
+}
+
+@media (max-width: 900px) {
   .addNoteBtn {
     margin-bottom: 0.5rem !important;
     margin-left: 0 !important;
