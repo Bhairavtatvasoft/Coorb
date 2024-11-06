@@ -5,8 +5,10 @@ class FileService {
   upload = async (payload: IUploadFile, byteArr: Uint8Array) => {
     let url = `task/file/upload`;
     Object.keys(payload).forEach((key, i) => {
-      url +=
-        i === 0 ? "?" : "&" + `${key}=${payload[key as keyof IUploadFile]}`;
+      const value = payload[key as keyof typeof payload];
+      const encodedValue = encodeURIComponent(value as string);
+
+      url += i === 0 ? `?${key}=${encodedValue}` : `&${key}=${encodedValue}`;
     });
     return await apiRequest.post(url, byteArr);
   };
