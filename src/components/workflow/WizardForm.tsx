@@ -8,12 +8,17 @@ import { ArrowBackSharp, ArrowForwardSharp } from "@mui/icons-material";
 import { useFormikContext } from "formik";
 import { errorToast } from "../common/ToastMsg";
 import { useTranslation } from "react-i18next";
+import { ITaskDetail } from "../../service/task/TaskModel";
 
 interface WizardFormProps {
   groupedVariables: Record<string, Variable[]>;
+  handleBtnClick: (values: ITaskDetail) => void;
 }
 
-const WizardComponent = ({ groupedVariables }: WizardFormProps) => {
+const WizardComponent = ({
+  groupedVariables,
+  handleBtnClick,
+}: WizardFormProps) => {
   const [stepIndex, setStepIndex] = useState(0);
   const groupNames = Object.keys(groupedVariables);
   const { errors, validateForm, setFieldTouched }: any = useFormikContext();
@@ -64,7 +69,10 @@ const WizardComponent = ({ groupedVariables }: WizardFormProps) => {
               size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
               key={`wizard-field-${idx}`}
             >
-              <WorkflowFormField {...variable} />
+              <WorkflowFormField
+                {...variable}
+                handleBtnClick={handleBtnClick}
+              />
             </Grid2>
           ))}
       </Grid2>
