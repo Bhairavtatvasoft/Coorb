@@ -2,7 +2,7 @@ export interface IDownloadFile {
   taskInstanceId: string;
   taskInstanceTokenId: string;
   variableTypeId: number;
-  variableTypeTokenId: string;
+  variableTypeTokenId: number;
 }
 
 export interface IUploadFile {

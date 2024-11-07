@@ -4,10 +4,12 @@ import Grid2 from "@mui/material/Grid2";
 import WorkflowFormField from "../common/WorkflowFormField";
 import "./TabForm.css";
 import { Variable } from "../../service/workflow/WorkflowModel";
+import { ITaskDetail } from "../../service/task/TaskModel";
 interface TabFormProps {
   groupedVariables: Record<string, Variable[]>;
+  handleBtnClick: (values: ITaskDetail) => void;
 }
-const TabsComponent = ({ groupedVariables }: TabFormProps) => {
+const TabsComponent = ({ groupedVariables, handleBtnClick }: TabFormProps) => {
   const [tabIndex, setTabIndex] = useState(0);
   const groupNames = Object.keys(groupedVariables);
   return (
@@ -34,7 +36,10 @@ const TabsComponent = ({ groupedVariables }: TabFormProps) => {
               key={`tab-field-${idx}`}
               className="responsiveGrid"
             >
-              <WorkflowFormField {...variable} />
+              <WorkflowFormField
+                handleBtnClick={handleBtnClick}
+                {...variable}
+              />
             </Grid2>
           ))}
       </Grid2>

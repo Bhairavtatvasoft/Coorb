@@ -11,19 +11,28 @@ import TimePickerField from "./TimePickerField";
 import FileUploadField from "./FileUpload/FileUploadField";
 import DecimalField from "./DecimalField";
 import SelectField from "./SelectField";
+import { Variable } from "../../service/workflow/WorkflowModel";
 
-const WorkflowFormField: FC<any> = (props) => {
-  const { jdbcType, hidden } = props;
+const WorkflowFormField: FC<
+  Variable & { handleBtnClick: (data: any) => void }
+> = (props) => {
+  const { jdbcType, hidden, handleBtnClick } = props;
   if (hidden) return <></>;
 
-  const transferredProps = {
+  const transferredProps: Variable & { name: string; lbl: string } = {
     ...props,
     name: "formField." + props.i18nName,
     lbl: props.i18nName,
   };
   switch (Number(jdbcType)) {
     case JDBC_TYPE.Button:
-      return <ButtonField {...transferredProps} isServerClick />;
+      return (
+        <ButtonField
+          {...transferredProps}
+          isServerClick
+          handleClick={(data) => handleBtnClick(data)}
+        />
+      );
 
     case JDBC_TYPE.IntegerInput:
       if (transferredProps.comboListName)

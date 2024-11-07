@@ -16,7 +16,7 @@ type Props = {
   taskInstanceId: string;
   taskInstanceTokenId: string;
   variableTypeId: number;
-  variableTypeTokenId: string;
+  variableTypeTokenId: number;
   setFileDetail: (file: string, fileType: string) => void;
 };
 

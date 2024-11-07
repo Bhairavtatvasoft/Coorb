@@ -1,18 +1,13 @@
-export interface IGenericFieldProps {
+import { Variable } from "./workflow/WorkflowModel";
+
+export interface IGenericFieldProps extends Partial<Variable> {
   lbl: string;
   name: string;
-  type?: number;
-  instanceId?: string;
-  tokenId?: string;
-  id?: string;
 
   hideHelp?: boolean;
   placeholder?: string;
-  readOnly?: 0 | 1;
-  required?: 0 | 1;
   fieldType?: "text" | "textarea" | "password";
   variant?: "text" | "outlined" | "contained";
-  hidden?: 0 | 1;
   valRegex?: RegExp;
   options?: { value: string | number; label: string | number }[];
   hideClr?: boolean;

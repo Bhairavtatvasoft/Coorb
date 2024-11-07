@@ -9,13 +9,6 @@ class WorkflowService {
     return await apiRequest.get(`tasks/pending`);
   };
 
-  releaseTask = async (taskInstanceId: string, tokenId: number) => {
-    return apiRequest.post(`task/release`, {
-      taskInstanceId,
-      tokenId,
-    });
-  };
-
   instantiate = async (
     workflowTypeToken: string,
     workflowTypeTokenId: string

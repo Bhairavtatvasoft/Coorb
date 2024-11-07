@@ -91,14 +91,16 @@ const WorkflowFormPage = () => {
       requestInitiated.current = true;
       taskService.load(taskInstanceId, taskInstanceTokenId).then((res) => {
         if (res?.data) {
-          localStorage.setItem(taskSessionKey, JSON.stringify(res.data));
-          setupInitialValues(res.data);
+          setupInitialValues(res.data, true);
         }
       });
     }
   };
 
-  const setupInitialValues = (data: ITaskDetail) => {
+  const setupInitialValues = (data: ITaskDetail, isUpdateStorage?: boolean) => {
+    if (isUpdateStorage)
+      localStorage.setItem(taskSessionKey, JSON.stringify(data));
+
     const newInitVal: Record<string, any> = {};
     const newValidationSchema: Record<string, any> = {};
     Object.values(data.variables).forEach((variable) => {
@@ -215,7 +217,7 @@ const WorkflowFormPage = () => {
     callBack: any
   ) => {
     return validateForm(values).then((errors: IObject) => {
-      if (errors.formField) {
+      if (errors?.formField) {
         const touchedFields: IObject = { formField: {} };
         Object.keys(errors.formField).forEach((field) => {
           touchedFields.formField[field] = true;
@@ -244,9 +246,15 @@ const WorkflowFormPage = () => {
                   key={`form-field-${1}`}
                 >
                   {initValues.renderingStyle === FORM_TYPE.TAB ? (
-                    <TabsComponent groupedVariables={groupedVariables} />
+                    <TabsComponent
+                      groupedVariables={groupedVariables}
+                      handleBtnClick={(data) => setupInitialValues(data, true)}
+                    />
                   ) : (
-                    <WizardComponent groupedVariables={groupedVariables} />
+                    <WizardComponent
+                      groupedVariables={groupedVariables}
+                      handleBtnClick={(data) => setupInitialValues(data, true)}
+                    />
                   )}
                 </Grid2>
               </Paper>

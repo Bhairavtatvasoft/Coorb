@@ -6,11 +6,13 @@ import FieldHelper from "./FieldHelper";
 import { taskService } from "../../service/task/TaskService";
 import { FormikContextType, useFormikContext } from "formik";
 import { ITaskDetail } from "../../service/task/TaskModel";
+import { transferObjectForTaskSave } from "../../pages/WorkflowFormPage";
+import { getMockWorkflowResponse } from "../workflow/mockfunctions";
 
 const ButtonField: FC<
   IGenericFieldProps & {
     isServerClick?: boolean;
-    handleClick?: () => void;
+    handleClick: (data?: any) => void;
   }
 > = (props) => {
   const { t } = useTranslation();
@@ -19,10 +21,11 @@ const ButtonField: FC<
 
   const handleBtnClick = () => {
     if (isServerClick) {
-      taskService.buttonClick({
-        task: values as ITaskDetail,
-        buttonVarialeId: props.id!.toString(),
-      });
+      taskService
+        .buttonClick({
+          task: transferObjectForTaskSave(values, t) as ITaskDetail,
+          buttonVarialeId: props.id!.toString(),
+        })
     }
     if (handleClick) {
       handleClick();

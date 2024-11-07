@@ -30,7 +30,7 @@ const WizardComponent = ({ groupedVariables }: WizardFormProps) => {
     await validateForm();
     const hasErrors = currentGroupVariables.some((variable) => {
       const fieldName = variable.i18nName;
-      return errors.formField[fieldName];
+      return errors?.formField?.[fieldName];
     });
 
     if (!hasErrors) {

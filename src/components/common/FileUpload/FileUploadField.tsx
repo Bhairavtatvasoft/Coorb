@@ -158,7 +158,7 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
           taskInstanceId={values.taskInstanceId}
           taskInstanceTokenId={values.taskInstanceTokenId}
           variableTypeId={props.type!}
-          variableTypeTokenId={props.tokenId!}
+          variableTypeTokenId={Number(props.tokenId)}
         />
       )}
     </>
