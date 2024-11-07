@@ -18,6 +18,8 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { workflowService } from "../../service/workflow/WorkflowService";
 import { successToast } from "../common/ToastMsg";
+import { useNavigate } from "react-router-dom";
+
 const PendingTab = () => {
   const [data, setData] = useState<PendingTaskResponse[]>([]);
   const [page, setPage] = useState(0);
@@ -27,6 +29,7 @@ const PendingTab = () => {
   const requestInitiated = useRef(false);
 
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!requestInitiated.current) {
@@ -58,7 +61,8 @@ const PendingTab = () => {
     }
   };
 
-  const handleRowClick = (row: any) => {
+  const handleRowClick = (row: PendingTaskResponse) => {
+    navigate(`/workflow-form/${row.taskInstanceId}/${row.data[5].toString()}`);
     console.log("Row clicked:", row);
   };
 

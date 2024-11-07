@@ -21,11 +21,11 @@ class TaskService {
   };
 
   save = async (payload: ITaskDetail) => {
-    return apiRequest.post(`task/save`, payload);
+    return apiRequest.post(`task/save`, { payload });
   };
 
   commit = async (payload: ITaskDetail) => {
-    return apiRequest.post(`task/commit`, payload);
+    return apiRequest.post(`task/commit`, { payload });
   };
 
   buttonClick = async (payload: {
