@@ -6,7 +6,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { Home, Info } from "@mui/icons-material";
+import { Home } from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./Sidebar.css";
@@ -58,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
               />
             )}
           </ListItem>
-          <ListItem component={Link} to="/workflow-form">
+          {/* <ListItem component={Link} to="/workflow-form">
             <ListItemIcon>
               <Info
                 className={
@@ -78,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
                 primary={t("WORKFLOW_FORM")}
               />
             )}
-          </ListItem>
+          </ListItem> */}
         </List>
       </Drawer>
     </>

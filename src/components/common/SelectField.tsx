@@ -1,6 +1,6 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { Field, FieldProps, useFormikContext } from "formik";
-import { FC, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   IGenericFieldProps,
@@ -10,7 +10,14 @@ import {
 import FieldHelper from "./FieldHelper";
 import { listService } from "../../service/list/ListService";
 
-const SelectField: FC<IGenericFieldProps & IObject> = ({
+type Props = IGenericFieldProps &
+  IObject & {
+    setComboListOptions?: Dispatch<
+      SetStateAction<{ [key: string]: ISelectOpt[] }>
+    >;
+  };
+
+const SelectField: FC<Props> = ({
   name,
   options,
   onChange,
@@ -21,6 +28,7 @@ const SelectField: FC<IGenericFieldProps & IObject> = ({
   comboListName = "",
   lbl,
   hideHelp = false,
+  setComboListOptions,
 }) => {
   const { t } = useTranslation();
   const { setFieldValue, setFieldTouched } = useFormikContext();
@@ -42,12 +50,17 @@ const SelectField: FC<IGenericFieldProps & IObject> = ({
           newOpts.push({ label: res.data[key], value: key });
         });
         setLocalOptions(newOpts);
+        if (setComboListOptions)
+          setComboListOptions((prev) => ({
+            ...prev,
+            [name]: newOpts,
+          }));
       }
     });
   };
 
   const handleChange = (_: React.SyntheticEvent, value: any) => {
-    setFieldValue(name, value?.value);
+    setFieldValue(name, value);
     setTimeout(() => {
       setFieldTouched(name, true, true);
     }, 0);
@@ -67,7 +80,7 @@ const SelectField: FC<IGenericFieldProps & IObject> = ({
             getOptionLabel={(x) => x.label?.toString()}
             value={
               localOptions?.find(
-                (x) => x.value?.toString() === field.value?.toString()
+                (x) => x.value?.toString() === field.value?.value?.toString()
               ) || null
             }
             onChange={handleChange}

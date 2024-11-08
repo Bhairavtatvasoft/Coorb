@@ -22,7 +22,7 @@ const Header = ({ onSidebarToggle }: any) => {
   );
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const user = {
     name: "John Doe",
     avatar: "./user.jpg",
@@ -67,7 +67,7 @@ const Header = ({ onSidebarToggle }: any) => {
           <img src="./logo3.png" alt="Logo" className="headerLogo" />
         </Box>
         <Box className="headerBox">
-          <Tooltip title="Select Language">
+          <Tooltip title={t("selectLanguage")}>
             <IconButton
               onClick={handleLanguageMenuClick}
               className="headerLanguageSelect"
@@ -92,10 +92,10 @@ const Header = ({ onSidebarToggle }: any) => {
             }}
           >
             <MenuItem onClick={() => handleLanguageChange("en")}>
-              English
+              {t("english")}
             </MenuItem>
             <MenuItem onClick={() => handleLanguageChange("ar")}>
-              Arabic
+              {t("arabic")}
             </MenuItem>
           </Menu>
           <Typography variant="body1" className="headerUserInfo">
@@ -106,7 +106,7 @@ const Header = ({ onSidebarToggle }: any) => {
           </IconButton>
           <Menu
             anchorEl={anchorEl}
-            open={open}
+            open={open && false}
             onClose={handleMenuClose}
             anchorOrigin={{
               vertical: "top",

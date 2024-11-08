@@ -54,7 +54,7 @@ const WizardComponent = ({
     <div className="wizardContainer">
       <Stepper className="stepper" activeStep={stepIndex} alternativeLabel>
         {groupNames?.map((groupName, idx) => (
-          <Step key={idx}>
+          <Step key={idx} className={stepIndex > idx ? "cursorPointer" : ""}>
             <StepLabel
               onClick={() => handleStepClick(idx)}
               sx={{ marginBottom: "5px" }}

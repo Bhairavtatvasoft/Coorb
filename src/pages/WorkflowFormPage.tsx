@@ -25,27 +25,40 @@ export const transferObjectForTaskSave = (
   data: IObject,
   t: TFunction<"translation", undefined>
 ) => {
-  const newData: ITaskDetail = JSON.parse(JSON.stringify(data));
+  const newData: ITaskDetail & { taskInstanceTokenId?: string } = JSON.parse(
+    JSON.stringify(data)
+  );
 
   Object.values(newData.variables).forEach((variable: Variable, i: number) => {
     if (t(variable.i18nName) === t(variable.i18nName)) {
+      const formFieldVal = data.formField[t(variable.i18nName)];
       if (variable.jdbcType === JDBC_TYPE.Checkbox) {
-        newData.variables[i + 1].numericValue =
-          data.formField[t(variable.i18nName)];
+        newData.variables[i + 1].numericValue = formFieldVal;
       } else if (variable.jdbcType === JDBC_TYPE.DatePicker) {
-        newData.variables[i + 1].textValue = moment(
-          data.formField[t(variable.i18nName)]
-        ).format("DD/MM/YYYY");
-      } else if (variable.jdbcType === JDBC_TYPE.TimePicker) {
-        newData.variables[i + 1].textValue = moment(
-          data.formField[t(variable.i18nName)]
-        ).format("HH:mm");
-      } else if (variable.jdbcType !== JDBC_TYPE.UploadDocument) {
         newData.variables[i + 1].textValue =
-          data.formField[t(variable.i18nName)];
+          moment(formFieldVal).format("DD/MM/YYYY");
+      } else if (variable.jdbcType === JDBC_TYPE.TimePicker) {
+        newData.variables[i + 1].textValue =
+          moment(formFieldVal).format("HH:mm");
+      } else if (
+        variable.jdbcType === JDBC_TYPE.IntegerInput &&
+        variable.comboListName &&
+        formFieldVal
+      ) {
+        newData.variables[i + 1].textValue = formFieldVal.label;
+        newData.variables[i + 1].numericValue = formFieldVal.value;
+      } else if (variable.jdbcType !== JDBC_TYPE.UploadDocument) {
+        newData.variables[i + 1].textValue = formFieldVal;
       }
     }
   });
+
+  //removing extra fields before passing data to backend
+  newData.formField = undefined;
+  newData.taskInstanceTokenId = undefined;
+  newData.selectedTaskStatus.value = undefined;
+  newData.selectedTaskStatus.label = undefined;
+
   return newData;
 };
 import i18n from "../translation/i18n";
@@ -141,7 +154,6 @@ const WorkflowFormPage = () => {
     const newInitialValues = {
       ...data,
       formField: newInitVal,
-      taskInstanceId: taskInstanceId,
       taskInstanceTokenId: taskInstanceTokenId,
     };
 
