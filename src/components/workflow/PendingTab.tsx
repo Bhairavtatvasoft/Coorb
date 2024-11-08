@@ -9,16 +9,16 @@ import {
   TablePagination,
   Paper,
   Button,
+  TableSortLabel,
 } from "@mui/material";
 import "./PendingTab.scss";
 import { taskService } from "../../service/task/TaskService";
 import { PendingTaskResponse } from "../../service/workflow/WorkflowModel";
 import { useTranslation } from "react-i18next";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { workflowService } from "../../service/workflow/WorkflowService";
 import { successToast } from "../common/ToastMsg";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const PendingTab = () => {
   const [data, setData] = useState<PendingTaskResponse[]>([]);
@@ -112,118 +112,126 @@ const PendingTab = () => {
   return (
     <Paper elevation={3} className="pendingTabPaper">
       <TableContainer className="pendingTabTableContainer">
-        <Table stickyHeader>
+        <Table stickyHeader className="pendingTable">
           <TableHead className="pendingTabTableHead">
             <TableRow className="pendingTabTableRow">
               <TableCell
                 onClick={() => handleSort("workflowI18Name")}
                 className="pendingTabTableRow"
+                sortDirection={
+                  sortColumn === "workflowI18Name"
+                    ? sortDirection === "desc"
+                      ? "desc"
+                      : "asc"
+                    : false
+                }
               >
-                {t("workflowName")}
-                {sortColumn === "workflowI18Name" &&
-                  (sortDirection === "asc" ? (
-                    <ArrowUpwardIcon
-                      className="pendingTabArrowIcon"
-                      fontSize="small"
-                    />
-                  ) : (
-                    <ArrowDownwardIcon
-                      className="pendingTabArrowIcon"
-                      fontSize="small"
-                    />
-                  ))}
+                <TableSortLabel
+                  active={sortColumn === "workflowI18Name"}
+                  direction={sortDirection === "desc" ? "desc" : "asc"}
+                  className="PendingTabShortLabel"
+                >
+                  {t("workflowName")}
+                </TableSortLabel>
               </TableCell>
               <TableCell
                 onClick={() => handleSort("taskI18Name")}
                 className="pendingTabTableRow"
+                sortDirection={
+                  sortColumn === "taskI18Name"
+                    ? sortDirection === "desc"
+                      ? "desc"
+                      : "asc"
+                    : false
+                }
               >
-                {t("taskName")}
-                {sortColumn === "taskI18Name" &&
-                  (sortDirection === "asc" ? (
-                    <ArrowUpwardIcon
-                      className="pendingTabArrowIcon"
-                      fontSize="small"
-                    />
-                  ) : (
-                    <ArrowDownwardIcon
-                      className="pendingTabArrowIcon"
-                      fontSize="small"
-                    />
-                  ))}
+                <TableSortLabel
+                  active={sortColumn === "taskI18Name"}
+                  direction={sortDirection === "desc" ? "desc" : "asc"}
+                  className="PendingTabShortLabel"
+                >
+                  {t("taskName")}
+                </TableSortLabel>
               </TableCell>
               <TableCell
                 onClick={() => handleSort("userDisplayName")}
                 className="pendingTabTableRow"
+                sortDirection={
+                  sortColumn === "userDisplayName"
+                    ? sortDirection === "desc"
+                      ? "desc"
+                      : "asc"
+                    : false
+                }
               >
-                {t("addedBy")}
-                {sortColumn === "userDisplayName" &&
-                  (sortDirection === "asc" ? (
-                    <ArrowUpwardIcon
-                      className="pendingTabArrowIcon"
-                      fontSize="small"
-                    />
-                  ) : (
-                    <ArrowDownwardIcon
-                      className="pendingTabArrowIcon"
-                      fontSize="small"
-                    />
-                  ))}
+                <TableSortLabel
+                  active={sortColumn === "userDisplayName"}
+                  direction={sortDirection === "desc" ? "desc" : "asc"}
+                  className="PendingTabShortLabel"
+                >
+                  {t("addedBy")}
+                </TableSortLabel>
               </TableCell>
               <TableCell
                 onClick={() => handleSort("addedOn")}
                 className="pendingTabTableRow"
+                sortDirection={
+                  sortColumn === "addedOn"
+                    ? sortDirection === "desc"
+                      ? "desc"
+                      : "asc"
+                    : false
+                }
               >
-                {t("addedOn")}
-                {sortColumn === "addedOn" &&
-                  (sortDirection === "asc" ? (
-                    <ArrowUpwardIcon
-                      className="pendingTabArrowIcon"
-                      fontSize="small"
-                    />
-                  ) : (
-                    <ArrowDownwardIcon
-                      className="pendingTabArrowIcon"
-                      fontSize="small"
-                    />
-                  ))}
+                <TableSortLabel
+                  active={sortColumn === "addedOn"}
+                  direction={sortDirection === "desc" ? "desc" : "asc"}
+                  className="PendingTabShortLabel"
+                >
+                  {t("addedOn")}
+                </TableSortLabel>
               </TableCell>
               <TableCell
                 onClick={() => handleSort("statusInDesc")}
                 className="pendingTabTableRow"
+                sortDirection={
+                  sortColumn === "statusInDesc"
+                    ? sortDirection === "desc"
+                      ? "desc"
+                      : "asc"
+                    : false
+                }
               >
-                {t("statusIn")}
-                {sortColumn === "statusInDesc" &&
-                  (sortDirection === "asc" ? (
-                    <ArrowUpwardIcon
-                      className="pendingTabArrowIcon"
-                      fontSize="small"
-                    />
-                  ) : (
-                    <ArrowDownwardIcon
-                      className="pendingTabArrowIcon"
-                      fontSize="small"
-                    />
-                  ))}
+                <TableSortLabel
+                  active={sortColumn === "statusInDesc"}
+                  direction={sortDirection === "desc" ? "desc" : "asc"}
+                  className="PendingTabShortLabel"
+                >
+                  {t("statusIn")}
+                </TableSortLabel>
               </TableCell>
               <TableCell
                 onClick={() => handleSort("tenantI18Name")}
                 className="pendingTabTableRow"
+                sortDirection={
+                  sortColumn === "tenantI18Name"
+                    ? sortDirection === "desc"
+                      ? "desc"
+                      : "asc"
+                    : false
+                }
               >
-                {t("tenant")}
-                {sortColumn === "tenantI18Name" &&
-                  (sortDirection === "asc" ? (
-                    <ArrowUpwardIcon
-                      className="pendingTabArrowIcon"
-                      fontSize="small"
-                    />
-                  ) : (
-                    <ArrowDownwardIcon
-                      className="pendingTabArrowIcon"
-                      fontSize="small"
-                    />
-                  ))}
+                <TableSortLabel
+                  active={sortColumn === "tenantI18Name"}
+                  direction={sortDirection === "desc" ? "desc" : "asc"}
+                  className="PendingTabShortLabel"
+                >
+                  {t("tenant")}
+                </TableSortLabel>
               </TableCell>
-              <TableCell>{t("loaded")}</TableCell>
+              <TableCell className="pendingTabTableRow">
+                {t("loaded")}
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -253,13 +261,14 @@ const PendingTab = () => {
                     <TableCell>{t(row.taskI18Name)}</TableCell>
                     <TableCell>{row.userDisplayName}</TableCell>
                     <TableCell>
-                      {new Date(row.addedOn).toLocaleString()}
+                      {moment(row.addedOn).format("DD/MM/YYYY HH:mm")}
                     </TableCell>
                     <TableCell>{t(row.statusInDesc)}</TableCell>
                     <TableCell>{t(row.tenantI18Name)}</TableCell>
                     <TableCell>
                       {row.loadedByOwner && (
                         <Button
+                          size="small"
                           variant="contained"
                           color="primary"
                           className="pendingTabReleaseButton"

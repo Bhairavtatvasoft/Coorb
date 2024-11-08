@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { Workflow } from "../../service/workflow/WorkflowModel";
 import { workflowService } from "../../service/workflow/WorkflowService";
-import "./StartableWorkflow.css";
+import "./StartableWorkflow.scss";
 import { useNavigate } from "react-router";
 
 const StartableWorkflows = () => {
@@ -37,7 +37,7 @@ const StartableWorkflows = () => {
 
   return (
     <Box className="workflowStartableContainer">
-      <Grid2 container spacing={2}>
+      <Grid2 className="startableGrid" container spacing={2}>
         {workflows.map((workflow) => (
           <Grid2
             className="gridItem"
@@ -53,11 +53,10 @@ const StartableWorkflows = () => {
             >
               <CardContent>
                 <Typography variant="h6" className="cardTitle">
-                  {t(workflow.name) || workflow.name}
+                  {t(workflow.name)}
                 </Typography>
                 <Typography className="cardDescription">
-                  {t(`${workflow.name}_FLOW_DESCRIPTION`) ||
-                    "No description available."}
+                  {t(`${workflow.name}_FLOW_DESCRIPTION`)}
                 </Typography>
               </CardContent>
             </Card>
