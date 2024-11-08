@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import CheckboxField from "./CheckboxField";
 import InputTextField from "./InputTextField";
 import { regex } from "../../utils/regex";
@@ -12,11 +12,17 @@ import FileUploadField from "./FileUpload/FileUploadField";
 import DecimalField from "./DecimalField";
 import SelectField from "./SelectField";
 import { Variable } from "../../service/workflow/WorkflowModel";
+import { ISelectOpt } from "../../service/commonModel";
 
 const WorkflowFormField: FC<
   Variable & { handleBtnClick: (data: any) => void }
 > = (props) => {
   const { jdbcType, hidden, handleBtnClick } = props;
+
+  const [comboListOptions, setComboListOptions] = useState<{
+    [key: string]: ISelectOpt[];
+  }>({});
+
   if (hidden) return <></>;
 
   const transferredProps: Variable & { name: string; lbl: string } = {
@@ -36,7 +42,14 @@ const WorkflowFormField: FC<
 
     case JDBC_TYPE.IntegerInput:
       if (transferredProps.comboListName)
-        return <SelectField {...transferredProps} fetchOpt />;
+        return (
+          <SelectField
+            {...transferredProps}
+            fetchOpt={!comboListOptions[transferredProps.name]}
+            options={comboListOptions[transferredProps.name]}
+            setComboListOptions={setComboListOptions}
+          />
+        );
       return <InputTextField valRegex={regex.Integer} {...transferredProps} />;
 
     case JDBC_TYPE.TextInput:
