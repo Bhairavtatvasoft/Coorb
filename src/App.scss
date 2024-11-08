@@ -29,6 +29,10 @@ body[dir="rtl"] {
   display: none;
 }
 
+.cursorPointer {
+  cursor: pointer;
+}
+
 .fieldError,
 .errorText {
   color: var(--error);
@@ -261,6 +265,9 @@ body[dir="rtl"] {
 
 /* Responsive Design: Adjust styles based on screen width */
 @media (max-width: 600px) {
+  .MuiStepConnector-horizontal {
+    display: none;
+  }
   ::-webkit-scrollbar {
     height: 4px;
     width: 6px;
