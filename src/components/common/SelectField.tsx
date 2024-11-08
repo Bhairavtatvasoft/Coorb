@@ -47,7 +47,7 @@ const SelectField: FC<IGenericFieldProps & IObject> = ({
   };
 
   const handleChange = (_: React.SyntheticEvent, value: any) => {
-    setFieldValue(name, value?.value);
+    setFieldValue(name, value);
     setTimeout(() => {
       setFieldTouched(name, true, true);
     }, 0);
@@ -67,7 +67,7 @@ const SelectField: FC<IGenericFieldProps & IObject> = ({
             getOptionLabel={(x) => x.label?.toString()}
             value={
               localOptions?.find(
-                (x) => x.value?.toString() === field.value?.toString()
+                (x) => x.value?.toString() === field.value?.value?.toString()
               ) || null
             }
             onChange={handleChange}

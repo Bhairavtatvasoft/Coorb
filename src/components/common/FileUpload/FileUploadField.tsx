@@ -21,12 +21,8 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
 ) => {
   const { t } = useTranslation();
   const { name, required, readOnly, lbl, isServerUpload = false } = props;
-  const {
-    setFieldValue,
-    setFieldTouched,
-    values,
-    setValues,
-  }: FormikContextType<IObject> = useFormikContext();
+  const { setFieldValue, values, setValues }: FormikContextType<IObject> =
+    useFormikContext();
 
   const [viewFileDetail, setViewFileDetail] = useState<ViewFileDetail>({
     fileData: "",
@@ -112,7 +108,7 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
                 className={`fileUploadLabel ${
                   readOnly === 1 ? "disabled" : ""
                 } ${meta.touched && meta.error ? "errorBorderDashed" : ""}`}
-                onClick={() => setFieldTouched(name, true, true)}
+                // onClick={() => setFieldTouched(name, true, true)}
                 htmlFor={readOnly === 1 ? "" : `upload-button-${name}`}
               >
                 <div className="labelWrapper">
