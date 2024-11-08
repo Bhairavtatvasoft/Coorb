@@ -8,14 +8,14 @@
 
 @media (max-width: 600px) {
   .main-content {
-    margin-inline-start: 50px;
+    margin-inline-start: 64px;
   }
 }
 
 @media (min-width: 600px) and (max-width: 960px) {
   /* sm */
   .main-content {
-    margin-inline-start: 50px;
+    margin-inline-start: 64px;
   }
 }
 

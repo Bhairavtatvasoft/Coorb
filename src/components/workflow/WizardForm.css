@@ -1,16 +1,17 @@
-.wizardContainer {
+/* .wizardContainer {
   padding: 20px 0;
-}
+} */
 
 .formContainer {
-  padding: 30px 10px;
+  padding: 15px 10px;
   flex: 1 1 auto;
   overflow-y: auto;
-  max-height: calc(84vh - 160px);
+  max-height: calc(100vh - 420px);
 }
 
 .stepper {
   overflow: auto;
+  margin-bottom: 10px;
 }
 
 .wizardFooter {
@@ -22,7 +23,7 @@
   text-align: right;
 }
 
-.wizardBtn{
+.wizardBtn {
   z-index: 9;
 }
 
@@ -31,8 +32,11 @@
   transform: 0.3s ease;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 899px) {
   .formContainer {
-    max-height: calc(75vh - 160px);
+    /* max-height: calc(75vh - 300px); */
+    max-height: calc(100vh - 467px);
+    /* height: calc(100vh - 471px); */
+    /* height: calc(75vh - 285px); */
   }
 }

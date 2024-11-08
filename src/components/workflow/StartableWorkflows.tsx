@@ -36,7 +36,7 @@ const StartableWorkflows = () => {
   };
 
   return (
-    <Box className="workflowContainer">
+    <Box className="workflowStartableContainer">
       <Grid2 container spacing={2}>
         {workflows.map((workflow) => (
           <Grid2

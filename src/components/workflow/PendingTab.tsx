@@ -10,7 +10,7 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-import "./PendingTab.css";
+import "./PendingTab.scss";
 import { taskService } from "../../service/task/TaskService";
 import { PendingTaskResponse } from "../../service/workflow/WorkflowModel";
 import { useTranslation } from "react-i18next";
@@ -112,7 +112,7 @@ const PendingTab = () => {
   return (
     <Paper elevation={3} className="pendingTabPaper">
       <TableContainer className="pendingTabTableContainer">
-        <Table>
+        <Table stickyHeader>
           <TableHead className="pendingTabTableHead">
             <TableRow className="pendingTabTableRow">
               <TableCell

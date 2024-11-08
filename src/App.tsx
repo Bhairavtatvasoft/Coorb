@@ -54,6 +54,7 @@ function App() {
             draggable
             pauseOnHover
             theme="colored"
+            className="toast"
           />
         </ThemeProvider>
       </CacheProvider>

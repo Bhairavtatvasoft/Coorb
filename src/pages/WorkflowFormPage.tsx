@@ -5,10 +5,10 @@ import { CONST_WORDS, FORM_TYPE, JDBC_TYPE, yup } from "../utils/constant";
 import { Button, Grid2, Paper } from "@mui/material";
 import { ObjectSchema } from "yup";
 import { useTranslation } from "react-i18next";
-import "./Workflow.css";
+import "./Workflow.scss";
 import SelectField from "../components/common/SelectField";
 import NoteModal from "../components/workflow/NoteModal";
-import "./WorkflowFormPage.css";
+import "./WorkflowFormPage.scss";
 import WizardComponent from "../components/workflow/WizardForm";
 import TabsComponent from "../components/workflow/TabForm";
 import { taskService } from "../service/task/TaskService";
@@ -278,8 +278,8 @@ const WorkflowFormPage = () => {
                     </Button>
                   </Grid2>
                 </Grid2>
-                <Grid2 container spacing={1}>
-                  <Grid2 size={{ xs: 12, md: 3.5 }}>
+                <Grid2 container spacing={2}>
+                  <Grid2 size={{ xs: 6, md: 3 }}>
                     <Button
                       variant="contained"
                       type="button"
@@ -293,7 +293,7 @@ const WorkflowFormPage = () => {
                       {t("save")}
                     </Button>
                   </Grid2>
-                  <Grid2 size={{ xs: 12, md: 3.5 }}>
+                  <Grid2 size={{ xs: 6, md: 3 }}>
                     <Button
                       variant="contained"
                       type="button"
@@ -303,7 +303,7 @@ const WorkflowFormPage = () => {
                       {t("cancel")}
                     </Button>
                   </Grid2>
-                  <Grid2 size={{ xs: 12, md: 3.5 }}>
+                  <Grid2 size={{ xs: 6, md: 3 }}>
                     <Button
                       variant="contained"
                       type="button"
@@ -317,7 +317,7 @@ const WorkflowFormPage = () => {
                       {t("commit")}
                     </Button>
                   </Grid2>
-                  <Grid2 size={{ xs: 12, md: 1.5 }}>
+                  <Grid2 size={{ xs: 6, md: 3 }}>
                     <SelectField
                       options={commitStatus}
                       name={"selectedTaskStatus"}

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import StartableWorkflows from "../components/workflow/StartableWorkflows";
 import PendingTab from "../components/workflow/PendingTab";
 import { useTranslation } from "react-i18next";
-import "./Workflow.css";
+import "./Workflow.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 const Workflow = () => {
   const [value, setValue] = useState(0);

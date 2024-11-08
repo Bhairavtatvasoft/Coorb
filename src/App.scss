@@ -274,3 +274,91 @@ body[dir="rtl"] {
     scrollbar-width: thin;
   }
 }
+
+// View Document
+.pdf-viewer {
+  min-width: 40vw;
+  min-height: 70vh;
+
+  @media (max-width: 575px) {
+    min-width: 80vw;
+    min-height: 70vh;
+  }
+}
+
+// Modal Design CSS
+
+.MuiDialog-root {
+  .MuiDialog-container {
+    .MuiPaper-root {
+      border-radius: 8px;
+
+      .MuiDialogTitle-root {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 32px;
+        padding: 16px 24px 0;
+      }
+
+      .MuiDialogContent-root {
+        padding-block: 16px;
+      }
+
+      .MuiDialogActions-root {
+        padding: 0 24px 16px;
+      }
+    }
+  }
+  @media (max-width: 575px) {
+    margin: -24px;
+
+    .MuiDialogContent-root,
+    .MuiDialogActions-root,
+    .MuiDialogTitle-root {
+      padding: 15px !important;
+    }
+
+    .pdf-viewer {
+      min-width: 80vw;
+      min-height: 70vh;
+    }
+  }
+}
+
+// Toast-Css
+
+@media (max-width: 480px) {
+  .toast {
+    max-width: 70vw;
+    top: 16px;
+    right: 16px;
+    left: auto;
+    font-size: small;
+
+    > div {
+      border-radius: 6px;
+    }
+  }
+}
+
+// DatePicker Component
+
+@media (max-width: 425px) {
+  .react-datepicker-wrapper {
+    label {
+      max-width: calc(100% - 43px);
+    }
+
+    .react-datepicker__close-icon {
+      right: 5px;
+    }
+
+    .MuiInputBase-root {
+      padding-right: 5px;
+    }
+  }
+}
+
+.Mui-error {
+  text-wrap: nowrap;
+}

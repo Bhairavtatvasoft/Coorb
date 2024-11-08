@@ -26,7 +26,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           isSidebarOpen ? "open-sidebar" : "closed-sidebar"
         }`}
       >
-        <Toolbar />
+        <Toolbar sx={{ height: "64px" }} />
         {children}
       </Box>
     </Box>

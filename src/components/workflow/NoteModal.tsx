@@ -5,7 +5,10 @@ import {
   Button,
   Grid2,
   TextField,
+  DialogTitle,
+  IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -32,7 +35,26 @@ const NoteModal: React.FC<NoteModalProps> = ({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+    <Dialog
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth="sm"
+      className="modal"
+    >
+      <DialogTitle>{t("addViewNote")}</DialogTitle>
+      <IconButton
+        aria-label="close"
+        onClick={onClose}
+        sx={(theme) => ({
+          position: "absolute",
+          right: 8,
+          top: 8,
+          color: theme.palette.grey[500],
+        })}
+      >
+        <CloseIcon />
+      </IconButton>
       <DialogContent>
         <Grid2 container spacing={2}>
           {/* <Grid2 size={{ xs: 12 }}>

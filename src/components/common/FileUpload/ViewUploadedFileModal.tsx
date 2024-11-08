@@ -4,7 +4,9 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { ViewFileDetail } from "./FileUploadField";
@@ -62,16 +64,50 @@ const ViewUploadedFile: FC<Props> = (props) => {
   };
 
   return (
-    <Dialog onClose={handleClose} open={true} maxWidth="md" fullWidth>
+    <Dialog
+      onClose={handleClose}
+      open={true}
+      maxWidth="md"
+      fullWidth={
+        viewFileDetail.fileType === "pdf" || viewFileDetail.fileType === "txt"
+      }
+    >
       <DialogTitle>{t("viewFile")}</DialogTitle>
-      <DialogContent>
+      <IconButton
+        aria-label="close"
+        onClick={handleClose}
+        sx={(theme) => ({
+          position: "absolute",
+          right: 8,
+          top: 8,
+          color: theme.palette.grey[500],
+        })}
+      >
+        <CloseIcon />
+      </IconButton>
+      <DialogContent
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          overflow: "hidden",
+          maxWidth: "100%",
+          maxHeight: "70vh",
+          minHeight: "300px",
+          minWidth: "300px",
+        }}
+      >
         {(viewFileDetail.fileType === "pdf" ||
           viewFileDetail.fileType === "txt") && (
           <iframe
-            src={viewFileDetail.fileData}
+            className="pdf-viewer"
+            src={`${viewFileDetail.fileData}#view=fitH`}
             width="100%"
             height="100%"
-            style={{ border: "none" }}
+            style={{
+              border: "none",
+              overflow: "hidden",
+            }}
           />
         )}
 
@@ -79,7 +115,11 @@ const ViewUploadedFile: FC<Props> = (props) => {
           <img
             src={viewFileDetail.fileData}
             alt="Preview"
-            style={{ maxWidth: "100%" }}
+            style={{
+              maxHeight: "inherit",
+              maxWidth: "100%",
+              objectFit: "contain",
+            }} // Ensure the image fits within the available space
           />
         )}
 
