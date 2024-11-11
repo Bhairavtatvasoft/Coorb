@@ -1,24 +1,55 @@
 @import url("../../style-variables.css");
 .pendingTabPaper {
   width: 100%;
-  height: 100%;
+  max-height: 100%;
   border-radius: 0.4rem !important;
   overflow: auto;
 }
 
 .pendingTabTableContainer {
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  height: calc(100% - 52px);
+  max-height: calc(100vh - 230px);
+  overflow-x: auto;
 
   @media (max-width: 600px) {
-    height: calc(100% - 56px);
+    max-height: calc(100vh - 233px);
+  }
+
+  .MuiTableBody-root {
+    max-height: calc(100vh - 335px);
+  }
+
+  .pendingTable {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100vh - 230px);
+    overflow: hidden;
+  }
+
+  .pendingTable tbody {
+    display: block;
+    max-height: calc(100vh - 318px);
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @media (min-width: "1200px") {
+      max-height: calc(100vh - 288px);
+    }
+  }
+
+  .pendingTable tbody tr,
+  .pendingTable thead tr {
+    display: flex;
+  }
+
+  .pendingTable td,
+  .pendingTable th {
+    flex: 1;
+    text-align: left;
+    min-width: 100px;
   }
 }
-
-// .pendingTabTableHead .MuiTableCell-root {
-//   font-weight: bold;
-//   color: var(--textLight);
-// }
 
 .pendingTabTableHead {
   .pendingTabTableRow,
@@ -27,17 +58,20 @@
     color: var(--textLight);
     cursor: pointer;
     background-color: var(--secondaryBackground);
+
+    .PendingTabShortLabel {
+      color: var(--textLight);
+
+      @media (min-width: "1200px") {
+        text-wrap: nowrap;
+      }
+      // text-wrap: nowrap;
+      > svg {
+        fill: var(--selected);
+      }
+    }
   }
 }
-
-// .pendingTabTableRow .MuiTableCell-root {
-//   cursor: pointer;
-//   background-color: var(--secondaryBackground);
-// }
-
-// .pendingTabTableRow {
-//   background-color: var(--secondaryBackground);
-// }
 
 .pendingTabArrowIcon {
   color: var(--selected);
@@ -51,8 +85,17 @@
 
 .pendingTabTableRowHoverInherited {
   cursor: default;
+
+  .MuiTableCell-root {
+    padding-block: 11px;
+  }
 }
 
 .pendingTabReleaseButton {
   background-color: var(--selected) !important;
+  text-wrap: nowrap;
+
+  @media (max-width: 480px) {
+    text-wrap: balance;
+  }
 }
