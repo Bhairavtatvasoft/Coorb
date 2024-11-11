@@ -154,7 +154,7 @@ const WorkflowFormPage = () => {
     const newInitialValues = {
       ...data,
       formField: newInitVal,
-      taskInstanceTokenId: taskInstanceTokenId,
+      taskInstanceTokenId: data.data[5],
     };
 
     const statuses = data.statuses;
