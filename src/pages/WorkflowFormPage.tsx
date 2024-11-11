@@ -1,5 +1,5 @@
-import { Formik, FormikErrors, FormikTouched } from "formik";
-import { useLayoutEffect, useRef, useState } from "react";
+import { Formik, FormikErrors, FormikProps, FormikTouched } from "formik";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { IObject, ISelectOpt } from "../service/commonModel";
 import { CONST_WORDS, FORM_TYPE, JDBC_TYPE, yup } from "../utils/constant";
 import { Button, Grid2, Paper } from "@mui/material";
@@ -75,9 +75,11 @@ const WorkflowFormPage = () => {
     "_" +
     CONST_WORDS.sessionTaskDetail;
 
-  const validationSchema = useRef<ObjectSchema<IObject> | null>(null);
+  const formRef = useRef<FormikProps<IObject>>(null);
 
   const [showNoteModal, setShowNoteModal] = useState<boolean>(false);
+  const [validationSchema, setValidationSchema] =
+    useState<ObjectSchema<IObject> | null>(yup.object().shape({}));
   const [initValues, setInitialValues] = useState<IObject>({
     formField: {},
   });
@@ -87,11 +89,40 @@ const WorkflowFormPage = () => {
   const requestInitiated = useRef(false);
 
   useLayoutEffect(() => {
-    validationSchema.current = yup.object().shape({});
     if (taskInstanceId && taskInstanceTokenId) {
       getTaskDetail(taskInstanceId, taskInstanceTokenId);
     }
   }, []);
+
+  useEffect(() => {
+    if (i18n.language && initValues.variables) {
+      const newValidationSchema: Record<string, any> = {};
+      Object.values((initValues as ITaskDetail).variables).forEach(
+        (variable) => {
+          if (
+            ![JDBC_TYPE.Button, JDBC_TYPE.Label, JDBC_TYPE.URL].includes(
+              variable.jdbcType
+            )
+          ) {
+            if (variable.required && !variable.hidden) {
+              newValidationSchema[variable.i18nName] = yup
+                .mixed()
+                .required(t(variable.i18nName) + " " + t("isRequired"));
+            }
+          }
+        }
+      );
+      setValidationSchema(
+        yup.object().shape({
+          formField: yup.object().shape(newValidationSchema),
+        })
+      );
+
+      setTimeout(() => {
+        formRef.current?.validateForm();
+      }, 0);
+    }
+  }, [i18n.language]);
 
   const getTaskDetail = (
     taskInstanceId: string,
@@ -148,9 +179,11 @@ const WorkflowFormPage = () => {
     );
     setGroupedVariables(newGrpVariables);
 
-    validationSchema.current = yup.object().shape({
-      formField: yup.object().shape(newValidationSchema),
-    });
+    setValidationSchema(
+      yup.object().shape({
+        formField: yup.object().shape(newValidationSchema),
+      })
+    );
     const newInitialValues = {
       ...data,
       formField: newInitVal,
@@ -245,9 +278,10 @@ const WorkflowFormPage = () => {
     <Grid2 className="workflowFormWrapper">
       <Formik
         initialValues={initValues}
-        validationSchema={validationSchema.current}
+        validationSchema={validationSchema}
         onSubmit={() => {}}
         enableReinitialize
+        innerRef={formRef}
         key={i18n.language}
       >
         {({ values, setFieldValue, validateForm, setTouched }) => {

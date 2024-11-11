@@ -20,12 +20,15 @@ const ButtonField: FC<
 
   const handleBtnClick = () => {
     if (isServerClick) {
-      taskService.buttonClick({
-        task: transferObjectForTaskSave(values, t) as ITaskDetail,
-        buttonVarialeId: props.id!.toString(),
-      });
-    }
-    if (handleClick) {
+      taskService
+        .buttonClick({
+          task: transferObjectForTaskSave(values, t) as ITaskDetail,
+          buttonVarialeId: props.id!.toString(),
+        })
+        .then((res) => {
+          if (res?.data) handleClick(res?.data);
+        });
+    } else if (handleClick) {
       handleClick();
     }
   };

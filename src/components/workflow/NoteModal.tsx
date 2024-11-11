@@ -75,7 +75,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
           <Grid2 size={{ xs: 12 }}>
             <label>{t("plzNoteFollowing")}...</label>
             <TextField
-              value={noteText}
+              value={noteText ?? ""}
               onChange={(e) => setNoteText(e.target.value)}
               onBlur={(e) => setNoteText(e.target.value?.trim())}
               fullWidth
