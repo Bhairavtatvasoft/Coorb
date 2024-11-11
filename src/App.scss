@@ -308,7 +308,8 @@ body[dir="rtl"] {
       }
 
       .MuiDialogContent-root {
-        padding-block: 16px;
+        padding-block: 0;
+        margin-block: 16px;
       }
 
       .MuiDialogActions-root {
@@ -366,6 +367,21 @@ body[dir="rtl"] {
   }
 }
 
+// error text
 .Mui-error {
   text-wrap: nowrap;
+}
+
+// button radius
+.MuiButton-root.MuiButtonBase-root {
+  border-radius: 6px;
+}
+
+// not-found
+.notFound {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  color: var(--primaryBackground);
+  font-size: 24px;
 }

@@ -92,5 +92,7 @@
   "Other Loans": "قروض أخرى",
   "Medical Expenses": "النفقات الطبية",
   "Identification": "الهوية",
-  "Commodity Type": "نوع السلعة"
+  "Commodity Type": "نوع السلعة",
+  "moreThen100RecordPending": "هناك أكثر من 100 سجل معلق.",
+  "notFound": "404 | لم يتم العثور عليه"
 }

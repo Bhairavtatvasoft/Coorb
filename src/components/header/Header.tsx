@@ -24,7 +24,7 @@ const Header = ({ onSidebarToggle }: any) => {
   const open = Boolean(anchorEl);
   const { i18n, t } = useTranslation();
   const user = {
-    name: "John Doe",
+    name: "Georges Stephan",
     avatar: "./user.jpg",
   };
 
@@ -64,7 +64,7 @@ const Header = ({ onSidebarToggle }: any) => {
           >
             <MenuIcon />
           </IconButton>
-          <img src="./logo3.png" alt="Logo" className="headerLogo" />
+          <img src="/logo3.png" alt="Logo" className="headerLogo" />
         </Box>
         <Box className="headerBox">
           <Tooltip title={t("selectLanguage")}>

@@ -93,5 +93,7 @@
   "Other Loans": "Other Loans",
   "Medical Expenses": "Medical Expenses",
   "Identification": "Identification",
-  "Commodity Type": "Commodity Type"
+  "Commodity Type": "Commodity Type",
+  "moreThen100RecordPending": "More than 100 records are pending.",
+  "notFound": "404 | NOT FOUND"
 }

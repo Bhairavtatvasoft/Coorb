@@ -37,7 +37,7 @@
   }
 }
 
-@media (min-width: 960px) {
+@media (min-width: 961px) {
   .responsiveGrid {
     flex-basis: 33.33%;
     max-width: 33.33%;

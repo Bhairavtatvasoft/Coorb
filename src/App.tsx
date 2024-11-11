@@ -17,6 +17,7 @@ import "./translation/i18n";
 import "./App.scss";
 import { useTranslation } from "react-i18next";
 import Loader from "./components/common/Loader.tsx";
+import { NotFound } from "./pages/NotFound.tsx";
 
 function App() {
   const { i18n } = useTranslation();
@@ -39,14 +40,14 @@ function App() {
                   path="/workflow-form/:taskInstanceId/:taskInstanceTokenId"
                   element={<WorkflowFormPage />}
                 />
-                <Route path="*" element={<>Page Not Found</>} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </Layout>
           </Router>
           <ToastContainer
             position="top-right"
             autoClose={5000}
-            hideProgressBar={false}
+            hideProgressBar={true}
             newestOnTop={false}
             closeOnClick
             rtl={false}

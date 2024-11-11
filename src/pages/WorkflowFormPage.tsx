@@ -248,6 +248,7 @@ const WorkflowFormPage = () => {
         validationSchema={validationSchema.current}
         onSubmit={() => {}}
         enableReinitialize
+        key={i18n.language}
       >
         {({ values, setFieldValue, validateForm, setTouched }) => {
           return (
