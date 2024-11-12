@@ -290,6 +290,7 @@ const WorkflowFormPage = () => {
         onSubmit={() => {}}
         enableReinitialize
         innerRef={formRef}
+        key={i18n.language}
       >
         {({ values, setFieldValue, validateForm, setTouched }) => {
           return (

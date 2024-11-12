@@ -7,11 +7,15 @@
 }
 
 .drawerOpen .MuiDrawer-paper {
-  width: 240px ; 
+  width: 240px;
 }
 
 .drawerClosed .MuiDrawer-paper {
-  width: 64px ; 
+  width: 64px;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 }
 .sidebarDrawerPaperOpen {
   width: 240px;
@@ -48,8 +52,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
   }
 }
-

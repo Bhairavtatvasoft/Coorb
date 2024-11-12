@@ -76,6 +76,7 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
                       fileType: "",
                       show: false,
                     });
+                    event.target.value = "";
                   }
                 });
             };

@@ -10,6 +10,7 @@ import {
   Paper,
   Button,
   TableSortLabel,
+  Alert,
 } from "@mui/material";
 import "./PendingTab.scss";
 import { taskService } from "../../service/task/TaskService";
@@ -110,221 +111,254 @@ const PendingTab = () => {
     setSortDirection(sortDirection === "asc" ? "desc" : "asc");
   };
   return (
-    <Paper elevation={3} className="pendingTabPaper">
-      <TableContainer className="pendingTabTableContainer">
-        <Table stickyHeader className="pendingTable">
-          <TableHead className="pendingTabTableHead">
-            <TableRow className="pendingTabTableRow">
-              <TableCell
-                onClick={() => handleSort("workflowI18Name")}
-                className="pendingTabTableRow"
-                sortDirection={
-                  sortColumn === "workflowI18Name"
-                    ? sortDirection === "desc"
-                      ? "desc"
-                      : "asc"
-                    : false
-                }
-              >
-                <TableSortLabel
-                  active={sortColumn === "workflowI18Name"}
-                  direction={sortDirection === "desc" ? "desc" : "asc"}
-                  className="PendingTabShortLabel"
+    <>
+      {data.length > 100 && (
+        <Alert
+          variant="standard"
+          severity="warning"
+          sx={{
+            marginBottom: "10px",
+            backgroundColor: "#ffe2ba",
+            fontWeight: "600",
+            borderRadius: "6px",
+          }}
+          className="warning"
+        >
+          {t("moreThen100RecordPending")}
+        </Alert>
+      )}
+      <Paper
+        elevation={3}
+        className={`pendingTabPaper ${data.length > 100 ? "extraRecord" : ""}`}
+      >
+        <TableContainer
+          className={`pendingTabTableContainer ${
+            data.length > 100 ? "extraRecord" : ""
+          }`}
+        >
+          <Table
+            stickyHeader
+            className={`pendingTable ${data.length > 100 ? "extraRecord" : ""}`}
+          >
+            <TableHead className="pendingTabTableHead">
+              <TableRow className="pendingTabTableRow">
+                <TableCell
+                  onClick={() => handleSort("workflowI18Name")}
+                  className="pendingTabTableRow"
+                  sortDirection={
+                    sortColumn === "workflowI18Name"
+                      ? sortDirection === "desc"
+                        ? "desc"
+                        : "asc"
+                      : false
+                  }
                 >
-                  {t("workflowName")}
-                </TableSortLabel>
-              </TableCell>
-              <TableCell
-                onClick={() => handleSort("taskI18Name")}
-                className="pendingTabTableRow"
-                sortDirection={
-                  sortColumn === "taskI18Name"
-                    ? sortDirection === "desc"
-                      ? "desc"
-                      : "asc"
-                    : false
-                }
-              >
-                <TableSortLabel
-                  active={sortColumn === "taskI18Name"}
-                  direction={sortDirection === "desc" ? "desc" : "asc"}
-                  className="PendingTabShortLabel"
+                  <TableSortLabel
+                    active={sortColumn === "workflowI18Name"}
+                    direction={sortDirection === "desc" ? "desc" : "asc"}
+                    className="PendingTabShortLabel"
+                  >
+                    {t("workflowName")}
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell
+                  onClick={() => handleSort("taskI18Name")}
+                  className="pendingTabTableRow"
+                  sortDirection={
+                    sortColumn === "taskI18Name"
+                      ? sortDirection === "desc"
+                        ? "desc"
+                        : "asc"
+                      : false
+                  }
                 >
-                  {t("taskName")}
-                </TableSortLabel>
-              </TableCell>
-              <TableCell
-                onClick={() => handleSort("userDisplayName")}
-                className="pendingTabTableRow"
-                sortDirection={
-                  sortColumn === "userDisplayName"
-                    ? sortDirection === "desc"
-                      ? "desc"
-                      : "asc"
-                    : false
-                }
-              >
-                <TableSortLabel
-                  active={sortColumn === "userDisplayName"}
-                  direction={sortDirection === "desc" ? "desc" : "asc"}
-                  className="PendingTabShortLabel"
+                  <TableSortLabel
+                    active={sortColumn === "taskI18Name"}
+                    direction={sortDirection === "desc" ? "desc" : "asc"}
+                    className="PendingTabShortLabel"
+                  >
+                    {t("taskName")}
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell
+                  onClick={() => handleSort("userDisplayName")}
+                  className="pendingTabTableRow"
+                  sortDirection={
+                    sortColumn === "userDisplayName"
+                      ? sortDirection === "desc"
+                        ? "desc"
+                        : "asc"
+                      : false
+                  }
                 >
-                  {t("addedBy")}
-                </TableSortLabel>
-              </TableCell>
-              <TableCell
-                onClick={() => handleSort("addedOn")}
-                className="pendingTabTableRow"
-                sortDirection={
-                  sortColumn === "addedOn"
-                    ? sortDirection === "desc"
-                      ? "desc"
-                      : "asc"
-                    : false
-                }
-              >
-                <TableSortLabel
-                  active={sortColumn === "addedOn"}
-                  direction={sortDirection === "desc" ? "desc" : "asc"}
-                  className="PendingTabShortLabel"
+                  <TableSortLabel
+                    active={sortColumn === "userDisplayName"}
+                    direction={sortDirection === "desc" ? "desc" : "asc"}
+                    className="PendingTabShortLabel"
+                  >
+                    {t("addedBy")}
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell
+                  onClick={() => handleSort("addedOn")}
+                  className="pendingTabTableRow"
+                  sortDirection={
+                    sortColumn === "addedOn"
+                      ? sortDirection === "desc"
+                        ? "desc"
+                        : "asc"
+                      : false
+                  }
                 >
-                  {t("addedOn")}
-                </TableSortLabel>
-              </TableCell>
-              <TableCell
-                onClick={() => handleSort("statusInDesc")}
-                className="pendingTabTableRow"
-                sortDirection={
-                  sortColumn === "statusInDesc"
-                    ? sortDirection === "desc"
-                      ? "desc"
-                      : "asc"
-                    : false
-                }
-              >
-                <TableSortLabel
-                  active={sortColumn === "statusInDesc"}
-                  direction={sortDirection === "desc" ? "desc" : "asc"}
-                  className="PendingTabShortLabel"
+                  <TableSortLabel
+                    active={sortColumn === "addedOn"}
+                    direction={sortDirection === "desc" ? "desc" : "asc"}
+                    className="PendingTabShortLabel"
+                  >
+                    {t("addedOn")}
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell
+                  onClick={() => handleSort("statusInDesc")}
+                  className="pendingTabTableRow"
+                  sortDirection={
+                    sortColumn === "statusInDesc"
+                      ? sortDirection === "desc"
+                        ? "desc"
+                        : "asc"
+                      : false
+                  }
                 >
-                  {t("statusIn")}
-                </TableSortLabel>
-              </TableCell>
-              <TableCell
-                onClick={() => handleSort("tenantI18Name")}
-                className="pendingTabTableRow"
-                sortDirection={
-                  sortColumn === "tenantI18Name"
-                    ? sortDirection === "desc"
-                      ? "desc"
-                      : "asc"
-                    : false
-                }
-              >
-                <TableSortLabel
-                  active={sortColumn === "tenantI18Name"}
-                  direction={sortDirection === "desc" ? "desc" : "asc"}
-                  className="PendingTabShortLabel"
+                  <TableSortLabel
+                    active={sortColumn === "statusInDesc"}
+                    direction={sortDirection === "desc" ? "desc" : "asc"}
+                    className="PendingTabShortLabel"
+                  >
+                    {t("statusIn")}
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell
+                  onClick={() => handleSort("tenantI18Name")}
+                  className="pendingTabTableRow"
+                  sortDirection={
+                    sortColumn === "tenantI18Name"
+                      ? sortDirection === "desc"
+                        ? "desc"
+                        : "asc"
+                      : false
+                  }
                 >
-                  {t("tenant")}
-                </TableSortLabel>
-              </TableCell>
-              <TableCell className="pendingTabTableRow">
-                {t("loaded")}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={7} align="center">
-                  {t("noData")}
+                  <TableSortLabel
+                    active={sortColumn === "tenantI18Name"}
+                    direction={sortDirection === "desc" ? "desc" : "asc"}
+                    className="PendingTabShortLabel"
+                  >
+                    {t("tenant")}
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell className="pendingTabTableRow">
+                  {t("loaded")}
                 </TableCell>
               </TableRow>
-            ) : (
-              data
-                .sort(sortData)
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => (
-                  <TableRow
-                    key={row.taskInstanceId}
-                    onClick={
-                      row.loadedByOwner ? undefined : () => handleRowClick(row)
-                    }
-                    className={
-                      row.loadedByOwner
-                        ? "pendingTabTableRowHoverInherited"
-                        : "pendingTabTableRowHover"
-                    }
+            </TableHead>
+            <TableBody className={`${data.length > 100 ? "extraRecord" : ""}`}>
+              {data.length === 0 ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={7}
+                    align="center"
+                    sx={{ justifyContent: "center" }}
                   >
-                    <TableCell>{t(row.workflowI18Name)}</TableCell>
-                    <TableCell>{t(row.taskI18Name)}</TableCell>
-                    <TableCell>{row.userDisplayName}</TableCell>
-                    <TableCell>
-                      {moment(row.addedOn).format("DD/MM/YYYY HH:mm")}
-                    </TableCell>
-                    <TableCell>{t(row.statusInDesc)}</TableCell>
-                    <TableCell>{t(row.tenantI18Name)}</TableCell>
-                    <TableCell>
-                      {row.loadedByOwner && (
-                        <Button
-                          size="small"
-                          variant="contained"
-                          color="primary"
-                          className="pendingTabReleaseButton"
-                          onClick={() =>
-                            handleRelease(
-                              row.taskInstanceId,
-                              row.data[5].toString() // TokenId
-                            )
-                          }
-                        >
-                          {t("releaseTask")}
-                        </Button>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 15, 30]}
-        component="div"
-        count={data.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        labelRowsPerPage={t("rowsPerPage")}
-        labelDisplayedRows={({ from, to, count }) => {
-          const displayedCount =
-            count !== -1 ? count.toString() : i18n.t("moreThan", { to });
-          const translationOptions = {
-            from: from.toString(),
-            to: to.toString(),
-            count: displayedCount,
-          };
-          return i18n.t(
-            "paginationText",
-            translationOptions as Record<string, string>
-          );
-        }}
-        slotProps={
-          i18n.language === "ar"
-            ? {
-                actions: {
-                  nextButton: { sx: { rotate: "180deg" } },
-                  previousButton: {
-                    sx: { rotate: "180deg" },
+                    {t("noData")}
+                  </TableCell>
+                </TableRow>
+              ) : (
+                data
+                  .sort(sortData)
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => (
+                    <TableRow
+                      key={row.taskInstanceId}
+                      onClick={
+                        row.loadedByOwner
+                          ? undefined
+                          : () => handleRowClick(row)
+                      }
+                      className={
+                        row.loadedByOwner
+                          ? "pendingTabTableRowHoverInherited"
+                          : "pendingTabTableRowHover"
+                      }
+                    >
+                      <TableCell>{t(row.workflowI18Name)}</TableCell>
+                      <TableCell>{t(row.taskI18Name)}</TableCell>
+                      <TableCell>{row.userDisplayName}</TableCell>
+                      <TableCell>
+                        {moment(row.addedOn).format("DD/MM/YYYY HH:mm")}
+                      </TableCell>
+                      <TableCell>{t(row.statusInDesc)}</TableCell>
+                      <TableCell>{t(row.tenantI18Name)}</TableCell>
+                      <TableCell>
+                        {row.loadedByOwner && (
+                          <Button
+                            size="small"
+                            variant="contained"
+                            color="primary"
+                            className="pendingTabReleaseButton"
+                            onClick={() =>
+                              handleRelease(
+                                row.taskInstanceId,
+                                row.data[5].toString() // TokenId
+                              )
+                            }
+                          >
+                            {t("releaseTask")}
+                          </Button>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 15, 30]}
+          component="div"
+          count={data.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage={t("rowsPerPage")}
+          labelDisplayedRows={({ from, to, count }) => {
+            const displayedCount =
+              count !== -1 ? count.toString() : i18n.t("moreThan", { to });
+            const translationOptions = {
+              from: from.toString(),
+              to: to.toString(),
+              count: displayedCount,
+            };
+            return i18n.t(
+              "paginationText",
+              translationOptions as Record<string, string>
+            );
+          }}
+          slotProps={
+            i18n.language === "ar"
+              ? {
+                  actions: {
+                    nextButton: { sx: { rotate: "180deg" } },
+                    previousButton: {
+                      sx: { rotate: "180deg" },
+                    },
                   },
-                },
-              }
-            : {}
-        }
-      />
-    </Paper>
+                }
+              : {}
+          }
+        />
+      </Paper>
+    </>
   );
 };
 

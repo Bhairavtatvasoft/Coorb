@@ -9,7 +9,7 @@ import {
 import { Home } from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import "./Sidebar.css";
+import "./Sidebar.scss";
 interface SidebarProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;

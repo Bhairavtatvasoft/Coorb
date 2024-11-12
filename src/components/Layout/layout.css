@@ -8,18 +8,18 @@
 
 @media (max-width: 600px) {
   .main-content {
-    margin-inline-start: 64px;
+    margin-inline-start: 0;
   }
 }
 
-@media (min-width: 600px) and (max-width: 960px) {
+@media (min-width: 601px) and (max-width: 960px) {
   /* sm */
   .main-content {
     margin-inline-start: 64px;
   }
 }
 
-@media (min-width: 960px) {
+@media (min-width: 961px) {
   .main-content.open-sidebar {
     margin-inline-start: 240px;
   }
