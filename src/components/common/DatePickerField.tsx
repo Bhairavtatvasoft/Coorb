@@ -6,8 +6,8 @@ import { useTranslation } from "react-i18next";
 import { IGenericFieldProps, IObject } from "../../service/commonModel";
 import FieldHelper from "./FieldHelper";
 import * as locale from "date-fns/locale";
-import { isValid } from "date-fns";
 import { CalendarMonth } from "@mui/icons-material";
+import moment from "moment";
 
 const DatePickerField: FC<IGenericFieldProps> = (props) => {
   const { t, i18n } = useTranslation();
@@ -18,7 +18,8 @@ const DatePickerField: FC<IGenericFieldProps> = (props) => {
   return (
     <Field name={name}>
       {({ field, meta }: FieldProps) => {
-        const isValidValue = field.value && isValid(new Date(field.value));
+        const isValidValue =
+          field.value && moment(field.value, "DD/MM/YYYY", true).isValid();
 
         return (
           <div className="fieldWrapper">
@@ -53,7 +54,11 @@ const DatePickerField: FC<IGenericFieldProps> = (props) => {
                   setFieldTouched(name, true, true);
                   setFieldValue(name, date, true);
                 }}
-                selected={isValidValue ? new Date(field.value) : null}
+                selected={
+                  isValidValue
+                    ? moment(field.value, "DD/MM/YYYY", true).toDate()
+                    : null
+                }
                 showMonthDropdown
                 showYearDropdown
                 dropdownMode="select"

@@ -163,6 +163,14 @@ const WorkflowFormPage = () => {
       if (variable.jdbcType === JDBC_TYPE.Checkbox) {
         newInitVal[variable.i18nName] =
           variable.numericValue?.toString() === "1" ? true : false;
+      } else if (
+        variable.jdbcType === JDBC_TYPE.IntegerInput &&
+        variable.comboListName
+      ) {
+        newInitVal[variable.i18nName] = {
+          value: variable.numericValue,
+          label: variable.textValue,
+        };
       } else {
         newInitVal[variable.i18nName] = variable.textValue;
       }
