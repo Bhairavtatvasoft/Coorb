@@ -165,7 +165,9 @@ const WorkflowFormPage = () => {
           variable.numericValue?.toString() === "1" ? true : false;
       } else if (
         variable.jdbcType === JDBC_TYPE.IntegerInput &&
-        variable.comboListName
+        variable.comboListName &&
+        variable.textValue &&
+        variable.numericValue
       ) {
         newInitVal[variable.i18nName] = {
           value: variable.numericValue,
@@ -290,7 +292,6 @@ const WorkflowFormPage = () => {
         onSubmit={() => {}}
         enableReinitialize
         innerRef={formRef}
-        key={i18n.language}
       >
         {({ values, setFieldValue, validateForm, setTouched }) => {
           return (
