@@ -300,6 +300,22 @@ body[dir="rtl"] {
     .MuiPaper-root {
       border-radius: 8px;
 
+      > button {
+        position: absolute;
+        top: 8px;
+        color: #9e9e9e;
+
+        &.left {
+          left: 8px;
+          right: calc(100% - 48px);
+        }
+
+        &.right {
+          right: 8px;
+          left: calc(100% - 48px);
+        }
+      }
+
       .MuiDialogTitle-root {
         font-size: 24px;
         font-weight: 600;
@@ -345,24 +361,6 @@ body[dir="rtl"] {
 
     > div {
       border-radius: 6px;
-    }
-  }
-}
-
-// DatePicker Component
-
-@media (max-width: 425px) {
-  .react-datepicker-wrapper {
-    label {
-      max-width: calc(100% - 43px);
-    }
-
-    .react-datepicker__close-icon {
-      right: 5px;
-    }
-
-    .MuiInputBase-root {
-      padding-right: 5px;
     }
   }
 }
