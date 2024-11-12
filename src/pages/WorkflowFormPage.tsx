@@ -118,6 +118,14 @@ const WorkflowFormPage = () => {
         })
       );
 
+      setCommitStatus(
+        Object.keys(initValues.statuses).map((x) => ({
+          ...initValues.statuses[x],
+          value: initValues.statuses[x].id,
+          label: t(initValues.statuses[x].i18nName),
+        }))
+      );
+
       setTimeout(() => {
         formRef.current?.validateForm();
       }, 0);
@@ -290,7 +298,6 @@ const WorkflowFormPage = () => {
         onSubmit={() => {}}
         enableReinitialize
         innerRef={formRef}
-        key={i18n.language}
       >
         {({ values, setFieldValue, validateForm, setTouched }) => {
           return (

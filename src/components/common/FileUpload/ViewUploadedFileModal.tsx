@@ -11,6 +11,7 @@ import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { ViewFileDetail } from "./FileUploadField";
 import { fileService } from "../../../service/file/FileService";
+import i18next from "i18next";
 
 type Props = {
   handleClose: () => void;
@@ -74,14 +75,8 @@ const ViewUploadedFile: FC<Props> = (props) => {
     >
       <DialogTitle>{t("viewFile")}</DialogTitle>
       <IconButton
-        aria-label="close"
         onClick={handleClose}
-        sx={(theme) => ({
-          position: "absolute",
-          right: 8,
-          top: 8,
-          color: theme.palette.grey[500],
-        })}
+        className={i18next.dir() === "ltr" ? "right" : "left"}
       >
         <CloseIcon />
       </IconButton>

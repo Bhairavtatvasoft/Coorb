@@ -323,7 +323,7 @@ const PendingTab = () => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 15, 30]}
+          rowsPerPageOptions={[10, 25, 100]}
           component="div"
           count={data.length}
           rowsPerPage={rowsPerPage}

@@ -11,6 +11,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
 interface NoteModalProps {
   open: boolean;
@@ -44,14 +45,8 @@ const NoteModal: React.FC<NoteModalProps> = ({
     >
       <DialogTitle>{t("addViewNote")}</DialogTitle>
       <IconButton
-        aria-label="close"
         onClick={onClose}
-        sx={(theme) => ({
-          position: "absolute",
-          right: 8,
-          top: 8,
-          color: theme.palette.grey[500],
-        })}
+        className={i18next.dir() === "ltr" ? "right" : "left"}
       >
         <CloseIcon />
       </IconButton>
