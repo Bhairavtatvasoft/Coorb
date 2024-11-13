@@ -71,13 +71,22 @@
     display: flex;
   }
 
-  .pendingTable td,
-  .pendingTable th {
-    flex: 1;
-    text-align: left;
-    min-width: 100px;
-    display: flex;
-    align-items: center;
+  .pendingTable {
+    td,
+    th {
+      flex: 1;
+      text-align: left;
+      min-width: 100px;
+      display: flex;
+      align-items: center;
+    }
+
+    &.arabic {
+      td,
+      th {
+        min-width: 110px;
+      }
+    }
   }
 }
 

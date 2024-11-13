@@ -25,12 +25,12 @@
 }
 
 .headerLanguageIcon {
-  color: var(--textLight);
+  color: var(--selected);
 }
 
 .headerLanguageText {
   margin-inline-start: 0.5rem !important;
-  color: var(--textLight);
+  color: var(--selected);
 }
 
 .headerLanguageSelect:hover {

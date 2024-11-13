@@ -35,8 +35,11 @@ export const transferObjectForTaskSave = (
       if (variable.jdbcType === JDBC_TYPE.Checkbox) {
         newData.variables[i + 1].numericValue = formFieldVal;
       } else if (variable.jdbcType === JDBC_TYPE.DatePicker) {
-        newData.variables[i + 1].textValue =
-          moment(formFieldVal).format("DD/MM/YYYY");
+        const isValidDate =
+          formFieldVal && moment(formFieldVal, "DD/MM/YYYY", true).isValid();
+        newData.variables[i + 1].textValue = isValidDate
+          ? formFieldVal
+          : moment(formFieldVal).format("DD/MM/YYYY");
       } else if (variable.jdbcType === JDBC_TYPE.TimePicker) {
         newData.variables[i + 1].textValue =
           moment(formFieldVal).format("HH:mm");

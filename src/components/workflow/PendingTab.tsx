@@ -64,7 +64,6 @@ const PendingTab = () => {
 
   const handleRowClick = (row: PendingTaskResponse) => {
     navigate(`/workflow-form/${row.taskInstanceId}/${row.data[5].toString()}`);
-    console.log("Row clicked:", row);
   };
 
   const sortData = (a: any, b: any) => {
@@ -138,7 +137,9 @@ const PendingTab = () => {
         >
           <Table
             stickyHeader
-            className={`pendingTable ${data.length > 100 ? "extraRecord" : ""}`}
+            className={`pendingTable ${
+              data.length > 100 ? "extraRecord" : ""
+            } ${i18n.dir() === "ltr" ? "english" : "arabic"}`}
           >
             <TableHead className="pendingTabTableHead">
               <TableRow className="pendingTabTableRow">
