@@ -18,41 +18,34 @@ import { ITaskDetail } from "../service/task/TaskModel";
 import { errorToast, successToast } from "../components/common/ToastMsg";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import { TFunction } from "i18next";
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const transferObjectForTaskSave = (
-  data: IObject,
-  t: TFunction<"translation", undefined>
-) => {
+export const transferObjectForTaskSave = (data: IObject) => {
   const newData: ITaskDetail & { taskInstanceTokenId?: string } = JSON.parse(
     JSON.stringify(data)
   );
 
   Object.values(newData.variables).forEach((variable: Variable, i: number) => {
-    if (t(variable.i18nName) === t(variable.i18nName)) {
-      const formFieldVal = data.formField[t(variable.i18nName)];
-      if (variable.jdbcType === JDBC_TYPE.Checkbox) {
-        newData.variables[i + 1].numericValue = formFieldVal;
-      } else if (variable.jdbcType === JDBC_TYPE.DatePicker) {
-        const isValidDate =
-          formFieldVal && moment(formFieldVal, "DD/MM/YYYY", true).isValid();
-        newData.variables[i + 1].textValue = isValidDate
-          ? formFieldVal
-          : moment(formFieldVal).format("DD/MM/YYYY");
-      } else if (variable.jdbcType === JDBC_TYPE.TimePicker) {
-        newData.variables[i + 1].textValue =
-          moment(formFieldVal).format("HH:mm");
-      } else if (
-        variable.jdbcType === JDBC_TYPE.IntegerInput &&
-        variable.comboListName &&
-        formFieldVal
-      ) {
-        newData.variables[i + 1].textValue = formFieldVal.label;
-        newData.variables[i + 1].numericValue = formFieldVal.value;
-      } else if (variable.jdbcType !== JDBC_TYPE.UploadDocument) {
-        newData.variables[i + 1].textValue = formFieldVal;
-      }
+    const formFieldVal = data.formField[variable.i18nName];
+    if (variable.jdbcType === JDBC_TYPE.Checkbox) {
+      newData.variables[i + 1].numericValue = formFieldVal;
+    } else if (variable.jdbcType === JDBC_TYPE.DatePicker) {
+      const isValidDate =
+        formFieldVal && moment(formFieldVal, "DD/MM/YYYY", true).isValid();
+      newData.variables[i + 1].textValue = isValidDate
+        ? formFieldVal
+        : moment(formFieldVal).format("DD/MM/YYYY");
+    } else if (variable.jdbcType === JDBC_TYPE.TimePicker) {
+      newData.variables[i + 1].textValue = moment(formFieldVal).format("HH:mm");
+    } else if (
+      variable.jdbcType === JDBC_TYPE.IntegerInput &&
+      variable.comboListName &&
+      formFieldVal
+    ) {
+      newData.variables[i + 1].textValue = formFieldVal.label;
+      newData.variables[i + 1].numericValue = formFieldVal.value;
+    } else if (variable.jdbcType !== JDBC_TYPE.UploadDocument) {
+      newData.variables[i + 1].textValue = formFieldVal;
     }
   });
 
@@ -250,8 +243,8 @@ const WorkflowFormPage = () => {
   };
 
   const handleCommitTask = (values: IObject) => {
-    const payload = transferObjectForTaskSave(values, t);
-    transferObjectForTaskSave(values, t);
+    const payload = transferObjectForTaskSave(values);
+    transferObjectForTaskSave(values);
     taskService.commit(payload).then((res) => {
       if (res) {
         successToast(t("commitSave"));
@@ -262,8 +255,8 @@ const WorkflowFormPage = () => {
   };
 
   const handleSaveTask = (values: IObject) => {
-    const payload = transferObjectForTaskSave(values, t);
-    transferObjectForTaskSave(values, t);
+    const payload = transferObjectForTaskSave(values);
+    transferObjectForTaskSave(values);
     taskService.save(payload).then((res) => {
       if (res) {
         localStorage.removeItem(taskSessionKey);
