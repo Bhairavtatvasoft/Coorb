@@ -22,7 +22,7 @@ const ButtonField: FC<
     if (isServerClick) {
       taskService
         .buttonClick({
-          task: transferObjectForTaskSave(values, t) as ITaskDetail,
+          task: transferObjectForTaskSave(values) as ITaskDetail,
           buttonVarialeId: props.id!.toString(),
         })
         .then((res) => {
