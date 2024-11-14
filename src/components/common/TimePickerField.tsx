@@ -6,8 +6,8 @@ import { useTranslation } from "react-i18next";
 import { IGenericFieldProps, IObject } from "../../service/commonModel";
 import FieldHelper from "./FieldHelper";
 import * as locale from "date-fns/locale";
-import { isValid } from "date-fns";
 import { AccessTime } from "@mui/icons-material";
+import moment from "moment";
 
 const TimePickerField: FC<IGenericFieldProps> = (props) => {
   const { t, i18n } = useTranslation();
@@ -18,7 +18,8 @@ const TimePickerField: FC<IGenericFieldProps> = (props) => {
   return (
     <Field name={name}>
       {({ field, meta }: FieldProps) => {
-        const isValidValue = field.value && isValid(new Date(field.value));
+        const isValidValue =
+          field.value && moment(field.value, "HH:mm", true).isValid();
         return (
           <div className="fieldWrapper">
             <div>
@@ -48,9 +49,13 @@ const TimePickerField: FC<IGenericFieldProps> = (props) => {
                 }
                 onChange={(date) => {
                   setFieldTouched(name, true, true);
-                  setFieldValue(name, date, true);
+                  setFieldValue(name, moment(date).format("HH:mm"), true);
                 }}
-                selected={isValidValue ? new Date(field.value) : null}
+                selected={
+                  isValidValue
+                    ? moment(field.value, "HH:mm", true).toDate()
+                    : null
+                }
                 showTimeSelect
                 showTimeSelectOnly
                 timeIntervals={30}

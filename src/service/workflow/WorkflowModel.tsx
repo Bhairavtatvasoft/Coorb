@@ -25,6 +25,7 @@ export interface Variable {
   instanceId: string;
   textValue: string;
   numericValue: string;
+  displayOrder: number;
 }
 
 export interface PendingTaskResponse {

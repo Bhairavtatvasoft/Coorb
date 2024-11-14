@@ -52,7 +52,7 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
                     flowInstanceTokenId: values.data[8],
                     taskInstanceId: values.taskInstanceId,
                     taskInstanceTokenId: values.taskInstanceTokenId,
-                    variableTypeId: Number(props.type),
+                    variableTypeId: props.id!,
                     variableTypeTokenId: Number(props.tokenId),
                   },
                   reader.result!.toString()
@@ -154,7 +154,7 @@ const FileUploadField: FC<IGenericFieldProps & { isServerUpload?: boolean }> = (
           viewFileDetail={viewFileDetail}
           taskInstanceId={values.taskInstanceId}
           taskInstanceTokenId={values.taskInstanceTokenId}
-          variableTypeId={props.type!}
+          variableTypeId={props.id!}
           variableTypeTokenId={Number(props.tokenId)}
         />
       )}

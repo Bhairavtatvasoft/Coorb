@@ -52,7 +52,7 @@ const DatePickerField: FC<IGenericFieldProps> = (props) => {
                 }
                 onChange={(date) => {
                   setFieldTouched(name, true, true);
-                  setFieldValue(name, date, true);
+                  setFieldValue(name, moment(date).format("DD/MM/YYYY"), true);
                 }}
                 selected={
                   isValidValue

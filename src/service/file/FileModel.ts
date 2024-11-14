@@ -1,7 +1,7 @@
 export interface IDownloadFile {
   taskInstanceId: string;
   taskInstanceTokenId: string;
-  variableTypeId: number;
+  variableTypeId: string;
   variableTypeTokenId: number;
 }
 
@@ -11,6 +11,6 @@ export interface IUploadFile {
   flowInstanceTokenId: number;
   taskInstanceId: number;
   taskInstanceTokenId: number;
-  variableTypeId: number;
+  variableTypeId: string;
   variableTypeTokenId: number;
 }
