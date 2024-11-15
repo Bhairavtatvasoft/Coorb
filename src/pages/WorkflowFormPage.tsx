@@ -16,7 +16,6 @@ import { Variable } from "../service/workflow/WorkflowModel";
 import { useParams } from "react-router";
 import { ITaskDetail } from "../service/task/TaskModel";
 import { errorToast, successToast } from "../components/common/ToastMsg";
-import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -29,14 +28,6 @@ export const transferObjectForTaskSave = (data: IObject) => {
     const formFieldVal = data.formField[variable.i18nName];
     if (variable.jdbcType === JDBC_TYPE.Checkbox) {
       newData.variables[i + 1].numericValue = formFieldVal;
-    } else if (variable.jdbcType === JDBC_TYPE.DatePicker) {
-      const isValidDate =
-        formFieldVal && moment(formFieldVal, "DD/MM/YYYY", true).isValid();
-      newData.variables[i + 1].textValue = isValidDate
-        ? formFieldVal
-        : moment(formFieldVal).format("DD/MM/YYYY");
-    } else if (variable.jdbcType === JDBC_TYPE.TimePicker) {
-      newData.variables[i + 1].textValue = moment(formFieldVal).format("HH:mm");
     } else if (
       variable.jdbcType === JDBC_TYPE.IntegerInput &&
       variable.comboListName &&
@@ -151,19 +142,23 @@ const WorkflowFormPage = () => {
 
     const newInitVal: Record<string, any> = {};
     const newValidationSchema: Record<string, any> = {};
-    Object.values(data.variables).forEach((variable) => {
+    const newGrpVariables: Record<string, Variable[]> = {};
+    Object.keys(data.variables).forEach((key) => {
+      const variable = data.variables[key];
+      // validation schema
       if (
-        ![JDBC_TYPE.Button, JDBC_TYPE.Label, JDBC_TYPE.URL].includes(
-          variable.jdbcType
-        )
+        variable.jdbcType !== JDBC_TYPE.Button &&
+        variable.jdbcType !== JDBC_TYPE.Label &&
+        variable.jdbcType !== JDBC_TYPE.URL &&
+        variable.required &&
+        !variable.hidden
       ) {
-        if (variable.required && !variable.hidden) {
-          newValidationSchema[variable.i18nName] = yup
-            .mixed()
-            .required(t(variable.i18nName) + " " + t("isRequired"));
-        }
+        newValidationSchema[variable.i18nName] = yup
+          .mixed()
+          .required(`${t(variable.i18nName)} ${t("isRequired")}`);
       }
 
+      // initial value
       if (variable.jdbcType === JDBC_TYPE.Checkbox) {
         newInitVal[variable.i18nName] =
           variable.numericValue?.toString() === "1" ? true : false;
@@ -180,17 +175,19 @@ const WorkflowFormPage = () => {
       } else {
         newInitVal[variable.i18nName] = variable.textValue;
       }
+
+      // grouped variable
+      const group = variable.i18nGroupName;
+      newGrpVariables[group] = newGrpVariables[group] || [];
+      newGrpVariables[group].push({ ...variable });
     });
 
-    const newGrpVariables = Object.values(data.variables).reduce(
-      (acc: Record<string, Variable[]>, variable: Variable) => {
-        const group = variable.i18nGroupName;
-        acc[group] = acc[group] || [];
-        acc[group].push(variable);
-        return acc;
-      },
-      {}
-    );
+    // sort the fields based on display order
+    Object.keys(newGrpVariables).forEach((key) => {
+      return newGrpVariables[key].sort(
+        (a, b) => a.displayOrder - b.displayOrder
+      );
+    });
     setGroupedVariables(newGrpVariables);
 
     setValidationSchema(
