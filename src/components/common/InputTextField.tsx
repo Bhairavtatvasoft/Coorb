@@ -21,6 +21,10 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
     required,
     readOnly,
     valRegex,
+    hideHelp = false,
+    fullWidth = false,
+    className,
+    slotProps,
   } = props;
   const [field] = useField(name);
 
@@ -54,10 +58,11 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
   return (
     <Field name={name}>
       {({ field, meta }: FieldProps) => (
-        <div className="fieldWrapper">
+        <div className={`fieldWrapper ${className}`}>
           <TextField
             size="small"
             id={`textfield-${name}`}
+            fullWidth={fullWidth}
             label={`${t(lbl ? lbl : name)} ${required ? "*" : ""}`}
             variant="outlined"
             type={fieldType}
@@ -82,8 +87,9 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
             helperText={meta.touched && meta.error ? meta.error : undefined}
             disabled={Boolean(readOnly)}
             autoComplete="off"
+            slotProps={slotProps}
           />
-          <FieldHelper desc={t(lbl + "_desc")} />
+          {!hideHelp && <FieldHelper desc={t(lbl + "_desc")} />}
         </div>
       )}
     </Field>

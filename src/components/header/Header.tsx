@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import "./Header.css";
 import TranslateIcon from "@mui/icons-material/Translate";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
 const Header = ({ onSidebarToggle }: any) => {
   // State for language dropdown
   const [language, setLanguage] = useState("en");
@@ -23,6 +24,7 @@ const Header = ({ onSidebarToggle }: any) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { i18n, t } = useTranslation();
+  const navigate = useNavigate();
   const user = {
     name: "Georges Stephan",
     avatar: "./user.jpg",
@@ -40,6 +42,12 @@ const Header = ({ onSidebarToggle }: any) => {
   };
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    setAnchorEl(null);
+    localStorage.removeItem("authToken");
+    navigate("/");
   };
 
   const handleLanguageMenuClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -106,7 +114,7 @@ const Header = ({ onSidebarToggle }: any) => {
           </IconButton>
           <Menu
             anchorEl={anchorEl}
-            open={open && false}
+            open={open}
             onClose={handleMenuClose}
             anchorOrigin={{
               vertical: "top",
@@ -118,7 +126,7 @@ const Header = ({ onSidebarToggle }: any) => {
             }}
           >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </Box>
       </Toolbar>

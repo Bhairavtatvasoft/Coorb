@@ -95,5 +95,10 @@
   "Identification": "Identification",
   "Commodity Type": "Commodity Type",
   "moreThen100RecordPending": "Over 100 tasks are still pending.",
-  "notFound": "404 | NOT FOUND"
+  "notFound": "404 | NOT FOUND",
+  "login": "Log in",
+  "loginTo": "Login to",
+  "userName": "Username / Email",
+  "password": "Password",
+  "i`nvalidCredential": "Invalid Credential"
 }

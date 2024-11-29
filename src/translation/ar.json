@@ -94,5 +94,10 @@
   "Identification": "الهوية",
   "Commodity Type": "نوع السلعة",
   "moreThen100RecordPending": "لا يزال هناك أكثر من 100 مهمة معلقة.",
-  "notFound": "404 | لم يتم العثور عليه"
+  "notFound": "404 | لم يتم العثور عليه",
+  "login": "تسجيل الدخول",
+  "loginTo": "تسجيل الدخول إلى",
+  "userName": "اسم المستخدم / البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "invalidCredential": "بيانات اعتماد غير صالحة"
 }

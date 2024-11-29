@@ -18,6 +18,8 @@ import "./App.scss";
 import { useTranslation } from "react-i18next";
 import Loader from "./components/common/Loader.tsx";
 import { NotFound } from "./pages/NotFound.tsx";
+import { Login } from "./pages/Login.tsx";
+import PrivateRoute from "./components/common/PrivateRoute.tsx";
 
 function App() {
   const { i18n } = useTranslation();
@@ -35,12 +37,19 @@ function App() {
           <Router>
             <Layout>
               <Routes>
-                <Route path="/" element={<Workflow />} />
+                <Route path="/" element={<Login />} />
+                <Route
+                  path="/workflow"
+                  element={<PrivateRoute component={<Workflow />} />}
+                />
                 <Route
                   path="/workflow-form/:taskInstanceId/:taskInstanceTokenId"
-                  element={<WorkflowFormPage />}
+                  element={<PrivateRoute component={<WorkflowFormPage />} />}
                 />
-                <Route path="*" element={<NotFound />} />
+                <Route
+                  path="*"
+                  element={<PrivateRoute component={<NotFound />} />}
+                />
               </Routes>
             </Layout>
           </Router>

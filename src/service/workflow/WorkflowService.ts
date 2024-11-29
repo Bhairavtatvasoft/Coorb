@@ -1,3 +1,4 @@
+import { Login } from "../../pages/Login";
 import { apiRequest } from "../interceptor";
 
 class WorkflowService {
@@ -5,8 +6,8 @@ class WorkflowService {
     return await apiRequest.get(`workflow/startable`);
   };
 
-  getpendingWorkflows = async () => {
-    return await apiRequest.get(`tasks/pending`);
+  getpendingWorkflows = async (payload?: Login) => {
+    return await apiRequest.get(`tasks/pending`, payload);
   };
 
   instantiate = async (
