@@ -100,5 +100,6 @@
   "loginTo": "Login to",
   "userName": "Username / Email",
   "password": "Password",
-  "i`nvalidCredential": "Invalid Credential"
+  "i`nvalidCredential": "Invalid Credential",
+  "reset": "Reset"
 }

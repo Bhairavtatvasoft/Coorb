@@ -7,6 +7,7 @@ import {
   InputAdornment,
   Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.scss";
@@ -67,7 +68,7 @@ export const Login = () => {
           validateOnChange
           onSubmit={handleLoginClick}
         >
-          {({ values, setFieldTouched }) => {
+          {({ values, setFieldTouched, setValues }) => {
             return (
               <>
                 <InputTextField
@@ -103,23 +104,42 @@ export const Login = () => {
                     },
                   }}
                 />
-                <Button
-                  size="small"
-                  variant="contained"
-                  fullWidth
-                  color="primary"
-                  onClick={async () => {
-                    const isValid = await schema.isValid(values);
-                    if (isValid) {
-                      handleLoginClick(values);
-                    } else {
-                      setFieldTouched("userName", true);
-                      setFieldTouched("password", true);
-                    }
-                  }}
-                >
-                  {t("login")}
-                </Button>
+                <Grid container spacing={2} size={12} width={"100%"}>
+                  <Grid size={6}>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      fullWidth
+                      color="primary"
+                      onClick={() => {
+                        setFieldTouched("userName", false);
+                        setFieldTouched("password", false);
+                        setValues({ userName: "", password: "" });
+                      }}
+                    >
+                      {t("reset")}
+                    </Button>
+                  </Grid>
+                  <Grid size={6}>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      fullWidth
+                      color="primary"
+                      onClick={async () => {
+                        const isValid = await schema.isValid(values);
+                        if (isValid) {
+                          handleLoginClick(values);
+                        } else {
+                          setFieldTouched("userName", true);
+                          setFieldTouched("password", true);
+                        }
+                      }}
+                    >
+                      {t("login")}
+                    </Button>
+                  </Grid>
+                </Grid>
               </>
             );
           }}
