@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import "./Header.css";
 import TranslateIcon from "@mui/icons-material/Translate";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
+import { logOut } from "../../utils/helper";
 const Header = ({ onSidebarToggle }: any) => {
   // State for language dropdown
   const [language, setLanguage] = useState("en");
@@ -24,7 +24,6 @@ const Header = ({ onSidebarToggle }: any) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { i18n, t } = useTranslation();
-  const navigate = useNavigate();
   const user = {
     name: "Georges Stephan",
     avatar: "./user.jpg",
@@ -46,8 +45,7 @@ const Header = ({ onSidebarToggle }: any) => {
 
   const handleLogout = () => {
     setAnchorEl(null);
-    localStorage.removeItem("authToken");
-    navigate("/");
+    logOut();
   };
 
   const handleLanguageMenuClick = (event: React.MouseEvent<HTMLElement>) => {

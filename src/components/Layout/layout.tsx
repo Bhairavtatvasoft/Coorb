@@ -4,6 +4,7 @@ import Header from "../header/Header";
 import Sidebar from "../sidebar/Sidebar";
 import "./layout.css";
 import { useLocation } from "react-router-dom";
+import { CONST_WORDS } from "../../utils/constant";
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -17,8 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return location.pathname === "/" ||
-    (location.pathname !== "/" &&
-      !Boolean(localStorage.getItem("authToken"))) ? (
+    (location.pathname !== "/" && !localStorage.getItem(CONST_WORDS.token)) ? (
     children
   ) : (
     <>

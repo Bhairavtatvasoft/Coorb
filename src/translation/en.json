@@ -101,5 +101,6 @@
   "userName": "Username / Email",
   "password": "Password",
   "i`nvalidCredential": "Invalid Credential",
-  "reset": "Reset"
+  "reset": "Reset",
+  "loginFirst": "Please do login first!"
 }

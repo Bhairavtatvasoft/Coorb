@@ -37,7 +37,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
         className={`drawer ${isOpen ? "drawerOpen" : "drawerClosed"}`}
       >
         <List>
-          <ListItem component={Link} to="/">
+          <ListItem component={Link} to="/workflow">
             <ListItemIcon>
               <Home
                 className={

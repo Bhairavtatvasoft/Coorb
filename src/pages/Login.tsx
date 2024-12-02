@@ -12,11 +12,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { workflowService } from "../service/workflow/WorkflowService";
-import { HttpStatusCode } from "axios";
-import { errorToast } from "../components/common/ToastMsg";
 import { useTranslation } from "react-i18next";
 import { Formik } from "formik";
-import { yup } from "../utils/constant";
+import { CONST_WORDS, yup } from "../utils/constant";
 import InputTextField from "../components/common/InputTextField";
 
 export interface Login {
@@ -39,17 +37,18 @@ export const Login = () => {
   };
 
   const handleLoginClick = async (values: Login) => {
-    console.log(values);
-    const { status } = await workflowService.getpendingWorkflows({
-      userName: btoa(values.userName),
-      password: btoa(values.password),
-    });
-    if (status === HttpStatusCode.Unauthorized) {
-      errorToast(t("invalidCredential"));
-    } else {
-      localStorage.setItem("authToken", "true");
-      navigate("/workflow");
-    }
+    const token = `${values.userName}:${values.password}`;
+    localStorage.setItem(CONST_WORDS.token, btoa(token));
+    workflowService
+      .getpendingWorkflows()
+      .then((res) => {
+        if (res?.data) {
+          navigate("/workflow");
+        }
+      })
+      .catch(() => {
+        localStorage.removeItem(CONST_WORDS.token);
+      });
   };
 
   return (
@@ -68,7 +67,7 @@ export const Login = () => {
           validateOnChange
           onSubmit={handleLoginClick}
         >
-          {({ values, setFieldTouched, setValues }) => {
+          {({ values, setFieldTouched, resetForm }) => {
             return (
               <>
                 <InputTextField
@@ -112,9 +111,7 @@ export const Login = () => {
                       fullWidth
                       color="primary"
                       onClick={() => {
-                        setFieldTouched("userName", false);
-                        setFieldTouched("password", false);
-                        setValues({ userName: "", password: "" });
+                        resetForm();
                       }}
                     >
                       {t("reset")}
