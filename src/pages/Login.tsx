@@ -67,9 +67,9 @@ export const Login = () => {
           validateOnChange
           onSubmit={handleLoginClick}
         >
-          {({ values, setFieldTouched, resetForm }) => {
+          {({ resetForm, handleSubmit }) => {
             return (
-              <>
+              <form className="loginForm" onSubmit={handleSubmit}>
                 <InputTextField
                   lbl={t("userName")}
                   name={"userName"}
@@ -106,7 +106,7 @@ export const Login = () => {
                 <Grid container spacing={2} size={12} width={"100%"}>
                   <Grid size={6}>
                     <Button
-                      size="small"
+                      size="medium"
                       variant="outlined"
                       fullWidth
                       color="primary"
@@ -119,25 +119,17 @@ export const Login = () => {
                   </Grid>
                   <Grid size={6}>
                     <Button
-                      size="small"
+                      type="submit"
+                      size="medium"
                       variant="contained"
                       fullWidth
                       color="primary"
-                      onClick={async () => {
-                        const isValid = await schema.isValid(values);
-                        if (isValid) {
-                          handleLoginClick(values);
-                        } else {
-                          setFieldTouched("userName", true);
-                          setFieldTouched("password", true);
-                        }
-                      }}
                     >
                       {t("login")}
                     </Button>
                   </Grid>
                 </Grid>
-              </>
+              </form>
             );
           }}
         </Formik>
