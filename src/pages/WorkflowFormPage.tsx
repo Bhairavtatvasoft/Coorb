@@ -24,19 +24,19 @@ export const transferObjectForTaskSave = (data: IObject) => {
     JSON.stringify(data)
   );
 
-  Object.values(newData.variables).forEach((variable: Variable, i: number) => {
+  Object.values(newData.variables).forEach((variable: Variable) => {
     const formFieldVal = data.formField[variable.i18nName];
     if (variable.jdbcType === JDBC_TYPE.Checkbox) {
-      newData.variables[i + 1].numericValue = formFieldVal;
+      newData.variables[variable.id].numericValue = formFieldVal;
     } else if (
       variable.jdbcType === JDBC_TYPE.IntegerInput &&
       variable.comboListName &&
       formFieldVal
     ) {
-      newData.variables[i + 1].textValue = formFieldVal.label;
-      newData.variables[i + 1].numericValue = formFieldVal.value;
+      newData.variables[variable.id].textValue = formFieldVal.label;
+      newData.variables[variable.id].numericValue = formFieldVal.value;
     } else if (variable.jdbcType !== JDBC_TYPE.UploadDocument) {
-      newData.variables[i + 1].textValue = formFieldVal;
+      newData.variables[variable.id].textValue = formFieldVal;
     }
   });
 
