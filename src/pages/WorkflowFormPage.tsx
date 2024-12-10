@@ -27,7 +27,10 @@ export const transferObjectForTaskSave = (data: IObject) => {
   Object.values(newData.variables).forEach((variable: Variable) => {
     const formFieldVal = data.formField[variable.i18nName];
     if (variable.jdbcType === JDBC_TYPE.Checkbox) {
-      newData.variables[variable.id].numericValue = formFieldVal;
+      newData.variables[variable.id].numericValue =
+        formFieldVal?.toString() === "true" ? 1 : 0;
+      newData.variables[variable.id].textValue =
+        formFieldVal?.toString() === "true" ? "true" : "false";
     } else if (
       variable.jdbcType === JDBC_TYPE.IntegerInput &&
       variable.comboListName &&
