@@ -134,6 +134,9 @@ const WorkflowFormPage = () => {
       taskService.load(taskInstanceId, taskInstanceTokenId).then((res) => {
         if (res?.data) {
           setupInitialValues(res.data, true);
+          if (res?.data?.businessErrorMessage) {
+            errorToast(res.data.businessErrorMessage);
+          }
         }
       });
     }
@@ -236,7 +239,7 @@ const WorkflowFormPage = () => {
   const handleCancel = () => {
     taskService.release(taskInstanceId!, taskInstanceTokenId!).then((res) => {
       if (res) {
-        navigate("/", { state: { tab: 1 } });
+        navigate("/workflow", { state: { tab: 1 } });
         localStorage.removeItem(taskSessionKey);
       }
     });
@@ -249,7 +252,7 @@ const WorkflowFormPage = () => {
       if (res) {
         successToast(t("commitSave"));
         localStorage.removeItem(taskSessionKey);
-        navigate("/", { state: { tab: 1 } });
+        navigate("/workflow", { state: { tab: 1 } });
       }
     });
   };
@@ -261,7 +264,7 @@ const WorkflowFormPage = () => {
       if (res) {
         localStorage.removeItem(taskSessionKey);
         successToast(t("successSave"));
-        navigate("/", { state: { tab: 1 } });
+        navigate("/workflow", { state: { tab: 1 } });
       }
     });
   };
@@ -345,9 +348,9 @@ const WorkflowFormPage = () => {
                       type="button"
                       className="actionBtn"
                       onClick={() => {
-                        isFormValid(values, validateForm, setTouched, () =>
-                          handleSaveTask(values)
-                        );
+                        // isFormValid(values, validateForm, setTouched, () =>
+                        handleSaveTask(values);
+                        // );
                       }}
                     >
                       {t("save")}
