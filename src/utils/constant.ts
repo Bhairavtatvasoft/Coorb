@@ -245,6 +245,7 @@ export const JDBC_TYPE = {
   DatePicker: 91,
   TimePicker: 92,
   Label: 93,
+  Password: 2012,
 };
 
 export const FORM_TYPE = {
