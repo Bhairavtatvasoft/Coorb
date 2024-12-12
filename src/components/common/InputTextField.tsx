@@ -90,7 +90,7 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
                       ),
                     },
                   }
-                : null
+                : undefined
             }
           />
           {!hideHelp && <FieldHelper desc={t(lbl + "_desc")} />}
