@@ -55,6 +55,9 @@ const WorkflowFormField: FC<
     case JDBC_TYPE.TextInput:
       return <InputTextField {...transferredProps} />;
 
+    case JDBC_TYPE.Password:
+      return <InputTextField {...transferredProps} fieldType="password" />;
+
     case JDBC_TYPE.TextAreaInput:
       return <InputTextField fieldType="textarea" {...transferredProps} />;
 

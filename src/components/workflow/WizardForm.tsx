@@ -21,7 +21,7 @@ const WizardComponent = ({
 }: WizardFormProps) => {
   const [stepIndex, setStepIndex] = useState(0);
   const groupNames = Object.keys(groupedVariables);
-  const { errors, validateForm, setFieldTouched }: any = useFormikContext();
+  const { validateForm, setFieldTouched }: any = useFormikContext();
   const { t, i18n } = useTranslation();
 
   const handleBack = () => setStepIndex((prev) => Math.max(prev - 1, 0));
@@ -32,17 +32,17 @@ const WizardComponent = ({
       const fieldName = variable.i18nName;
       setFieldTouched(`formField.${fieldName}`, true, false);
     });
-    await validateForm();
-    const hasErrors = currentGroupVariables.some((variable) => {
-      const fieldName = variable.i18nName;
-      return errors?.formField?.[fieldName];
+    await validateForm().then((res: any) => {
+      const hasErrors = currentGroupVariables.some((variable) => {
+        const fieldName = variable.i18nName;
+        return res?.formField?.[fieldName];
+      });
+      if (!hasErrors) {
+        setStepIndex((prev) => Math.min(prev + 1, groupNames.length - 1));
+      } else {
+        errorToast(t("commonValidationMsg"));
+      }
     });
-
-    if (!hasErrors) {
-      setStepIndex((prev) => Math.min(prev + 1, groupNames.length - 1));
-    } else {
-      errorToast(t("commonValidationMsg"));
-    }
   };
 
   const handleStepClick = (index: number) => {

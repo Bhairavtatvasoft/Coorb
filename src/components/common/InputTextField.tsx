@@ -1,9 +1,10 @@
-import { TextField } from "@mui/material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { Field, FieldProps, FormikContextType, useFormikContext } from "formik";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IGenericFieldProps } from "../../service/commonModel";
 import FieldHelper from "./FieldHelper";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const InputTextField: FC<IGenericFieldProps> = (props) => {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
     className,
     slotProps,
   } = props;
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     setFieldValue,
@@ -38,7 +40,13 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
             fullWidth={fullWidth}
             label={`${t(lbl ? lbl : name)} ${required ? "*" : ""}`}
             variant="outlined"
-            type={fieldType}
+            type={
+              fieldType === "password"
+                ? showPassword
+                  ? "text"
+                  : "password"
+                : fieldType
+            }
             placeholder={placeholder}
             {...field}
             value={field.value ?? ""}
@@ -60,7 +68,30 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
             helperText={meta.touched && meta.error ? meta.error : undefined}
             disabled={Boolean(readOnly)}
             autoComplete="off"
-            slotProps={slotProps}
+            slotProps={
+              slotProps
+                ? slotProps
+                : fieldType === "password"
+                ? {
+                    input: {
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            size="small"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                          >
+                            {showPassword ? (
+                              <VisibilityOff fontSize="small" />
+                            ) : (
+                              <Visibility fontSize="small" />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    },
+                  }
+                : null
+            }
           />
           {!hideHelp && <FieldHelper desc={t(lbl + "_desc")} />}
         </div>
