@@ -13,8 +13,9 @@
 }
 
 .headerLogo {
-  height: "40px";
-  margin-inline-start: "8px";
+  height: 50px;
+  margin-inline-start: 12px;
+  background: #fff;
 }
 
 .headerLanguageSelect {

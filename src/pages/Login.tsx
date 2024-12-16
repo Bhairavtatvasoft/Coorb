@@ -1,12 +1,5 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Card,
-  IconButton,
-  InputAdornment,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Card, IconButton, InputAdornment, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -56,7 +49,7 @@ export const Login = () => {
       <Card>
         <div className="loginLabelWrapper">
           <Typography>{t("loginTo")}</Typography>
-          <img src="/logo2.png" alt="" />
+          {/* <img src="/logo2.png" alt="" /> */}
         </div>
         <Formik
           initialValues={{
@@ -88,10 +81,7 @@ export const Login = () => {
                     input: {
                       endAdornment: (
                         <InputAdornment position="end">
-                          <IconButton
-                            size="small"
-                            onClick={handleClickShowPassword}
-                          >
+                          <IconButton size="small" onClick={handleClickShowPassword}>
                             {showPassword ? (
                               <VisibilityOff fontSize="small" />
                             ) : (
