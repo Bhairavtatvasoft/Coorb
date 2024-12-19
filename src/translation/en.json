@@ -386,5 +386,7 @@
   "nafath_login_code": "Nafath Login Code",
   "gender": "Gender",
   "lms_client_id": "LMS Client Id",
-  "residential_address": "Residential Address"
+  "residential_address": "Residential Address",
+
+  "copyText": "Copy"
 }

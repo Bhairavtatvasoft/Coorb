@@ -4,7 +4,8 @@ import { Field, FieldProps, useFormikContext } from "formik";
 import { NumericFormat } from "react-number-format";
 import FieldHelper from "./FieldHelper";
 import { IGenericFieldProps } from "../../service/commonModel";
-import { TextField } from "@mui/material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 interface IDecimalFieldProps extends IGenericFieldProps {
   fractionDigits?: number;
@@ -38,6 +39,21 @@ const DecimalField: FC<IDecimalFieldProps> = ({
     }
   };
 
+  const getDecimalValue = (value: string) => {
+    const rawValue = value.replace(/,/g, "");
+
+    if (rawValue === "") {
+      return "";
+    } else {
+      const parsedValue = parseFloat(rawValue);
+      if (!isNaN(parsedValue)) {
+        return parsedValue.toFixed(fractionDigits);
+      } else {
+        return "";
+      }
+    }
+  };
+
   return (
     <Field name={name}>
       {({ field, meta }: FieldProps) => (
@@ -60,6 +76,27 @@ const DecimalField: FC<IDecimalFieldProps> = ({
             onBlur={() => {
               setFieldTouched(name, true, true);
             }}
+            slotProps={
+              Boolean(readOnly) && field.value
+                ? {
+                    input: {
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            size="small"
+                            title={t("copyText")}
+                            onClick={() =>
+                              navigator.clipboard.writeText(getDecimalValue(field.value))
+                            }
+                          >
+                            <ContentCopyIcon fontSize="small" />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    },
+                  }
+                : undefined
+            }
             error={Boolean(meta.touched && meta.error)}
             helperText={meta.touched && meta.error ? meta.error : undefined}
             disabled={Boolean(readOnly)}

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { IGenericFieldProps } from "../../service/commonModel";
 import FieldHelper from "./FieldHelper";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const InputTextField: FC<IGenericFieldProps> = (props) => {
   const { t } = useTranslation();
@@ -23,10 +24,8 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
   } = props;
   const [showPassword, setShowPassword] = useState(false);
 
-  const {
-    setFieldValue,
-    setFieldTouched,
-  }: FormikContextType<{ [key: string]: any }> = useFormikContext();
+  const { setFieldValue, setFieldTouched }: FormikContextType<{ [key: string]: any }> =
+    useFormikContext();
 
   const isTextArea = fieldType === "textarea";
 
@@ -40,13 +39,7 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
             fullWidth={fullWidth}
             label={`${t(lbl ? lbl : name)} ${required ? "*" : ""}`}
             variant="outlined"
-            type={
-              fieldType === "password"
-                ? showPassword
-                  ? "text"
-                  : "password"
-                : fieldType
-            }
+            type={fieldType === "password" ? (showPassword ? "text" : "password") : fieldType}
             placeholder={placeholder}
             {...field}
             value={field.value ?? ""}
@@ -71,15 +64,28 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
             slotProps={
               slotProps
                 ? slotProps
-                : fieldType === "password"
+                : Boolean(readOnly) && field.value
                 ? {
                     input: {
                       endAdornment: (
                         <InputAdornment position="end">
                           <IconButton
                             size="small"
-                            onClick={() => setShowPassword((prev) => !prev)}
+                            title={t("copyText")}
+                            onClick={() => navigator.clipboard.writeText(field.value)}
                           >
+                            <ContentCopyIcon fontSize="small" />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    },
+                  }
+                : fieldType === "password"
+                ? {
+                    input: {
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton size="small" onClick={() => setShowPassword((prev) => !prev)}>
                             {showPassword ? (
                               <VisibilityOff fontSize="small" />
                             ) : (

@@ -222,6 +222,15 @@ body[dir="rtl"] {
   .genericBtn {
     height: max-content;
   }
+
+  .datePickerCloseButton {
+    display: none;
+  }
+
+  .Mui-disabled.MuiInputBase-input,
+  .MuiFormLabel-root.Mui-disabled {
+    -webkit-text-fill-color: var(--disabledText);
+  }
 }
 .fullGrid {
   grid-template-columns: 1fr;

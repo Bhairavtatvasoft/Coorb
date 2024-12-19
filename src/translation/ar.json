@@ -209,5 +209,7 @@
   "paymentNow": "الدفع الآن",
   "remainingBalance": "الرصيد المتبقي",
   "dueDate": "تاريخ الاستحقاق",
-  "loanDetails": "تفاصيل القرض"
+  "loanDetails": "تفاصيل القرض",
+
+  "copyText": "ينسخ"
 }

@@ -9,4 +9,5 @@
 
   --gray: gray;
   --borderColor: rgba(0, 0, 0, 0.12);
+  --disabledText: rgba(0, 0, 0, 0.7);
 }
