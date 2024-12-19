@@ -72,7 +72,18 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
                           <IconButton
                             size="small"
                             title={t("copyText")}
-                            onClick={() => navigator.clipboard.writeText(field.value)}
+                            onClick={() => {
+                              if (navigator.clipboard) {
+                                navigator.clipboard.writeText(field.value);
+                              } else {
+                                const textAreaEl = document.createElement("textarea");
+                                textAreaEl.value = field.value;
+                                document.body.appendChild(textAreaEl);
+                                textAreaEl.select();
+                                document.execCommand("copy");
+                                document.body.removeChild(textAreaEl);
+                              }
+                            }}
                           >
                             <ContentCopyIcon fontSize="small" />
                           </IconButton>
