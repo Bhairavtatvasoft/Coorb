@@ -76,6 +76,7 @@ const InputTextField: FC<IGenericFieldProps> = (props) => {
                               if (navigator.clipboard) {
                                 navigator.clipboard.writeText(field.value);
                               } else {
+                                // added this logic to make copy working on azure ec2-user instance, need to check & remove once deployed on secured url (e.g. https://...)
                                 const textAreaEl = document.createElement("textarea");
                                 textAreaEl.value = field.value;
                                 document.body.appendChild(textAreaEl);

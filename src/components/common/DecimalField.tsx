@@ -85,9 +85,19 @@ const DecimalField: FC<IDecimalFieldProps> = ({
                           <IconButton
                             size="small"
                             title={t("copyText")}
-                            onClick={() =>
-                              navigator.clipboard.writeText(getDecimalValue(field.value))
-                            }
+                            onClick={() => {
+                              if (navigator.clipboard) {
+                                navigator.clipboard.writeText(getDecimalValue(field.value));
+                              } else {
+                                // added this logic to make copy working on azure ec2-user instance, need to check & remove once deployed on secured url (e.g. https://...)
+                                const textAreaEl = document.createElement("textarea");
+                                textAreaEl.value = getDecimalValue(field.value);
+                                document.body.appendChild(textAreaEl);
+                                textAreaEl.select();
+                                document.execCommand("copy");
+                                document.body.removeChild(textAreaEl);
+                              }
+                            }}
                           >
                             <ContentCopyIcon fontSize="small" />
                           </IconButton>
