@@ -211,5 +211,9 @@
   "dueDate": "تاريخ الاستحقاق",
   "loanDetails": "تفاصيل القرض",
 
-  "copyText": "ينسخ"
+  "copyText": "ينسخ",
+  "lms_full_account_number": "رقم الحساب المالي",
+  "load_kyc": "تحميل KYC",
+  "father’s_name": "اسم الأب",
+  "grandfather’s_name": "اسم الجد"
 }

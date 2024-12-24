@@ -271,7 +271,7 @@
   "identification_type": "Identification Type",
   "grandfatherâ€™s_name": "Grandfatherâ€™S Name",
   "mail_building_number": "Mail Building Number",
-  "employer's_name": "Employer'S Name",
+  "employer's_name": "Employer's Name",
   "same_as_residential?": "Same As Residential?",
   "Educational Expenses": "Educational Expenses",
   "building_number": "Building Number",
@@ -388,5 +388,9 @@
   "lms_client_id": "LMS Client Id",
   "residential_address": "Residential Address",
 
-  "copyText": "Copy"
+  "copyText": "Copy",
+  "lms_full_account_number": "Finance Account Number",
+  "load_kyc": "Load KYC",
+  "father’s_name": "Father's Name",
+  "grandfather’s_name": "Grandfather's Name"
 }
