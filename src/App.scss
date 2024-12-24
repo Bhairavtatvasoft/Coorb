@@ -231,6 +231,46 @@ body[dir="rtl"] {
   .MuiFormLabel-root.Mui-disabled {
     -webkit-text-fill-color: var(--disabledText);
   }
+
+  .selectField {
+    > div {
+      label {
+        max-width: calc(100% - 45px);
+
+        &.Mui-focused {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
+  .datePickerField {
+    .datePickerLabel {
+      max-width: calc(100% - 45px);
+
+      &.Mui-focused {
+        max-width: 100%;
+      }
+    }
+
+    > div {
+      padding-inline-end: 10px;
+    }
+  }
+
+  .timePickerField {
+    .timePickerLabel {
+      max-width: calc(100% - 45px);
+
+      &.Mui-focused {
+        max-width: 100%;
+      }
+    }
+
+    > div {
+      padding-inline-end: 10px;
+    }
+  }
 }
 .fullGrid {
   grid-template-columns: 1fr;

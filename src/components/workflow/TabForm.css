@@ -1,7 +1,10 @@
 .tabContainer {
   padding: 2rem 0;
   flex: 1 1 auto;
-  max-height: calc(90vh - 160px);
+  max-height: calc(100vh - 330px);
+  overflow-y: auto;
+  margin-inline-end: -20px;
+  padding-inline-end: 20px;
 }
 
 .tabWrapper {
@@ -20,12 +23,21 @@
 
   .tabContainer {
     margin: 0;
+    margin-inline-end: -16px;
+    padding-inline-end: 16px;
+    max-height: calc(100vh - 375px);
   }
 
   .responsiveGrid {
     flex-basis: 100%;
     max-width: 100%;
     padding: 8px;
+  }
+}
+
+@media (max-width: 899px) {
+  .tabContainer {
+    max-height: calc(100vh - 354px);
   }
 }
 

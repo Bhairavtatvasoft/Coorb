@@ -77,6 +77,7 @@ const SelectField: FC<Props> = ({
             disablePortal
             options={localOptions}
             size="small"
+            classes={{ root: "selectField" }}
             getOptionLabel={(x) => x.label?.toString()}
             value={
               localOptions?.find(

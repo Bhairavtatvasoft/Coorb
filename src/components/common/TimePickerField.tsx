@@ -25,12 +25,14 @@ const TimePickerField: FC<IGenericFieldProps> = (props) => {
             <div>
               <DatePicker
                 isClearable
+                popperPlacement="bottom-start"
                 customInput={
                   <TextField
                     size="small"
                     variant="outlined"
                     fullWidth
                     label={`${t(lbl)} ${required ? "*" : ""}`}
+                    className="timePickerField"
                     error={Boolean(meta.touched && meta.error)}
                     helperText={
                       meta.touched && meta.error ? meta.error : undefined
@@ -39,10 +41,16 @@ const TimePickerField: FC<IGenericFieldProps> = (props) => {
                       input: {
                         readOnly: true,
                         endAdornment: (!field.value || !isValidValue) && (
-                          <InputAdornment position="end">
+                          <InputAdornment
+                            position="end"
+                            style={{ marginInlineEnd: "0px" }}
+                          >
                             <AccessTime />
                           </InputAdornment>
                         ),
+                      },
+                      inputLabel: {
+                        className: "timePickerLabel",
                       },
                     }}
                   />

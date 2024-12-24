@@ -25,7 +25,11 @@
 @media (max-width: 600px) {
   .workflowForm {
     overflow-y: auto;
-    /* max-height: 325px; */
+    padding: 16px;
+
+    .responsiveGrid {
+      padding: 0;
+    }
   }
 
   .workflowFormWrapper {

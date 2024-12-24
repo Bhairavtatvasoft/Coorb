@@ -41,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
             <ListItemIcon>
               <Home
                 className={
-                  isPathSelected("/")
+                  isPathSelected("/workflow")
                     ? "sidebarListItemIconSelected"
                     : "sidebarListItemIcon"
                 }
@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
             {isOpen && (
               <ListItemText
                 primaryTypographyProps={{
-                  className: isPathSelected("/")
+                  className: isPathSelected("/workflow")
                     ? "sidebarListItemTextSelected"
                     : "sidebarListItemText",
                 }}

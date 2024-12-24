@@ -201,6 +201,7 @@
   "congratulationsAndLockedPersonalLoan": "Congratulations {{user}}, We've locked in your personal finance` of",
   "callYouIn24HourForLoanActivation": "We will call you in 24 hours to activate your personal finance",
   "download": "Download",
+
   "contract": "Contract",
   "backToHome": "Back to Home",
   "dufaa_customer_loan_request": "Dufaa Customer Finance Request",
@@ -387,6 +388,20 @@
   "gender": "Gender",
   "lms_client_id": "LMS Client Id",
   "residential_address": "Residential Address",
+
+  "loanStatus": "Loan Status",
+  "activeLoans": "Active Loans",
+  "completedLoans": "Completed Loans",
+  "overdueLoans": "Overdue Loans",
+  "noActiveLoans": "No Active Loans",
+  "noCompletedLoans": "No Completed Loans",
+  "noOverdueLoans": "No Overdue Loans",
+  "loanPayment": "Loan Payment",
+  "paymentMethod": "Payment Method",
+  "paymentNow": "Pay Now",
+  "remainingBalance": "Remaining Balance",
+  "dueDate": "Due Date",
+  "loanDetails": "Loan Details",
 
   "copyText": "Copy"
 }
