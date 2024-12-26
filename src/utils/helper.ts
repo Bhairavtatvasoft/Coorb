@@ -5,6 +5,13 @@ export const getAuthToken = () => {
 };
 
 export const logOut = () => {
-  localStorage.removeItem(CONST_WORDS.token);
+  localStorage.clear();
   window.location.href = "/";
+};
+
+let storageUserName = "";
+export const getUserName = () => {
+  if (!storageUserName)
+    storageUserName = localStorage.getItem(CONST_WORDS.username) ?? "";
+  return storageUserName;
 };

@@ -60,6 +60,10 @@
   white-space: nowrap;
 }
 
+.profileMenu > .menuList > .userNameMenu {
+  display: none;
+}
+
 @media (max-width: 600px) {
   .headerAppBar {
     flex-direction: row;
@@ -73,5 +77,21 @@
 
   .headerUserInfo {
     display: none;
+  }
+
+  .profileMenu > .menuList > .userNameMenu {
+    display: flex;
+    font-weight: 600;
+  }
+
+  .profileMenu > .menuList > .userNameMenu div {
+    width: auto;
+    height: auto;
+  }
+
+  .profileMenu > .menuList > .userNameMenu img {
+    height: 22px;
+    width: 22px;
+    margin-inline-end: 8px;
   }
 }

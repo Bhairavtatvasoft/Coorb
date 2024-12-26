@@ -147,6 +147,10 @@ body[dir="rtl"] {
     gap: 8px;
   }
 
+  input {
+    text-overflow: ellipsis;
+  }
+
   fieldset {
     align-items: self-start;
   }

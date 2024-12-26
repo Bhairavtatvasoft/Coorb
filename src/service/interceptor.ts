@@ -42,6 +42,8 @@ axiosInstance.interceptors.response.use(
     }
     if (error.response?.data?.message) {
       errorToast(error.response.data?.message);
+    } else if (error?.response?.data?.businessErrorMessage) {
+      errorToast(error.response.data.businessErrorMessage);
     } else {
       errorToast("Something went wrong");
     }

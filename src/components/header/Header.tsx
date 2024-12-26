@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import "./Header.css";
 import TranslateIcon from "@mui/icons-material/Translate";
 import MenuIcon from "@mui/icons-material/Menu";
-import { logOut } from "../../utils/helper";
+import { getUserName, logOut } from "../../utils/helper";
 const Header = ({ onSidebarToggle }: any) => {
   // State for language dropdown
   const [language, setLanguage] = useState("en");
@@ -25,8 +25,8 @@ const Header = ({ onSidebarToggle }: any) => {
   const open = Boolean(anchorEl);
   const { i18n, t } = useTranslation();
   const user = {
-    name: "Georges Stephan",
-    avatar: "./user.jpg",
+    name: getUserName(),
+    avatar: "/user.jpg",
   };
 
   const handleLanguageChange = (event: string) => {
@@ -122,7 +122,13 @@ const Header = ({ onSidebarToggle }: any) => {
               vertical: "top",
               horizontal: "right",
             }}
+            classes={{ paper: "profileMenu", list: "menuList" }}
+            sx={{ top: "42px" }}
           >
+            <MenuItem disabled className="userNameMenu">
+              <Avatar alt={user.name} src={user.avatar} />
+              {user.name}
+            </MenuItem>
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>

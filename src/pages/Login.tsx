@@ -1,5 +1,12 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Button, Card, IconButton, InputAdornment, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  IconButton,
+  InputAdornment,
+  Typography,
+} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -36,6 +43,7 @@ export const Login = () => {
       .getpendingWorkflows()
       .then((res) => {
         if (res?.data) {
+          localStorage.setItem(CONST_WORDS.username, values.userName);
           navigate("/workflow");
         }
       })
@@ -81,7 +89,10 @@ export const Login = () => {
                     input: {
                       endAdornment: (
                         <InputAdornment position="end">
-                          <IconButton size="small" onClick={handleClickShowPassword}>
+                          <IconButton
+                            size="small"
+                            onClick={handleClickShowPassword}
+                          >
                             {showPassword ? (
                               <VisibilityOff fontSize="small" />
                             ) : (
